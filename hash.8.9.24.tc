@@ -14,7 +14,7 @@ test [
  printf"%d%c",hash(2, 1, 4, 3),10
  ]
 
-char buffer(200),hashin(20)
+char buffer(200)
 int bytes
  
 file char hashin(0) [
