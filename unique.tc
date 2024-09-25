@@ -1,0 +1,38 @@
+
+// unique.tc - 9/23/24 - lrb
+
+hash_1 int a, b, c, d [
+ return 3 * a + 7 * b + 13 * c + 23 * d
+ ]
+
+hash_2 int a, b, c, d [
+ return 1000 * a + 100 * b + 10 * c + d
+ ]
+
+main [
+ int a, b, c, d
+ char tb; tb = 9
+ char nl; nl = 10
+ int i; i=1
+
+ a=1
+ while a <= 4 [
+  b=1
+  while b <= 4 [
+   c=1
+   while c <= 4 [
+    d=1
+    while d <= 4 [
+     if ((a != b) * (a != c) * (a != d) * (b != c) * (b != d) * (c != d)) [
+      printf "%c %d %c a = %d b = %d c = %d d = %d", nl, hash_1(a, b, c,d), tb, a, b, c, d, tb
+      printf "%c %d %c a = %d b = %d c = %d d = %d", tb, hash_2(a, b, c,d), tb, a, b, c, d, tb
+      ]
+     d=d+1
+     ]
+    c=c+1
+    ]
+   b=b+1
+   ]
+  a=a+1
+  ]
+ ]
