@@ -1,0 +1,173 @@
+// cairoGraphi_csLib.tc
+// Define draw codes, init icode.
+// start, show must be first,last respectively
+
+char _cgdrawname(50) //users name for drawing, no spaces
+char _cgfilename(55) // file passing draw vector to cairoGraphi_cs
+char _cgcmd(70) // system command to start cairoGraphi_cs
+int unit, _drawing_under_way
+char NL, QUOTE
+// recent points are remembered
+int lastmoveto(1), lastlineto(1), _have_previous_lineto
+
+start char name(0); int a1,a2 [
+  _cgdrawname = name
+  strcpy _cgfilename,_cgdrawname
+  strcat _cgfilename,".draw"
+  strcpy _cgcmd, "py cairopy.py "
+  strcat _cgcmd, _cgdrawname
+  NL=10
+  QUOTE=34
+  _drawing_under_way = 1
+  unit = fopen _cgfilename, "w"
+  if(unit<0)
+  [
+    printf "Cannot open %s for writing, err %d", _cgfilename, unit
+    exit
+  ]
+  _cs "window"; _ci a1; _ci a2; _nl
+]
+
+drawing_under_way [ return _drawing_under_way]
+
+showapp char r(0) [
+  _cs "showapp "; _cs r; _nl
+]
+
+show [
+  _cs "show"; _nl
+  fclose unit
+  _drawing_under_way = 0
+  system _cgcmd
+]
+
+// shorthand puts to the file
+_cs char s(0)[fputs s,unit]
+_ci int x    [fpn x,unit]
+_cc char x   [fputc x,unit]
+_nl          [fputc 10,unit]
+
+// actual draw tools...
+arc int a1,a2,a3,a4,a5 [
+  _cs "arc"; _ci a1; _ci a2; _ci a3; _ci a4; _ci a5; _nl
+]
+arcneg int a1,a2,a3,a4,a5 [
+  _cs "arcneg"; _ci a1; _ci a2; _ci a3; _ci a4; _ci a5; _nl
+]
+arcto3 int f(3),t(3), dir [   //from, to, rotation direction
+  int lsB(3),pta(1),ptb(1), cpt(1),lsX(3),center(1),radius,bd,ed      
+  if( bisectseg(pta,ptb,f,t) )[
+    int eight
+    midpoint pta, f, t
+    eight = 2*SIZE_INT
+    midpoint ptb, f+eight, t+eight
+  ]
+  setsegpt lsB,pta,ptb
+  _corner90 cpt, f(0), f(1), f(2), f(3), dir
+  int eight
+  eight = 2*SIZE_INT
+  setsegpt lsX, f+eight, cpt
+  if(xersectseg center, lsX, lsB)) [
+    pl"ERR: lsX and lsB are parallel. See arcto3 code."
+    ps" Should be in parallel case."
+    exit
+  ]
+  radius = alen center(0), center(1), f(2), f(3)
+  // bd,ed good for dir == -1
+  if(dir<0)[
+    bd = degrees(f)+90
+    ed = degrees(t)+90
+  ] else [
+    bd = degrees(f)-90
+    ed = degrees(t)-90
+  ]
+  if(dir>0) arc center(0),center(1),radius,bd,ed
+  else arcneg center(0),center(1),radius,bd,ed
+]
+dot int x,y[
+  moveto x,y; 
+  lineto x+1,y+1
+]
+drawseg int s(4)[
+  next
+  moveto s(0),s(1)
+  lineto s(2),s(3)
+  next
+]
+ellipse int a1,a2,a3,a4 [
+  _cs "save";_nl
+  _cs "translate";_ci a1+a3/2;_ci a2+a4/2;_nl
+  _cs "scale";_ci a3/2;_ci a4/2;_nl
+  _cs "arc"; _ci 0; _ci 0; _ci 1; _ci 0; _ci 360;_nl
+  _cs "restore";_nl
+]
+fill[
+  _cs "fill";_nl
+]
+lineto int a1,a2 [
+  _cs "line_to";_ci a1; _ci a2; _nl
+  if(_have_previous_lineto)[
+    lastmoveto(0)=lastlineto(0)
+    lastmoveto(1)=lastlineto(1)
+  ]
+  lastlineto(0)=a1
+  lastlineto(1)=a2
+  _have_previous_lineto=1
+]
+moveto int a1,a2 [
+  _cs "move_to";_ci a1; _ci a2; _nl
+  lastmoveto(0)=a1
+  lastmoveto(1)=a2
+  _have_previous_lineto = 0
+]
+next [
+  _cs "new_sub_path"; _nl
+  lastmoveto(0)=0
+  lastmoveto(1)=0
+  lastlineto(0)=0
+  lastlineto(1)=0
+]
+rectangle int a1,a2,a3,a4 [
+  _cs "rectangle";_ci a1; _ci a2; _ci a3; _ci a4; _nl
+]
+raster int w,h,d,l [
+    int row,col
+    row=d
+    while(row<h) [
+        col=d
+        while(col<w)[
+            dot col,row
+            if(l)[
+              if(row==d) if(col<w-d) shownum col
+            ]
+            col=col+d
+            if(l)[
+              if(col>=w) shownum row
+            ]
+        ]
+        row=row+d
+    ]
+]
+setdash int d, off [
+  _cs "setdash";_ci d; _ci off; _nl
+]
+setdash2 int d1,d2,off [
+  _cs "setdash";_ci d1; _ci d2; _ci off; _nl
+]
+setfontsize int x [
+  _cs "set_font_size"; _ci x; _nl
+]
+setrgb int r,g,b [
+  _cs "setrgb"; _ci r;_ci g;_ci b; _nl
+]
+showtext char t(0)[
+  _cs "showtext "; _cs t; _nl // lrb
+]
+shownum int n[
+  int t(30)
+  itoa n,t
+  showtext t
+]
+stroke[
+  _cs "stroke"; _nl
+]

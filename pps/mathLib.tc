@@ -1,0 +1,164 @@
+
+// 8/3,8/20 6/30/21 7/3/21 6/9/22
+
+arctan2 int y, x [
+	if(x == 0)[
+		if y == 0 return 0
+		if y > 0 return 90
+		if y < 0 return -90
+		]
+	int aa; aa = aarctan((1000 * y) / x)
+	if x > 0 return aa
+	if x < 0 [
+		if y >= 0 return aa + 180
+		if y < 0 return aa - 180
+		]
+	]
+
+aarctan int x [
+	return MC x, 120
+	]
+
+asin int x [
+	int sign; sign = 1
+	x = x % 360
+	if x > 180 sign = -1
+	if ((x >= 90) * (x <= 180)) x = 180 - x
+	else
+	if ((x >= 180) * (x <= 270)) x = x - 180
+	else
+	if ((x >= 270) * (x <= 360)) x = 360 - x
+	if x > 45 return sign * acos(90 - x)  // for better convergence
+	x = x * 1745 / 100  // convert to radians
+	int x2, x3, x5, x7
+	x2 = (x * x + 500) / 1000     // for rounding 500/1000 = .5
+	x3 = (x2 * x + 500) / 1000
+	x5 = (x3 * x2 + 500) / 1000
+	x7 = (x5 * x2 + 500) / 1000
+	return sign * (x - x3 / 6 + x5 / 120 - x7 / 5040)
+]
+
+acos int x [
+	int sign; sign = 1
+	x = x % 360
+	if ((x > 90) * (x < 270)) sign = -1
+	if ((x >= 90) * (x <= 180)) x = 180 - x
+	else
+	if ((x >= 180) * (x <= 270)) x = x - 180
+	else
+	if ((x >= 270) * (x <= 360)) x = 360 - x
+	if x > 45 return sign * asin(90 - x)  // for better convergence
+	x = x * 1745 / 100
+	int x2, x4, x6, x8
+	x2 = (x * x + 500) / 1000
+	x4 = (x2 * x2 + 500) / 1000
+	x6 = (x4 * x2 + 500) / 1000
+	x8 = (x6 * x2 + 500) / 1000
+	return sign * (1000 - x2 / 2 + x4 / 24 - x6 / 720 + x8 / 40320)
+	]
+
+atan int x[
+	int y 
+	y = acos(x)
+	if y==0 [
+		if (asin(x) > 0) return 999999999
+		else return -999999999
+		]
+	return asin(x) * 1000 / y
+	]
+
+// returns the largest magnitude
+maglargest int x, y [
+	if x < 0 x = -x
+	if y < 0 y = -y
+	if x > y return x
+	else return y
+	]
+
+// returns the smallest magnitude
+magsmallest int x, y [
+	if x < 0 x = -x
+	if y < 0 y = -y
+	if x > y return y
+	else return x
+	]
+
+// return approximate distance between 2 points
+alen int x0, y0, x1, y1 [
+	int len, dx, dy
+	dx = x1 - x0; dy = y1 - y0
+	len = asqrt(dx * dx + dy * dy)
+	return len
+	]
+
+// returns approximation to sqrt
+asqrt int x [
+	return MC x, 119
+	]
+
+// prints y/1000 as a decimal
+pdec int y [
+	if y >= 1000 printf "%d.%03d", y / 1000, y % 1000
+	else if y <= -1000 printf "%d.%03d", y / 1000, (-y) % 1000
+	else if y > 0 printf "0.%03d", y
+	else printf "-0.%03d", -y
+	]
+
+ptab [putchar 9]
+
+// returns gcd of a and b
+gcd int a, b [
+	if (b == 0) return a
+	else return gcd b, a % b
+	]
+
+// A simple method to evaluate Euler Totient Function
+phi int n [
+	int result; result = 1
+	int i; i = 2
+	while i < n [
+		if (gcd(i, n) == 1) result = result + 1
+		i = i + 1
+		]
+	return result
+	]
+
+totient int n [
+	return phi(n)
+	]
+
+ctoh int c; char a(0) [ // character to hex
+	int i
+	i = c / 16; if i < 10 a(0) = i + '0'; else a(0) = (i - 10) + 'a'
+	i = c % 16; if i < 10 a(1) = i + '0'; else a(1) = (i - 10) + 'a'
+	]
+
+ctob char c,d(0) [
+ int j
+ while j < 8 [
+  d(7-j) = c%2+'0'
+  c = c/2
+  j = j+1
+  ]
+ ]
+
+btoc char s(0) [
+ int j,d
+ j = 7
+ while j [
+  d = d+(s(j)-'0')*pow 2,7-j
+  j = j-1
+  ]
+ return '@'+d-64
+ ]
+
+pow int b,e [
+ int i,p
+ p = i = 1
+ while i <= e [
+  p = p*b
+  i = i+1
+  ]
+ return p
+ ]
+
