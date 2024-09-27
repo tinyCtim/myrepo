@@ -17,25 +17,20 @@ file char hashin(0) [
  int unit
  unit = fopen hashin, "r"
  if unit == -1 [
-  printf "error on open";abort
+  printf "error on open"; abort
   ]
  bytes = readfile hashin, buffer, 200
- printf "%cbytes read %d%c", 10, bytes, 10
- buffer(bytes-1)=0 // important!
+ printf"%cbytes read %d%c", 10, bytes, 10
+// get rid of line ender
+ int i; i = bytes - 1
+ while buffer(i) != ',' [buffer(i) = 0; i = i - 1]
  fclose unit
  main
  ]
 
-[
-hasta luego,the bootlegger,i will survive,the line,
-mr. fein and tommy,smitty and jerry,pushkin and irina,peggy and john,2143,
-
-above pairs are from Amor Towles' Table for Two
-]
-
 main [
- printf "%chash.9.23.24.tc - 9/23/24 - lrb%c",10,10
- char qt;qt=34
+ printf "%chash.9.23.24.tc - 9/23/24 - lrb%c", 10, 10
+ char qt; qt = 34
  printf "%cusage (e.g.): tc hash.9.23.24.tc -r %cfile\%chashin.3.txt\%c%c%c", 10, qt, qt, qt, qt, 10
  if strlen(buffer) == 0 abort
  int a, b, c, d
@@ -93,7 +88,7 @@ main [
  debug = 0
  if debug pn hash(a, b, c, d)
 
- if hash(a, b, c, d) == answer(0) printf "%ccorrect",10 // need parens!
- else printf "%cincorrect",10
+ if hash(a, b, c, d) == answer(0) printf "%ccorrect", 10 // need parens!
+ else printf "%cincorrect", 10
  ]
 
