@@ -24,6 +24,7 @@ file char hashin(0) [
 // get rid of line ender
  int i; i = bytes - 1
  while buffer(i) != ',' [buffer(i) = 0; i = i - 1]
+ printf"%cbytes used %d%c", 10, i + 1, 10
  fclose unit
  main
  ]
@@ -83,10 +84,6 @@ main [
  d = gn
 
 // answer(0) = 2143 hasta luego etc.
-
- int debug
- debug = 0
- if debug pn hash(a, b, c, d)
 
  if hash(a, b, c, d) == answer(0) printf "%ccorrect", 10 // need parens!
  else printf "%cincorrect", 10
