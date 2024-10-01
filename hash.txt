@@ -36,20 +36,20 @@ funny         third
 zero is the alphabetically last word (word 3 in the second list)
 aardvark is the alphabetically first (word 2 in the second list)
 epistle is the alphabetically second (word 1 in the second list)
-funny is the alphabetically thirsd (word 4 in the second list)
+funny is the alphabetically third (word 4 in the second list)
 
 The #include lines in the program are needed because it uses
 functions they contain.
 
 Comments in tinyC programs are lines that begin with //. "Sneaky block
-commments use a pair of left and right brackets.
+commments" use a pair of left and right brackets.
 
 The file function reads the input file into a buffer. It also reports
 how many bytes are read and how many bytes are used. Any bytes that
 appear after the last comma are displayed.
 
 The split function is used to populate the first 8 values into 8
-variable and the last value into another variable. The function atoi is
+variables and the last value into another variable. The function atoi is
 used to turn this last string into an integer.
 
 The user is asked to enter the 4 answers she/he thinks are correct. A
