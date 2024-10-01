@@ -42,7 +42,7 @@ The #include lines in the program are needed because it uses
 functions they contain.
 
 Comments in tinyC programs are lines that begin with //. "Sneaky block
-commments" use a pair of left and right brackets.
+comments" use a pair of left and right brackets.
 
 The file function reads the input file into a buffer. It also reports
 how many bytes are read and how many bytes are used. Any bytes that
