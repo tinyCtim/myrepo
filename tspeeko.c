@@ -54,8 +54,7 @@ void main(argc,argv) int argc;char *argv[]; {
   strcpy(special,"\",.?!;:<>)(");  /* 2.2g */
   strcpy(crlf,"\r\n");
   strcpy(lf,"\n");
-  strcpy(ver,"2.2n"); /* 2.2n */
-//  red='1';blue='4';white='7';lo='0';hi='1';
+  strcpy(ver,"2.2o"); /* 2.2o */
   wurds=0; /* 2.2l */
   gct=0; /* 2.2l */
   printf("\n%s%s","\nToby Speak Version ",ver);
@@ -190,7 +189,6 @@ void main(argc,argv) int argc;char *argv[]; {
 void loaddic() {
   int i;
   char c;
-  printf("\n%s","Loading dictionary ... ");
   if ((fpd = fopen(tdf,"r")) == NULL) {
     printf("\nCan't open %s\n",tdf);
     exit();
@@ -207,18 +205,12 @@ void loaddic() {
     for (i=vl+1;td[i]!=']';++i) tdfnext[i-vl-1]=td[i];
     tdfnext[i-vl-1]='\0';
     }
-  printf("%s","Dictionary loaded!");
 }
 
 void trantobee() {
 /* (un)translate text in tt to tobee using dictionary */
   gi=0;
   endoffile=0;
-//  printf("\n\n");
-//  printf("%s%s%s","Now using the ",tdf," dictionary.");
-//  printf("\n\n%s","Please be patient while I ");
-//  if (untran) printf("%s","un");
-//  printf("%s\n\n","translate ...");
   while (!endoffile) doit();
 }
 
