@@ -4,7 +4,7 @@ notes on hash.9.30.24.tc
 This is a program that tests your knowledge of related words. Two lists
 of words are presented. You enter four numbers in response to four
 questions. If the 1st word in the 1st list corresponds to the 3rd word
-(say) in the second list, your enter a 3. If the 2nd word in the 1st
+(say) in the second list, you enter a 3. If the 2nd word in the 1st
 list corresponds to the 2nd word (say) in the second list, you enter a 2.
 etc.
 
@@ -29,7 +29,7 @@ first list.
 first list    second list
 
 zero          second
-aardvaark     first
+aardvark      first
 epistle       last
 funny         third
 
