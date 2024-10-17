@@ -18,8 +18,7 @@ main [
  int n
  printf "%center the number of lockers (up to 10000): ",10
  n=gn
-// n=1000
- printf "%calanna3a.tc - tct - 9/30/2016 10/16/24%c",10,10
+ printf "alanna3a.tc - 10/17/24%c",10
  cdate buffer
  printf "%c%s%c%c",10,buffer,10,10 // show date and time of start
  // locker array, index, locker number, total
