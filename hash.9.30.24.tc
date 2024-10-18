@@ -2,7 +2,7 @@
 #include pps/library.tc
 
 [
-hash.9.30.24tc - 9/30/24 - lrb
+hash.9.30.24.tc - 9/30/24 - lrb
 August Programming Challenge on not just tiny-c Programming Group
 ]
 
@@ -88,4 +88,3 @@ main [
  if hash(a, b, c, d) == answer(0) printf "%ccorrect", 10 // need parens!
  else printf "%cincorrect", 10
  ]
-
