@@ -25,17 +25,17 @@ factor int f [
  return f
  ]
 
-// amend.3a.tc - tct - 10/20/24
+// amend.3a.tc - tct - 10/24/24
 
 colora char c [
- if (index(ansi,1,"y",1) + index(os,strlen(os),"Linux",5)) color c
+ if (ansi=='y') + index(os,strlen(os),"Linux",5) color c
  ]
 
 // globals
-char os(30),ansi(1)
+char os(30),ansi
 
 main [
- printf "%cis your terminal ansi compliant? (y or n) : ",10;ansi(0)=getchar
+ printf "%cis your terminal ansi compliant? (y or n) : ",10;ansi=getchar
  char tcbuff(30) // make operating system aware
  getproperty "pps/version.prop","os =",tcbuff,40,"..."
  strcpy os,tcbuff
@@ -50,7 +50,7 @@ main [
  bytes=readfile("saf.crlf.txt",aft,1000)
  if bytes==0 [printf "%csaf.crlf.txt file not found%c",10,10;abort]
  m=split(amend,aft,crlf)
- pl "amend.3a.tc - lrb - 10/20/24";pl ""
+ pl "amend.3a.tc - lrb - 10/24/24";pl ""
  pl "please visit http://primepuzzle.com/tc/amend.html"
  while i<4 [
   pl "";colora(colorsc(i));pl colors(i);pl "";pl ""
