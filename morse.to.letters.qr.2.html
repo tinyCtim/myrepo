@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="Jl0nTLUfMGx8TgMUn7zQoLTmiET5zDy7_DFVs5trvTY" />
+    <title>morse code convertor</title>
+    <style>
+        textarea {
+            word-break: break-all;
+            width:90%;
+            max-width:90%;
+            max-height:40%;
+        }
+
+        @media screen and (max-width: 760px) {
+            #ogleft { width: 200px;}
+        }
+        @media screen and (min-width: 760px) {
+            #ogleft { width: 350px;}
+        }
+
+        textarea {
+            word-break: break-all;
+        }
+
+        #outergrid {
+            grid-template-columns: 2;
+            grid-template-rows: 1;
+            display: flex;
+        }
+
+        #ogleft {
+            width: 350px;
+        }
+
+        #ogright {
+            grid-column-start: 2;
+            width: 350px;
+        }
+
+        #grid {
+            color: ghostwhite;
+            font-style: normal;
+            display: grid;
+            gap: 0px;
+            grid-template: repeat(9, 1fr) / repeat(6, 1fr);
+            grid-auto-flow: column;
+        }
+
+        .letterMorse {
+            height: 22px;
+            width: 60px;
+            background-color: whitesmoke;
+            vertical-align: middle;
+            padding: 2px 3px 0px 2px;
+            border: 1px solid lightgray;
+        }
+
+        #links {
+            text-anchor: start;
+        }
+    </style>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript" src="morse.js"></script>
+</head>
+
+<body onload="morse_init()">
+    <h1>morse code convertor</h1>
+
+    <div id="outergrid">
+
+        <div id="ogleft">
+
+            <form action="javascript:play_morse(el_in.value, dot_length.value)">
+
+    
+                <label for="input">Enter morse codes below: <br />
+                    <textarea name="input" cols="40" rows="6" id="input"
+                        placeholder="[Enter some Morse code, eg: ... --- ...]"></textarea>
+
+                </label>
+                <br />
+                <label for="output" title="output">
+                    <textarea cols="40" rows="6" name="output" id="output" title="output"
+                        placeholder="[output for Morse codes, or ASCII input]"></textarea>
+                </label>
+
+                <br />
+                Dot length: <label for="dot_length" title="dot length (ms)">
+                    <input type="text" name="dot_length" id="dot_length" value="80" title="dot_length" placeholder="ms"
+                        maxlength="6" size="4" /> ms
+                </label>
+
+                <br />
+
+                <label for="submit">
+                    <input type="submit" id="submit" value="Play morse code!">
+                </label>
+
+                </p>
+            </form>
+
+            <p>
+                <label for="QR" title="QR">
+                <div style="padding-left: 60px; padding-bottom: 0;">QR</div>
+                <img src="qr.png" alt="QR"/>
+                </label>
+            </p>
+        </div>
+
+        <div id="ogright">
+            <div id="grid">
+            </div>
+        </div>
+    </div>
+    
+    <div id="links">
+        <p> Also:  
+            <a href="https://gist.github.com/tallpeak/eb8f20f91ff326631111d9530d2e75fb">Perl</a>
+            <a href="https://gist.github.com/tallpeak/e82af53262aa213bfd8455ee793bcdf4">Python</a>
+            <a href="https://gist.github.com/tallpeak/7d1af948a02489e0889baeaa6879b0d6">Rust</a>
+        </p>
+    </div>
+
+</body>
+
+</html>

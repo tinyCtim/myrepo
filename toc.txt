@@ -1,0 +1,158 @@
+
+http://primepuzzle.com/not.just.tiny.c/toc.txt
+
+0. testpospi.tc, pospi.c, testpos.tc
+1. What characterizes a well-written computer program.txt
+2. A Programmers Guide to the Meaning of Life
+3. Table_Of_Contents.html
+4. library.tc, mathLib.tc, lineLib.tc, lrblib.tc, pyGraphicsLib.tc
+5. buildplugin.bat, buildplugin.sh
+6. The new classical tiny-C, machineCall.c
+7. LEETRYM.BAS, muzzyh.html
+8. 17-point-stars.html
+9. totient.html, totient.6.11.22.tc
+10. star.tc, STARV.BAS, STARPS.PAS, GRAF1.PAS, GRAF2.PAS, PARAMSTB.INC
+11. series.php, series.php.txt
+12. tiny.c, tin.html, dr_dobbs_journal_vol_05.29-37.pdf, ABS.TIN, DECIMAL.TIN
+13. amort.tc, amortpi.c, (1/2), (2/2), amort.png, kelsey.c
+14. testPigra.tc, permalink.html, pigra.c, libpigra.windows.so,
+    libpigra.linux.so, libpospi.so, pospi.c, pigra.h, pigra_lib.tc, devil.txt
+15. fibpi.tc, pifib.c, libpifib.windows.so, libpifib.linux.so fibpi.tc.out, phi.html,
+    phis.html, fib.tc, fib.c
+16. may.2020.challenge.c, (1/2), (2/2), may 2020 challenge
+17. spirala.tc, spiralpi.c, spirala.png
+18. concen.tc, concen.txt, concentration
+19. ssort.tc, ssort.out
+20. tree-128.tc, animals.tr, races.tr, bst.py, tree.file.size.txt
+21. knapsack.lrb.c, knapsack.lrb.out, knapsack.c
+22. md.tc
+23. cliffsnotes.html, entropy.c, entropya.c, entropya.c.out, bulls_and_cows_solver.py
+24. integration.amy.try.c, integration.png
+25. double.html, double.tc, double.out cristian.double.c, cristian.new.double.tc
+26. next_c.tc, next_c_doc.html
+27. compress.tc, dompress.tc, compressor.html
+28. xmas.tc, xmas.png
+29. nemo.tc, nemo.karel.html, karel.html nemo.pc.tc, pospi.c, nemo.kw,
+    maze.html, maze.tc, maze.kw, karel_2.html, sampler.tc,
+    sampler.windows.again.tc, sampler.kw, foobar.tc, randwalk.tc, rand13.kw
+30. rdump.tc, rdump.png
+31. slr.tc, slr.png
+32. ver.amy.tc
+33. hrun.tc, hasm.tc, nedanted.hbs, nedanted.hbo, HARBRAD.TXT, njtc.html
+34. chas.tc, chas.tc.png
+35. matched_pair.tc, tchelp.matched_pair.txt
+36. cairopy.py
+37. roman.2.12.22.tc
+38. logo-t.tc
+39. chapter.8.2.1.c, chapter.8.2.1.png
+40. jspeek.html, jspeek.png, all.dic.html
+41. singlyLinkedList.c
+42. 6.4.13.html, html.png
+43. steinhaus.tc, rees.sum.square.c
+44. nostalgebra.c, nostalgebra.jpg, nostalgebra.desmos.jpg
+45. Dakota Rauls 1.18 #48 (boat problem)
+46. amoeba.linux.tc, amoeba.c, amoeba.html
+47. choc.tc, van.tc, choc.html, candy.tc candy.c, candy.c.out.html
+48. What color was/were the dragon/s with six heads?
+49. imagine.c
+48. mandel.tc, mandel.area.tc, mandel.jpg, mandel.mp4, fractals_no_oo_v3.py,
+    MANDEL42.BAS MANDEL32.DOC, DOSPrinter.exe, benoit.html
+49. simple_plotter.py, simple_plotter.jpg
+50. factor.6.2.tc, factor_doc.htm
+51. http://primepuzzle.com/dancing/ipl.try.htm
+52. https://scratch.mit.edu/projects/2886014/
+53. paper.puzzle.reader.htm
+54. Conjunction!
+55. If you're 30' above the surface of the earth how far can you see to the
+    horizon?
+56. amend.tc, amend.2.tc, af.txt, saf.txt, amend.html
+57. words.2.tc, pip.html, words.doc.html the sentence notes, mywordsearch.png,
+    words.1.txt, board.1.txt
+58. un-psychic.tc, recursion.html
+59. scacalos.tc runit.tc decbin.c kerouac.txt kerouac.enc
+60. Ed Davis's Tiny integer calculator (icalc.tc) Joel Rees's blog post involving bc and pi,
+    jmr.bc, Ed Davis's Toy byte-code compiler/interpreter (toy.o2bas), toy.exe, primes.toy
+70. four_way.tc, A video of this is at four_way.tc.mp4, Tom Gibson wrote a
+    much more ambitious solution in Python. 4way-9-16-18.py A video of this is
+    at 4way.mp4
+71. chutes_and_ladders.html
+72. ferry_solution.html, ferry video
+73. morse.tc, demorse.tc, morse.py, morse.to.letters.qr.2.htm
+74. url.tc, urldownloadpi.c, urldownload.c, liburldownload.so
+75. connect_the_dots.py
+76. Three quines SELFGEN.BAS, SELFGEN.MSE, selfgen.py
+77. Ruth-Aaron pairs in BASIC, Ruth-Aaron pairs in C, Ruth-Aaron pairs in tinyC
+78. Amicable numbers in tinyC, Amicable numbers in C
+79. gennorm.sample.means.c, christian.tc, means.txt, 
+    https://statscharts.com/bar/histogram?status=edit
+80. proof that e^pi*i + 1=0
+81. in2po.c, proposition.c, !jtc post, propositional.logic.htm
+81.1 altair.html
+82. pnut.1.time.jslinux.c, pnt.htm
+83. ANIMALS.BAS, animals.c, animalgame.c, MightyPork Animal Game
+84. vinod.pillai.c (example of add, delete, modify etc. Employee "database")
+85. ELIZA.BAS
+86. easter.tc
+87. SNAKE.PAS, snake.aaron.2.c, SnakePas.c
+88. CHICKEN.PAS
+89. CPMDIR.PAS
+90. TCAP24.BAS
+91. ASCII.MSE, Z80.MSE, z80.mp4
+92. RYEMASH.BAS, ryemash.txt, fortran_coloring_book.html
+93. millipede.html, millie.c, millie.tc, millipede_millie.txt, chomsky.htm
+94. pentence.tc.jslinux.txt, pentence.tc.jslinux.txt.out, pentence.1.py
+95. triangular.prism.tc
+96. Two Trains and a Fly
+97. hazel.tc
+98. Ferris Wheel
+99. pangram.4.1.tc, https://ideone.com/roz1Wc, pangram.5.tc, pangram.pl
+100. Cryptarithms (http://www.cryptarithms.com/), math.c, laz.c
+101. despooner.1.tc
+102. caesar01.c 
+103. greet05.c, .bash_profile, pithy05.c, pithy.txt
+104. dandy.html, dandelion.4.16.22.c, dandelion.1.c
+105. june.22.c, june.22.data.c june.22b.c, june.22c.c
+106. therefore.tc
+107. minarr.tc, minarr.c, minarr.bas
+108. http://primepuzzle.com/poe/poe-4-90/poe-4-90.txt, BUZZ.BAS
+109. give.a.dollar.try.2.tc
+110. RCV123.org, ranked.choice.voting.c
+111. color2new.aw.c colorbuf.c color.tc
+112. section.formula.c centroid.py
+113. socks.try.tc.2, std.dev.c, std.dev.sample.c, graph.try.tc, graph.inp.txt, freq.tc, freq.txt
+114. fri13.tc, nextfri.c
+115. resistor.2.3d.c
+116. deathrow.101b.tc, rand.c, secondchance.2.11.23.2.tc, scramble.2.10.23.c
+116a. experiments.1.4.c, mycolor.2.2.23.try.c, yourcolor.c
+117. http://primepuzzle.com/runlog/february.24.html
+118. dan.gookin.2.11.23.html
+119. calculator.2.1.c
+120. apr.10.23.5.6.23.tc
+121. hexencode.html, hexencode02.c, hexdecode04.c
+122. skier.py skier.mp4
+123. bambi.no.plugin.tc, BAMBI.DAT, GODZILLA.DAT
+124. flateval.c - an expression evaluator
+125. hangman.py
+126. pypong.zip, Listing_19-5.py
+127. find_sine_try.simple_plotter.c
+128. http://primepuzzle.com/linux/ECHO.BAS, http://primepuzzle.com/linux/GOTCHA.MAC,
+     http://primepuzzle.com/linux/TEST.BAS, http://primepuzzle.com/linux/MOTYLNEW.BAS,
+     http://primepuzzle.com/linux/CMD.MAC
+129. http://primepuzzle.com/not.just.tiny.c/JIM~2.BAS,
+     http://primepuzzle.com/not.just.tiny.c/jim.try.c
+130. pennies.c
+131. tile.html, tile.tc, permutation.py, permutation.c, edges.1b.py
+132. cards.1.c cards.py cards.cpp card.h deck.h, replit C, replit Python, replit C++
+132a. related_rates.html
+133. https://www.desmos.com/calculator/6yytgtodu3 (a difficult integral)
+134. venn.html (Venn diagram approach to solving question #16 on a Math Contest)
+135. dir_try.tc, readdir_new.c
+136. LMODEM.C
+137. monster.c
+138. dots.py
+139. dBase II menus
+140. PI314.BAS, pi.py, pi_approx.c
+141. hash.9.30.24.tc, hashin.0.txt, hashin.1.txt, hashin.3.txt, hashin.4.txt, match.py
+142. never_ending.py
+143. sept.c, foo.def, foo.enc, foo.dec
+144. tspeeko.c, jspeek.html

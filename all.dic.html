@@ -1,0 +1,211 @@
+
+<html>
+
+<!-- all.dic.html - lrb - 8/22/2008 -->
+
+<!-- 10/4/2008 - changed name of includes to .dic -->
+<!-- 10/7/2008 - minor tweaks -->
+<!-- 10/15/2008 - added oct08.dic -->
+<!-- 11/8,12/8 - added nov08.dic, dec08.dic -->
+<!-- 2/27/9 - new title added -->
+
+<head>
+
+<link rel="shortcut icon" href="http://primepuzzle.com/blog/tobee.ico">
+
+<title>Toby Speak Dictionary Search Facility</title>
+
+<script src=tobee.dic></script>
+<script src=twep.dic></script>
+<script src=jun08.dic></script>
+<script src=jul08.dic></script>
+<script src=sep08.dic></script>
+<script src=oct08.dic></script>
+<script src=nov08.dic></script>
+<script src=dec08.dic></script>
+<script src=mar09.dic></script>
+
+<script>
+var wuds=tobee+twep+jun08+jul08+sep08+oct08+nov08+dec08+x;
+var nwuds,ia,p;p=nwuds=0;
+while ((ia=wuds.substr(p).indexOf('~'))!=-1) {nwuds++;p+=ia+1;}
+</script>
+
+<script language="JavaScript" type="text/javascript">
+<!-- 
+function jumpurl(form)
+{
+  var bString="http://primepuzzle.com/blog/";
+  location = bString+form.title.options[form.title.selectedIndex].value;
+  return true;
+};
+//-->
+</script>
+
+<script>
+<!-- Begin
+var smartzer=['Einstein','Bill Gates','Mazzachozits Max','Delta Dawn',
+'Tinyc Tim'];
+// English to Toby
+function englishtotobyf() {
+  var poe=document.getElementById('english').value;
+  if (poe=='') return;
+  var ix=wuds.indexOf('_'+poe);
+  if (ix!=-1) { // _foo_->~bar_
+    ix+=wuds.substr(ix,30).indexOf('~')+1;
+    wuds=wuds.substr(ix);
+    alert(wuds.substr(0,wuds.indexOf('_')));
+    }
+  else alert('I don\'t know that word yet.');
+  }
+// Toby to English
+function tobytoenglishf() {
+  var pot=document.getElementById('toby').value;
+  if (pot=='') return;
+  var ix=wuds.indexOf('_->~'+pot);
+  if (ix!=-1) { // _foo_->~bar_
+    var w,wudst='';
+    while ((w=wuds[--ix])!='_') wudst=w+wudst;
+    alert(wudst);
+    }
+  else alert('I nutt kno dat wurd yetz.');
+  }
+// End -->
+</script>
+
+<script src=http://primepuzzle.com/blog/roman2.js></script>
+<script src=http://primepuzzle.com/blog/prime.js></script>
+
+</head>
+
+<body>
+
+<br>
+
+<table align=center width=97%><tr><td align=center>
+
+<b>
+
+<script>
+<!-- Begin
+var rl=Math.random()>.5?'right':'left';
+foobar='<marquee scrollamount=3 scrolldelay=100 width=600 direction='+rl+'><b>';
+foobar+='Mastah ov da Youneeverze, Zen Mastah, Kwantum Mechanick ';
+foobar+=' an Roman Empurroar Tobee sayz ';
+foobar+='"I iz much smartzer dan ';
+foobar+=smartzer[Math.floor(Math.random()*smartzer.length)];
+foobar+='; I kno <font color=darkblue>'+main(String(nwuds))+' ('+nwuds;
+foobar+=factorise(nwuds)+')</font> wurds!"</marquee>';
+document.write(foobar);
+// End -->
+</script>
+
+<p>
+
+<hr>
+
+<p>
+
+Type an <font color=red>English</font> word and then hit Enter to see if it has a Toby translation.
+
+<p>
+
+<form onChange="englishtotobyf();"><input type=text width=20 id='english'></form>
+
+<p>
+
+<table align=center><tr>
+
+<td align=center>
+
+<b>
+
+<font color=red>
+
+Click me to see a discussion of this page and a link
+
+</td>
+
+<td>&nbsp;&nbsp;&nbsp;</td>
+
+<td>
+
+<a href=http://primepuzzle.com/blog/stained-glass.html><img border=0
+alt="Zen Mastah" title="Click to see a discussion of this page"
+src=http://primepuzzle.com/blog/toby-zen.gif></a>
+
+</td>
+
+<td>&nbsp;&nbsp;&nbsp;</td>
+
+<td align=center>
+
+<b>
+
+<font color=red>
+
+to a zip file which contains the translation software!
+
+</td>
+
+</tr>
+
+</table>
+
+<p>
+
+Type a <font color=red>Tobee</font> wurd an denn hit Enter tah zeeds if id haz an Inglish dranzlashun.
+
+<p>
+
+<form onChange="tobytoenglishf();"><input type=text width=20 id='toby'></form>
+
+<p>
+
+<hr>
+
+<p>
+
+<script>
+var lr=rl=='right'?'left':'right';
+var ms1='<marquee scrollamount=3 scrolldelay=100 width=600 direction='+lr+'>';
+var ms2='<font color=darkblue> Most recent Tobycographers\' contribewshuns</font>';
+document.write(ms1+ms2+' '+x+ms2+'</marquee>');
+</script>
+
+<p>
+
+Pleaze email <a href=mailto:lozulyvizzkt@spammotel.com>TcT</a> if you gotz a quezhun.
+
+<p>
+
+<script src=http://primepuzzle.com/blog/titles.js></script>
+
+<p>
+
+<form>
+<select name=title multiple size=3 onChange="jumpurl(this.form);">
+<script>
+<!-- Begin
+for (i=0; i<titles_pages.length; i++) document.write('<option>' +
+titles_pages[i]);
+// End -->
+</script>
+</select>
+<p>
+To see examples of Toby Speak, pick from the drop-down list above.
+</form>
+
+<p>
+
+Credits: prime factors function by <a href=http://www.btinternet.com/~se16/hgb/>Henry Bottomley</a>
+&nbsp;&nbsp;Roman numeral conversion code by Arik Segal 
+
+</b>
+
+</td></tr></table>
+
+</body>
+
+</html>
+

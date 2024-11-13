@@ -1,0 +1,12 @@
+
+main [
+ pl "";pl "runit.tc - 2/7/23 - lrb";pl ""
+ char tccmd(30), buff(30)
+ getproperty "pps/version.prop","os =",buff,30,"..."
+ int linux
+ linux = index buff,strlen(buff),"Linux",5
+ if linux strcpy tccmd, "./tc"
+ else strcpy tccmd, "tc.exe" 
+ strcat tccmd," scacalos.tc"
+ system tccmd
+ ]

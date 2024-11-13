@@ -1,0 +1,39 @@
+
+/* lovers.tc - tct - 2/2/15 */
+
+/* motivated by Nhung Blaschke's C++ assignment */
+
+/* http://primepuzzle.com/tc/lovers.tc */
+/* http://primepuzzle.com/karen_armillei/lovers.jpg */
+
+/* B. Nicolò I. Paganini discovered the second smallest */
+/* pair when he was 16. */
+
+// 10/26/21 - made compliant with Tom Gibson's tinyC
+
+sumpdiv int m [ /* sum of proper divisors */
+ int o,s;s=1
+ o=2
+ while o<=m/2 [
+  if (m%o==0) s=s+o
+  o=o+1
+  ]
+ return s
+ ]
+
+main [
+ int i,j,k,l
+ pl "Enter lower limit : ";i=gn
+ ps "Enter upper limit : ";j=gn
+ k=i
+ while k<=j [
+  if (k%100==0) printf "." /* show progress */
+  if (sumpdiv(l=sumpdiv(k))==k) [
+   if (k<l) [
+    pl "";pn k;ps " and";pn l;ps " are lovers.";pl ""
+    ]
+   ]
+  k=k+1
+  ]
+ ]
+

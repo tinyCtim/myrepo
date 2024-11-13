@@ -1,0 +1,322 @@
+
+[
+BINARY TREE DEMO
+
+tree.tc - Copyright (c) 2/23/1979
+     Les Hancock
+
+{ Ref: Knuth 2.3.1, 6.2.2 }
+]
+
+int mxp, mxc, n, root
+int lf, rt, text, nu
+int base(1), av(128-1)
+char tr(128*64-1)
+int gdup
+
+co char st1(0), st2(0)
+  int n [
+  int ctr
+  while (n - ctr) [
+    if (st1(ctr) < st2(ctr)) return -1
+    if (st1(ctr) > st2(ctr)) return +1
+    ctr = ctr + 1
+  ]
+  return nu
+]
+
+delete [
+  int ptr(0), k, pp(0), pr(0), res, np, cl
+  char st(mxc - 3)
+  pl "-> Del <-"
+  while (n) [
+    pl ""
+    k = getst(st)
+    if (k == nu) return
+    res = sniff(st, ptr, k, pp, pr)
+    if (res) pl "Not found"
+    else [
+      np = rub (ptr(0))
+      cl = mxc + 1
+      while (cl = cl - 1) tr(sb(ptr(0), cl)) = nu
+      if (pp(0)) tr(sb(pp(0), ((pr(0) + 3) / 2))) = np
+      else root = np
+      push ptr(0)
+      pl "Record"
+      pn ptr(0)
+      ps " deleted"
+    ]
+  ]
+  pl "";pl "Empty";pl ""
+  init
+]
+
+main [
+  int choice
+  init
+  pl "tree.tc - 3/27/20"
+  pl ""
+  while (choice = getchoice()) [
+    if (choice == 1) insert
+    else if (choice == 2) delete
+    else if (choice == 3) search
+    else if (choice == 4) list
+    else if (choice == 5) write
+    else if (choice == 6) read
+    else if (choice == 7) finsert
+  ]
+]
+
+getchoice [
+  pl "0=Quit 1=Ins 2=Del 3=Search 4=List 5=Write 6=Read 7=File Ins : "
+  return gn
+]
+
+format int nm [
+  int spaces
+  pn nm
+  if (nm < 10) spaces = 8
+  else if (nm < 100) spaces = 7
+  else if (nm < 1000) spaces = 6
+  while (spaces = spaces - 1) ps " "
+]
+
+getname char fname(0) [
+  int k
+  k = gs(fname)
+  return k
+]
+
+getst char st(0) [
+  int k
+  int lk
+  pl ""
+  ps "Enter string: "
+  k=gs(st)
+  while (k > (mxc - 2)) [
+    pl "String exceeds max length of "
+    pn mxc - 2
+    ps " re-enter"
+    pl ""
+    k=gs(st)
+  ]
+  return k
+]
+
+init [
+  nu = 0
+  root = 1
+  lf = 1
+  rt = 2
+  text = 3
+  mxp = 128 // lrb 1/23/20
+  mxc = 64
+  av = base + (2 * 4) // note the 4!
+  tr = base + (2 * 4) + (mxp * 4) // note the 4's!
+  n = mxp + 1
+  while (n = n - 1) av(n - 1) = n
+]
+
+insert [
+  int k, ptr(0), res, dummy(0), np
+  char st(mxc - 3)
+  pl "-> Insertion <-"
+  while (n < mxp) [
+    pl ""
+    k = getst(st)
+    if (k == nu) return
+    res = sniff(st, ptr, k, dummy, dummy)
+    if (res == nu) pl "Record exists"
+    else [
+      np = pop
+      if (np != root) tr(sb(ptr(0), ((res + 3) / 2))) = np
+      move (st, (tr + sb(np,text)))
+      pl "Key ="
+      pn np
+      ]
+    ]  
+  pl ""
+  pl "Table is full"
+  pl ""
+]
+
+list [
+  int index(0), ptr(0), stack(mxp - 1)
+  pl ""
+  if (n) [
+    pl "Key     Text"
+    pl ""
+    index(0) = -1
+    ptr(0) = root
+    traverse(index, ptr, stack)
+    pl ""
+    ]
+  else [
+    pl "Nothing to list"
+    pl ""
+    ]
+]
+
+pop [
+  int nextptr
+  nextptr = av(n)
+  n = n + 1
+  return nextptr
+]
+
+push int oldptr [
+  n = n - 1
+  av(n) = oldptr
+  return n
+]
+
+read [
+  pl ""
+  pl "-> Read <-"
+  pl ""
+  char fname(40)
+  pl "Input file: "
+  int k;k = getname(fname)
+  if k == 0 [printf "%cno name given%c",10,10;return]
+  k = readfile fname,base,tr+sb(mxp,mxc)-base+1 // 1/19/20
+  if k==0 [printf "%cerror on read%c",10,10;return]
+  printf "%c%d bytes read%c",10,tr+sb(mxp,mxc)-base+1,10
+  n = base(0)
+  root = base(1)
+]
+
+rub int ptr [
+  int r, s, t
+  t = ptr
+  if (tr(sb(t, rt)) == nu) return tr(sb(t, lf))
+  if (tr(sb(t, lf)) == nu) return tr(sb(t, rt))
+  r = tr(sb(t, rt))
+  if (tr(sb(r, lf)) == nu) [
+    tr(sb(r, lf)) = tr(sb(t, lf))
+    return r
+    ]
+  s = tr(sb(r, lf))
+  while (tr(sb(s, lf))) [
+    r = s
+    s = tr(sb(r, lf))
+    ]
+  tr(sb(s, lf)) = tr(sb(t, lf))
+  tr(sb(r, lf)) = tr(sb(s, rt))
+  tr(sb(s, rt)) = tr(sb(t, rt))
+  return s
+]
+
+search [
+  int res, k, ptr(0), dummy(0)
+  char st(mxc - 3)
+  pl "-> Search <-"
+  while (1) [
+    pl ""
+    k = getst(st)
+    if (k == nu) return
+    res = sniff(st, ptr, k, dummy, dummy)
+    if (res) pl "Not found"
+    else [
+      pl "Found at "
+      pn ptr(0)
+      ps " : "
+      ps tr + sb(ptr(0), text)
+      ]
+    ]
+]
+
+sniff char st(0)
+  int ptr(0), k, pp(0), pr(0) [
+  int temp, res
+  pp(0) = nu
+  pr(0) = nu
+  ptr(0) = root
+  while (1) [
+    res = co(st, (tr + sb(ptr(0), text)), k)
+    if (res == nu) return res
+    temp = tr(sb(ptr(0), ((res + 3) /2)))
+    if (temp == nu) return res
+    pp(0) = ptr(0)
+    pr(0) = res
+    ptr(0) = temp
+    ] 
+]
+
+sb int row, col [
+  return (col - 1) + (mxc * (row - 1))
+]
+
+traverse int index(0), ptr(0), stack(mxp - 1) [
+  index(0) = index(0) + 1
+  stack(index(0)) = ptr(0)
+  if (tr(sb(ptr(0), lf))) [
+    ptr(0) = tr(sb(ptr(0),lf))
+    traverse(index, ptr, stack)
+    ]
+  pl ""
+  format(ptr(0))
+  ps tr + sb(ptr(0), text)
+  if (tr(sb (ptr(0), rt))) [
+    ptr(0) = tr(sb(ptr(0), rt))
+    traverse(index, ptr, stack)
+    ]
+  if (index(0) == 0) return
+  index(0) = index(0) - 1
+  ptr(0) = stack(index(0))
+]
+
+write [
+  if n == 0 [printf "%cnothing to write%c",10,10;return]
+  char fname(13)
+  pl "-> Write <-"
+  pl ""
+  pl "Output file: "
+  int k;k = getname(fname)
+  if k == 0 [printf "%cno name given%c",10,10;return]
+  base(0) = n
+  base(1) = root
+  printf "%c%d bytes written%c",10,tr+sb(mxp,mxc)-base+1,10
+  writefile fname,base,tr+sb(mxp,mxc)-base+1) // 1/19/20
+]
+
+finsert [ // insert from file
+ int ctr;ctr=1 // lrb
+ int k,ptr(0),res,dummy(0),np
+ char st(mxc-3)
+ char lbs(2);lbs(0)=' ';lbs(1)='Z'+1 // left bracket
+ char dups(4)
+ pl "-> Insertion from File <-"
+ char tex(5000);int i,j,tl;char nls(1),fname(50)
+ nls(0)=10
+ pl "";pl "Input file: "
+ k = getname(fname)
+ if k == 0 [printf "%cno name given%c",10,10;return]
+ if ( (tl=readfile(fname,tex,5000)<0) ) return
+ char crs(1);crs(0)=13
+ while (j=index(tex,tl,crs,1)) [movebl(tex+j,tex+j+tl,-1);tl=tl-1]
+ strcat tex,nls;pl ""
+ while ((n<mxp)*(i=index(tex,strlen(tex),nls,1))) [
+  if (i==1) strcpy tex,tex+1
+  else [ // 1
+   tex(i-1)=0;strcpy st,tex;strcpy tex,tex+i
+   k=strlen st
+   res=sniff st,ptr,k,dummy,dummy
+   if res==0 [
+    // duplicate - tack on left bracket followed by nn
+    strcat st,lbs;itoa(gdup=gdup+1,dups);strcat st,dups
+    res=sniff(st,ptr,k+5,dummy,dummy)
+    ]
+   np=pop
+   if (np!=root) tr(sb(ptr(0),((res+3)/2)))=np
+   move (st,(tr+sb(np,text)))
+   pl "key =";pn np
+   ] // 1
+  ] // while
+ if (i==0) [
+  pl "";return
+  ]
+ else [
+  pl "";pl "Table is full";pl ""
+  ]
+ ]
+

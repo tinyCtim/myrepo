@@ -1,0 +1,126 @@
+#include pps/library.tc
+#include lrblib.tc
+
+// hasm.tc - lee bradley - 11/27-30/18,12/17,19/18,6/9/19
+// this is an assembler for programs written in HARBRAD assembly language
+
+main [ // main program
+ char la(4000) // 100 lines x 40 characters per line language array
+ int las(100) // pointers to source lines
+ char lad(600) // 100 lines x 6 e.g. 04-347
+ int found,nop,numsym
+ char st(80) // 20 symbols 2 char lb 2 char ad
+ char opcd(100)
+ strcpy opcd,"A   ,BR  ,BRN ,BRP ,BRZ ,BRNN,BRNP,BRNZ," // mnemonics
+ strcat opcd,"D   ,L   ,M   ,PT  ,RD  ,S   ,ST  ,STOP,"
+ int opcds(16) // pointers to mnemonics
+ nop=split opcds,opcd,","
+ char mn(4),od(4),lb(2) // mnemonic, operand, label
+ char oc(32)
+ strcpy oc,"+3-1-4-2-3-6-5-7+6+1+5+8+7+4+2+9" // opcodes
+ printf "%chasm.tc - lee bradley - 6/9/19%c",10,10
+ char cdateb(20);cdate cdateb;printf "%ccurrent date is %s",10,cdateb
+ char f(50),fhbs(50),fhbo(50) // 6/9/19 - file names can be 50 characters long now
+ printf "%c%csource filename, (.hbs will be appended) ",10,10;gs f
+ strcpy fhbs,f;strcat fhbs,".hbs"
+ strcpy fhbo,f;strcat fhbo,".hbo"
+ int unit,lct
+ unit=fopen fhbo,"w"
+ char nl(1);nl(0)=10
+ printf "%c",10
+ readfile fhbs,la,4000
+ lct=split las,la,nl
+ int j,i,jj
+
+// pass 1. resolve labels and mnemonic opcodes
+
+ char work(100),nst(2)
+ char ds(71)
+ while i<70 [ds(i)=' ';i=i+1];ds(70)=0
+ i=0
+ while i<lct [
+  strcpy work,las(i)
+  if strlen(work)==0 strcpy work,ds // takes care of blank lines
+  if work(5)==0 work(5)=' ' // takes care of RD and PT lines with no comments
+  if work(6)==0 work(6)=' '
+  lb(0)=work(0);lb(1)=work(1)
+  mn(0)=work(3);mn(1)=work(4)
+  mn(2)=work(5);mn(3)=work(6)
+  itoa i,nst
+  if i<10 [nst(1)=nst(0);nst(0)='0']
+  lad(6*i)=nst(0);lad(6*i+1)=nst(1) // store address of instruction
+  if ( ceqn(lb,"  ",2)==0 ) [ // update symbol table
+   st(4*j)=lb(0);st(4*j+1)=lb(1)
+   st(4*j+2)=lad(6*i);st(4*j+3)=lad(6*i+1)
+   j=j+1
+   ]
+  if (ceqn(mn,"DW",2)) [
+   lad(6*i+2)=work(8);lad(6*i+3)=work(9)
+   lad(6*i+4)=work(10);lad(6*i+5)=work(11)
+   ]
+  else
+  if (ceqn(mn,"DS",2)+ceqn(mn,"  ",2)) [
+   lad(6*i+2)='+';lad(6*i+3)='0'
+   lad(6*i+4)='0';lad(6*i+5)='0'
+   ]
+  else [ // find mnemonic and store corresponding opcode
+   jj=0
+   while ((ceqn(mn,opcds(jj),4)==0)*(jj<nop)) jj=jj+1
+   if jj==nop [printf "bad mnemonic opcode in %s",las(i);abort]
+   lad(6*i+2)=oc(2*jj);lad(6*i+3)=oc(2*jj+1)
+   ]
+  i=i+1
+  ]
+ numsym=j
+ printf "%d symbols detected%c%c",numsym,10,10
+  
+// pass 2. resolve symbolic operands
+
+ i=0
+ while i<lct [
+  strcpy work,las(i)
+  if strlen(work)==0 strcpy work,ds // takes care of blank lines
+  mn(0)=work(3);mn(1)=work(4);mn(2)=work(5);mn(3)=work(6)
+  od(0)=work(8);od(1)=work(9)
+  if ((ceqn(mn,"RD",2))+(ceqn(mn,"PT",2))+(ceqn(mn,"STOP",4))) [
+   lad(6*i+4)=lad(6*i+5)='0'
+   ]
+  else [
+   if ( (ceqn(mn,"  ",2)==0) * (ceqn(mn,"DS",2)==0) * (ceqn(mn,"DW",2)==0) ) [
+    found=0
+    j=0
+    while (found==0) [ // symbol table look up
+     found=(od(0)==st(4*j))*(od(1)==st(4*j+1))
+     if ((found==0)*(j==numsym-1)) [
+      printf "label not found in %s",las(i);abort
+      ]
+     j=j+1
+     ]
+    j=j-1
+    lad(6*i+4)=st(4*j+2);lad(6*i+5)=st(4*j+3) // store its address
+    ]
+   ]
+  i=i+1
+  ]
+
+// write the object file
+
+ i=0
+ char work1(100)
+ while i<lct [
+  strcpy work1,las(i)
+  if strlen(work1)==0 strcpy work1,ds // takes care of blank lines
+  work(0)=lad(6*i);work(1)=lad(6*i+1)
+  work(2)=','
+  work(3)=lad(6*i+2);work(4)=lad(6*i+3)
+  work(5)=lad(6*i+4);work(6)=lad(6*i+5)
+  work(7)=' ';work(8)=' ';work(9)=0
+  strcat work,work1
+  strcat work,nl
+  fputs work,unit
+  printf "%s",work
+  i=i+1
+  ]
+ fclose unit
+ printf "%c%s written.%c",10,fhbo,10
+ ]

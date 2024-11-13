@@ -1,0 +1,91 @@
+
+<table align=center width=79%><tr><td>
+
+<pre><font size=+2><b>
+
+Credits: This was an assignment in CS153 at CCSU in 2015
+
+<a href=http://primepuzzle.com/tc/chutes_and_ladders.html>Chutes and Ladders</a>
+
+This program implements a single-player version of chutes and ladders.
+The game board is a 10 x 10 grid of squares numbered one through 100.
+The game is played by moving a token from square to square according to
+the throw of a die. The player starts with a token in the the imaginary
+space left of square 1 (lower left) and then rolls a single die to move
+the token by the number of squares indicated by the die roll following
+the route marked on the gameboard. The route is from the bottom to the
+top of the playing area, passing once through every square. If a move
+puts the token on the lower-numbered end of squares connected by a
+ladder, move the token up to the higher-numbered square. If a move lands
+on the higher-numbered square of a pair connected by a chute, move the
+token down to the lower-numbered square. The player must roll the exact
+number to reach the final square to win the game. If a number is rolled
+that would take the player beyond the final square, the player remains
+on their current square. For a history of the game see the Wikipedia
+article: 
+
+<a href=http://en.wikipedia.org/wiki/Snakes_and_ladders>http://en.wikipedia.org/wiki/Snakes_and_ladders</a>
+
+Details: Even though the board is 2D in conception, you can represent it
+as a 1D array of 101 cells (cell 0 is not used). The location of the
+user’s token is contained in a variable. No token needs to be put in the
+1D array. Each cell of the array contains either 0 (which means it is an
+ordinary square) or an integer (which means that the square is the start
+of a chute or of a ladder). If the player lands on a square containing
+an integer, the player’s location is changed to that integer. For
+example, say the player is on square 13 and rolls a 3. This moves the
+player to square 16, which is the beginning of a chute. The array
+contains a 6 in cell 16, so the player’s location is changed to 6. A
+ladder is when a cell contains an integer greater than the index of the
+cell (e.g. cell 80 contains a 100). A chute is when a cell contains an
+integer less than the index of the cell (e.g. cell 16 contains a 6).
+After each roll the results are printed out and the game pauses so the
+player can see what happened. Then the player hits return and the next
+roll is done. At the end of play, print out the number of moves it took
+to reach the goal. To play a multi-player version of the game, each
+player starts a single player game in a separate DOS window.
+
+<img src=http://primepuzzle.com/tc/chutesladders.gif>
+
+Sample run:
+
+Roll: 2
+You advance to square 2
+Roll: 1
+You advance to square 3
+Roll: 4
+You advance to square 7
+Roll: 5
+You advance to square 12
+Roll: 3
+You advance to square 15
+Roll: 6
+You advance to square 21
+Great! You landed on a ladder at 21 and climb to square 42
+Roll: 4
+You advance to square 46
+Roll: 1
+You advance to square 47
+Oh No! You landed on a chute at 47 and slide to square 26
+Roll: 6
+You advance to square 32
+
+...
+
+Roll: 1
+You advance to square 92
+Roll: 5
+You advance to square 97
+Roll: 2
+You advance to square 99
+Roll: 1
+You advance to square 100
+
+You reached the goal in 95 moves!
+
+<a href=http://primepuzzle.com/tc/chutes.c>http://primepuzzle.com/tc/chutes.c</a>
+
+</b></font>
+
+</td></tr></table>
+

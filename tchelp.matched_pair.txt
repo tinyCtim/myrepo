@@ -1,0 +1,100 @@
+
+This program reads tiny-C source files and outputs one-liners that show
+the functions used and, optionally, a horizontal bar graph of the depths
+of the whiles and ifs.
+
+This was the June 2018 Exercise for the not just tiny-c Programming
+Group.
+
+Here's what gets displayed.
+
+D:\Tom Gibson\tiny-c-master>tc -lq SamplePrograms\matched_pair.tc -r mainv
+Sizes: of pr 40000 fun 200 stack 200 var 300
+pps/library.tc loaded
+lrblib.tc loaded
+  endlibrary
+SamplePrograms\matched_pair.tc loaded
+
+matched_pair.tc - tct - 7/20/19
+
+file to read? SamplePrograms\matched_pair.tc
+
+Please visit http://primepuzzle.com/tc/tchelp.matched_pair.txt
+
+20 open and 20 closed brackets found
+
+new_enuf int ys, ms, ds, yr, mr, dr [
+
+1 0
+
+dup char str(0);int i [
+
+1 2 1 0
+
+givehelp char h(0) [help h]
+
+1 0
+
+mainv [verbose=1;main]
+
+1 0
+
+main [
+
+1 2 1 2 1 2 1 2 1 2 1 2 1 2 3 2 3 2 3 4 5 4 3 4 5 4 3 2 1 0
+
+D:\Tom Gibson\tiny-c-master>
+
+Here's the bar graph.
+
+SamplePrograms\matched_pair.tc
+
+new_enuf int ys, ms, ds, yr, mr, dr [
+
+*
+
+dup char str(0);int i [
+
+*
+**
+*
+
+givehelp char h(0) [help h]
+
+*
+
+mainv [verbose=1;main]
+
+*
+
+main [
+
+*
+**
+*
+**
+*
+**
+*
+**
+*
+**
+*
+**
+*
+**
+***
+**
+***
+**
+***
+****
+*****
+****
+***
+****
+*****
+****
+***
+**
+*

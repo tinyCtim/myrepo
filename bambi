@@ -1,0 +1,2 @@
+./tc bambi.tc -q -r '[printf "%cWelcome!%cEnter Bambi frame delay in
+seconds (1 .. 4) : ", 10, 10; int d; d = gn; maind d]'

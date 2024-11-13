@@ -1,0 +1,38 @@
+
+[
+
+ref: One Hundred Problems In Elementary Mathematics by Hugo Steinhaus
+(1964 Basic Books)
+
+This program sums the squares of the digits of a number input by the
+user. It then sums the squares of the digits of this sum. It continues
+in this way until the generated numbers repeat.
+
+It can be proved that you will eventually get 145 42 20 4 16 37 58 89
+(or 1 1 1 etc.).
+
+]
+
+main [
+    char c(31) /* we use a character string to hold the number entered */
+    int sq, cd, cl, ctr
+    pl ""; pl "steinhaus.tc - 9/15/20 - lrb"; pl ""
+    pl "What number do you want to start with (e.g. 3567)? "
+    cl = gs c /* get the "number" */
+    pl ""
+    while 1 [ /* do forever */
+        sq = 0 /* initialize the sum of squares */
+        while cl [ /* process each digit in the number */
+            cd = c(cl - 1) - '0' /* turn the character into a number */
+            sq = sq + cd * cd /* add its square to sq */
+            cl = cl - 1 /* prepare for next digit */
+            ]
+        cl = itoa sq, c /* convert the sum of squares into a character string */
+        pn sq /* show the sum of squares */
+        if ((sq == 145) + (sq == 1)) [
+            ctr = ctr + 1
+            if ctr == 2 break /* get out if the 2nd 145 (or 1) is detected */
+            ]
+        ] 
+    ]
+

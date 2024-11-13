@@ -1,0 +1,25 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. IDEONE.
+       AUTHOR.
+           LEE BRADLEY.
+       DATE-WRITTEN.
+           11-18-22.
+
+       ENVIRONMENT DIVISION.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 GRADE PIC 9(3).
+       01 GRADE-TEN PIC 9(2).
+       01 FILLER.
+          05 LETTERS PIC X(11) VALUE "FFFFFFDCBAA".
+          05 FILLER REDEFINES LETTERS.
+             10 GRADE-10 OCCURS 11 TIMES PIC X.
+
+       PROCEDURE DIVISION.
+       DISPLAY "Enter a grade in 0..109 : ".
+       ACCEPT GRADE.
+       COMPUTE GRADE-TEN = GRADE / 10 + 1.
+       DISPLAY GRADE-10 (GRADE-TEN).
+       STOP RUN.
+

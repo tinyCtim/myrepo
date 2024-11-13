@@ -1,0 +1,27 @@
+#include pps/mathLib.tc
+#include pps/library.tc
+
+// totient.tc - lrb - 1/17/9, 7/1,3/21, 6/9,11/22
+
+// compute and print the totient of n and the number of n-point stars
+
+star int n [
+ printf "%cThere are %d %d-point stars", 10, (totient(n) - 2) / 2, n
+ ]
+
+main [
+ int i, t, start, end
+ printf "%center start number, e.g. 77 : ",10
+ start = gn
+ printf "%center end number, e.g. 101 : ",10
+ end = gn
+ i = start
+ while i <= end [
+  t = totient(i)
+  printf "%ctotient of %d is %d", 10, i, t
+  printf " number of %d point stars is %d", i, (t - 2) / 2
+  i = i + 1
+  ]
+ pl ""
+ ]
+

@@ -1,0 +1,90 @@
+
+                      Documentation for MANDEL32
+
+MANDEL32 generates Mandelbrot set images. These images are printed 
+with PLOT (or ZPLOT.) You need an Epson MX80 dot matrix printer with 
+GRAFTRAX PLUS to use ZPLOT, as configured. PLOT is fully documented in 
+PLOT33.LBR. ZPLOT is documented in ZPLOT10.LBR. ZPLOT is a Z System 
+aware version of PLOT. You will need to obtain one of these libraries 
+to fully understand how PLOT works (and to prepare a version of PLOT 
+that will work with your dot matrix printer.)
+
+                          The Mandelbrot Set
+
+The Mandelbrot set was discovered by Benoit Mandelbrot. It is defined 
+as follows:
+
+Take any number c in the complex plane. Starting with the complex 
+number z at the origin, compute a new complex number z by squaring z 
+and adding c to the result.
+
+                             z <- z*z + c
+
+Repeat this; square the new z and add c to the result to obtain a new 
+z. Do this again and again ... If the complex numbers z wander off to 
+infinity after enough iterations of this process, the number c does 
+NOT lie in the Mandelbrot set. Otherwise, the number c lies in the 
+Mandelbrot set.
+
+This deceptively simple definition can be implemented by computer 
+program using the definition
+
+                             z = x + i*y
+
+where i is the imaginary unit (i*i = -1) and x and y are the real and 
+imaginary parts. It can be shown that
+
+                       z*z = x*x - y*y + i*2x*y
+
+(simply multiply it out using the Distributive Law and the fact that 
+i*i equals -1.)
+
+                            Using MANDEL32
+
+To run the program, type
+
+   A>MANDEL32 <cr>
+
+You will be asked to supply seven numbers. These numbers establish the 
+rectangular section of the Mandelbrot set to be computed, the step 
+sizes to use and the maximum number of iterations to use. The 
+following table shows a sequence of numbers which "window in" on a 
+certain section.
+
+  x1                  x2                y1                 y2
+---------           ---------         ---------          ----------               
+-2.25               +0.75             -1.5               +1.5
+-0.8                -0.7              +0.1               +0.2               
+-0.75               -0.74             +0.11              +0.12
+-0.745910           -0.744480         +0.111960          +0.113390
+
+The program generates the file MANDEL.VEC. High resolution .VEC files 
+can take many hours to compute.
+
+After the MANDEL.VEC file is generated, run ZPLOT (or PLOT) to print 
+the image.
+
+   A>ZPLOT MANDEL <cr>
+
+You may send the output to a file instead of a printer by supplying a 
+second argument. 
+
+   A>ZPLOT MANDEL MANDEL <cr>
+ 
+will generate the file MANDEL.PLT. This may be printed later with PIP.
+
+   A>PIP LST:=MANDEL.PLT[O] <cr>
+
+MANDEL32 is a significant improvement over MANDEL31.BAS thanks to the 
+efforts of Larry Schnitger. Its most important feature is the use of 
+the "D" (Draw line) plot command supported by ZPLOT. The size of the 
+.VEC file is dramatically reduced by its use. The size and resolution 
+of the graphic are now user controlled. The parameters used are 
+imbedded in the graphic itself by using the "T" (text) plot command. A 
+more efficient loop index is used and a better runtime display is 
+given.
+
+Lee Bradley, Z-Node #12, 203 665-1100
+
+December 6, 1991
+

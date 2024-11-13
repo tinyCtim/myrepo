@@ -1,0 +1,14 @@
+
+* Program .... : MENU2-3.FMT
+* Notes ...    : This program is the format file for deleting Customer records.
+
+@  3,28 SAY "Lee's Books"
+@  6,1  SAY 'CUSTOMER NAME : '+NAME
+@  6,50 SAY 'CUSTOMER NUMBER: '+CUSTID
+@  8,1  SAY 'STREET ADDRESS : '+ADDRESS
+@ 10,1  SAY 'CITY........... : '+CITY
+@ 10,50 SAY 'STATE : '+STATE
+@ 12,1  SAY 'ZIP CODE....... : '+ZIP
+@  8,50 SAY 'CUSTOMER SINCE : '+DATE
+@ 14,1  SAY 'TELEPHONE..... : '+PHONE
+@ 16,1  SAY 'ATTENTION..... : '+ATTN

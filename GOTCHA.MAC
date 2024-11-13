@@ -1,0 +1,47 @@
+		.Z80
+		NAME('GOTCHA')
+
+;Written by M. L. Lesser, March 21, 1982
+;Written in Zilog mnemonics
+;Assembled with Microsoft MACRO-80 RELEASE 3.43
+
+;GOTCHA is a called subroutine for a BASCOM
+;program. It stores the string length and
+;starting address of the text CCP places in
+;tbuff (after removing leading blanks), in the
+;string pointer of the passed argument. The
+;GOTCHA call must be the first use of that
+;string variable in the calling program.
+
+;System dependent addresses:
+
+BASE	EQU	0000		;CP/M zero-page offset
+
+;Other addresses:
+TBUFF	EQU	BASE+80H	;CP/M tbuff
+
+GOTCHA::
+;Check for zero-length string:
+		LD A,(TBUFF)	;Command-line count
+		LD (HL),A		;Store in pointer
+		CP 0			;Any value?
+		RET Z			;If not, done
+		
+;Remove leading blank(s)
+		LD DE, TBUFF+1
+BLANK:		DEC (HL)		;Reduce count
+		RET Z			;Return if no string
+		INC DE			;Next byte
+		LD A,(DE)
+		CP ' '			;Check for blank
+		JR Z,BLANK		;If so, go again.
+;Store string address in BASCOM'S pointer:
+		INC HL			;To address pointer
+		LD (HL),E		;Low-order byte
+		INC HL
+		LD (HL),D		;High-order byte
+;Done, so return:
+		RET
+		
+		END
+

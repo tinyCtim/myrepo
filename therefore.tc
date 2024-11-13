@@ -1,0 +1,17 @@
+
+// therefore.tc - 5/8/22 - lrb
+// ref: https://www.facebook.com/groups/299317782048/posts/10160272877322049/
+
+main [
+ int a, b, w, u; char ws(5), us(5), ans(5)
+ pl "enter a small integer : "; a = gn
+ pl "enter a small integer : "; b = gn
+ w = a - b
+ u = a + b
+ itoa w, ws
+ itoa u, us
+ strcpy ans, ws
+ strcat ans, us
+ pl ans
+ ]
+

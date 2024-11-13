@@ -1,0 +1,11 @@
+`example'
+a=3
+A :"Hello "
+;"World "
+;a
+a=a+1
+{a<5}->A
+:"Goodbye "
+;"World"
+:""
+!

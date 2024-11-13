@@ -1,0 +1,28 @@
+
+<table align=center width=89%><tr><td>
+
+<pre>
+
+An explanation of how <a href=http://primepuzzle.com/tc/factor.tc>http://primepuzzle.com/tc/factor.tc</a> works<a href=http://primepuzzle.com/tc/factor_doc.html style=text-decoration:none>.</a>
+
+factor starts off, after declaring the local variables it uses, by
+asking the user for the number to factor. It then asks if you want to
+see the prime numbers it will generate (verbose mode). The array p is
+loaded with primes. The tested condition in the loop uses the fact that
+you only need to check prime divisors that are less than the square root
+of the upper limit. This is so because *both* prime factors of non-prime
+numbers can't be bigger than the square root of the upper limit because
+this would imply their *product* would be bigger than the upper limit, a
+contradiction. Since tiny-c doesn't do square roots, we require the
+<b>square</b> be less than the upper limit. Also, all primes, save the
+number 2, are <b>odd</b> so we can bump up the prime candidate by 2 each
+time.
+
+You try to divide the number you are factoring by the primes, in order.
+If divisible, print the prime and divide the number by the prime and
+continue. Otherwise, go to the next prime. f will eventually become 1
+which will cause an exit from the loop.
+
+</pre>
+
+</td></tr></table>

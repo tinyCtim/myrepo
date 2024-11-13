@@ -1,0 +1,59 @@
+
+[
+easter.tc - tct - 3/18-22/2011 1/14-15/20 4/3/21
+http://primepuzzle.com/tc/easter.tc
+computes and displays date of Easter given year.
+contains an "Easter egg."
+]
+
+ceq char s(0),t(0) [
+ int i,l;l=strlen(s)
+ while ((i<l)*(s(i)==t(i))) i=i+1
+ return i==l
+ ]
+
+file char f(0) [
+ char where(5000);int cnt
+ if ((cnt=readfile(f,where,5000))>0) [
+   pft where,where+cnt-1
+  ]
+ ]
+
+init [putchar 34;ps "initially";putchar 34]
+
+main [
+ int year,a,b,c,d,e,m,n,of,v(0),cry;cry = 1;char mn(10),an(1),ys(4)
+ strcpy mn,"April";strcpy(an,"y")
+ pl "";init;ps " written by Daryl D. Gehlbach (ddg)"
+ pl "";init;ps " translated from BASIC to tiny-c by Lee R. Bradley (lrb)";pl ""
+ pl "This program will compute the date of"
+ pl "Easter for any year 1582 to 2099. It"
+ pl "is based on a procedure"
+ pl "";init;ps " formulated by Carl Friedrich Gauss (cfg)"
+ pl "in 1800 at the age of 23.";pl ""
+ while ceq(an,"y") [
+  pl "What year do you want"
+  if cry [putchar 32;init;cry = 0]
+  ps " ? ";gs ys
+  if ceq(ys,"cfg")+ceq(ys,"lrb")+ceq(ys,"ddg") [file "jgs.txt";abort]
+  atoi ys,v;year = v(0)
+  while ((year < 1582)+(year > 2099)) [
+   pl "";pl "";pl "Year is out of range!"
+   pl "Please enter a year from 1582 to 2099."
+   pl "What year do you want? ";gs ys
+   if ceq(ys,"cfg")+ceq(ys,"lrb")+ceq(ys,"ddg") [file "jgs.txt";abort]
+   atoi ys,v;year = v(0)
+   ]
+  if ((year > 1581) * (year < 1700)) [m = 22;n = 2]
+  if ((year > 1699) * (year < 1800)) [m = 23;n = 3]
+  if ((year > 1799) * (year < 1900)) [m = 23;n = 4]
+  if ((year > 1899) * (year < 2100)) [m = 24;n = 5]
+  a = year % 4;b = year % 7;c = year % 19;d = (19 * c + m) % 30
+  e = ((2 * a) + (4 * b) + (6 * d) + n) % 7
+  of = 9; if ((d + e) <= of) [of = -22;strcpy mn,"March"]
+  pl "Easter was / is / will be on ";ps mn;pn d + e - of;ps ",";pn year;ps "."
+  pl "Do you wish to try another year (y/n)? ";gs an
+  ]
+ pl "Thank you, please use me again.";pl "Peace ..."
+ ]
+

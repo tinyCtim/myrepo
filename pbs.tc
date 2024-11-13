@@ -1,0 +1,47 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// pbs.tc - lrb - 7/29-31/20, 8/2/20
+// personalized book selector
+// http://primepuzzle.com/not.just.tiny.c/pbs.tc
+// https://www.facebook.com/groups/299317782048/permalink/10158795825537049/
+
+main [ // score books
+	printf "%cpbs.tc - personalized book selector - lrb - 8/2/20%c", 10, 10
+	char fyen(100), fmen(100), yenbuf(5000), menbuf(5000)
+	int yenbytes, menbytes, sim(100), yl, ml, m, mct, mg, y
+	int ylinep(100), mlinep(7), mgenrep(6) // "pointers"
+	char lf(1); lf(0) = 10
+	fyen = "Personalized Book Selector - Form Responses 1.csv"
+	fmen = "Personalized Book Selector - Form Responses 2.csv"
+	yenbytes = readfile fyen, yenbuf, 5000-1
+	menbytes = readfile fmen, menbuf, 5000-1
+	yl = split ylinep, yenbuf, lf
+	while strlen(ylinep(yl)) == 0 [ // get rid of any empty trailing lines
+		yl = yl - 1
+		]
+	ml = split mlinep, menbuf, lf
+	while m < ml [ // process each line in the second file
+		mct = split mgenrep, mlinep(m), ","
+		while strlen(mgenrep(mct)) == 0  [ // get rid of any empty "genres"
+			mct = mct - 1
+			]
+		mg = 0
+		while mg <= mct [ // process each of the "genres"
+			y = 0
+			while y <= yl [ // process each line in the first file
+				// is the "genre" in the line?
+				if index ylinep(y), strlen(ylinep(y)), mgenrep(mg), strlen(mgenrep(mg)) [
+					sim(y) = sim(y) + 1
+					]
+				y = y + 1
+				]
+			mg = mg + 1
+			]
+		m = m + 1
+		]
+	while yl >= 0 [
+		printf "%c%s scored %d", 10, ylinep(yl), sim(yl)
+		yl = yl - 1
+		]
+	]

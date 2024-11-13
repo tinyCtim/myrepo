@@ -1,0 +1,3 @@
+url.1.tc downloads and compares files.
+md.tc (message digest) is used to give the message digest for both files.
+A shared object that supports this is used. (Windows) 

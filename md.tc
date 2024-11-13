@@ -1,0 +1,42 @@
+#include pps/mathLib.tc
+#include pps/library.tc
+
+// md.tc - 2/15/15, 8/2,3,5/20 - lrb
+
+[
+
+This program reads files and outputs a "message digest." This is an 8
+hexadecimal digit number created with a simple hashing algorithm. The
+idea is two files which differ will with high probability generate
+different message digests and two files that generate the same message
+digest will with high probability be the same.
+
+I learned about this from my friend Nhung Blaschke who was at the time a
+peer tutor at Tunxis Community College. It was written in C++.
+
+]
+
+md char fn(0) [ // calculate message digest
+	int s1, s2, s3, s4, m1, m2, m3, m4, i, bytes
+	char b, a(8), where(5000)
+	bytes = readfile fn, where, 5000
+	m1 = 3; m2 = 7; m3 = 13; m4 = 23
+	while i < bytes [
+		b = where(i)
+		s1 = (s1 + b * m1) % 256
+		s2 = (s1 + s2 + b * m2) % 256
+		s3 = (s1 + s2 + s3 + b * m3) % 256
+		s4 = (s1 + s2 + s3 + s4 + b * m4) % 256
+		i = i + 1
+		]
+	ctoh s1, a; ctoh s2, a + 2; ctoh s3, a + 4; ctoh s4, a + 6
+	printf "%cMD value of %s is %s%c", 10, fn, a, 10
+	]
+
+main [
+	char fn(40)
+	printf "%cmd.tc - 8/5/20 - lrb%c", 10, 10
+	printf "%cEnter file to process : ", 10; gs fn
+	md fn
+	]
+

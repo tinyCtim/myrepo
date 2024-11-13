@@ -1,0 +1,58 @@
+
+notes on hash.9.30.24.tc
+
+This is a program that tests your knowledge of related words. Two lists
+of words are presented. You enter four numbers in response to four
+questions. If the 1st word in the 1st list corresponds to the 3rd word
+(say) in the second list, you enter a 3. If the 2nd word in the 1st
+list corresponds to the 2nd word (say) in the second list, you enter a 2.
+etc.
+
+The program is called hash.9.30.24.tc because it uses a very simple
+"hashing" method to determine if you get them all right.
+
+The program will just announce how you should invoke it if you don't
+supply a command tail. The -r command line option is tinyC's way to run
+a function other than the main function. In this case you are feeding it
+the function named file and the name of an input file.
+
+Here's an example of a file that would work:
+
+zero,aardvark,epistle,funny,second,first,last,third,3214,
+
+see http://primepuzzle.com/not.just.tiny.c/hash.txt
+
+The matching pairs are explained below. In this example, the
+correspondence is based on the alphabetic order of the words in the
+first list.
+
+first list    second list
+
+zero          second
+aardvark      first
+epistle       last
+funny         third
+
+zero is the alphabetically last word (word 3 in the second list)
+aardvark is the alphabetically first (word 2 in the second list)
+epistle is the alphabetically second (word 1 in the second list)
+funny is the alphabetically third (word 4 in the second list)
+
+The #include lines in the program are needed because it uses
+functions they contain.
+
+Comments in tinyC programs are lines that begin with //. "Sneaky block
+comments" use a pair of left and right brackets.
+
+The file function reads the input file into a buffer. It also reports
+how many bytes are read and how many bytes are used. Any bytes that
+appear after the last comma are displayed.
+
+The split function is used to populate the first 8 values into 8
+variables and the last value into another variable. The function atoi is
+used to turn this last string into an integer.
+
+The user is asked to enter the 4 answers she/he thinks are correct. A
+numeric comparison is made at the end to see if the answer is correct or
+incorrect.
+

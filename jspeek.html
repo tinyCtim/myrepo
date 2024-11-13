@@ -1,0 +1,133 @@
+<html>
+<!-- jspeek.html - lrb - 3/12/9 -->
+<head>
+<link rel="shortcut icon" href="http://primepuzzle.com/blog/tobee.ico">
+<title>English / Toby Speak Online Translator</title>
+<script src=http://primepuzzle.com/blog/tobee.dic></script>
+<script src=http://primepuzzle.com/blog/twep.dic></script>
+<script src=http://primepuzzle.com/blog/jun08.dic></script>
+<script src=http://primepuzzle.com/blog/jul08.dic></script>
+<script src=http://primepuzzle.com/blog/sep08.dic></script>
+<script src=http://primepuzzle.com/blog/oct08.dic></script>
+<script src=http://primepuzzle.com/blog/nov08.dic></script>
+<script src=http://primepuzzle.com/blog/dec08.dic></script>
+<script src=http://primepuzzle.com/blog/mar09.dic></script>
+<script>
+wuds=tobee+twep+jun08+jul08+sep08+oct08+nov08+dec08+x
+p=nwuds=0
+while ((ia=wuds.substr(p).indexOf('~'))!=-1) {nwuds++;p+=ia+1}
+// Converts an integer (unicode value) into a char
+function itoa(i) {return String.fromCharCode(i)}
+// Converts a char into an integer (unicode value)
+function atoi(a) {return a.charCodeAt()}
+function doitc (p,what) { // clear a form
+if (p==1) what.form.intext.value=''
+else what.form.outtext.value=''
+}
+function doit (p,what) { // translate text in one form and put it in the other
+totrans=(p==1)?what.form.intext.value:what.form.outtext.value
+totransw='';sp='",.?!;:<>)(\n'
+for (i=0;i<totrans.length;i++) { // pad special chars w/ a space
+  if (sp.indexOf(totrans.substr(i,1))!=-1) totransw+=' '+totrans.substr(i,1)+' '
+  else {totransw+=totrans.substr(i,1)}}
+totrans=totransw+' ';trans=''
+while ((is=totrans.indexOf(' '))!=-1) {
+  wud=totrans.substr(0,is)
+  uc=0;if (wud.substr(0,1)>='A' && wud.substr(0,1)<='Z') {
+    // change upper case to lower case
+    x=atoi(wud.substr(0,1));x+=32;y=itoa(x);wud=y+wud.substr(1);uc=1
+    }
+  totrans=totrans.substr(is+1) // remove word being worked on from input
+  iw=(p==1)?wuds.indexOf('_'+wud+'_'):wuds.indexOf('~'+wud+'_')
+  if (iw!=-1) { // in dictionary
+    wudst='';j=0
+    if (p==1) // word pair has this structure:  _foo_->~bar_
+      while ((w=wuds.substr(iw+wud.length+1+4+j,1))!='_') {
+        j++;wudst=wudst+w
+        } // translate
+    else
+      while ((w=wuds.substr(iw-4+j,1))!='_') {
+        j--;wudst=w+wudst
+        } // untranslate
+    wud=wudst
+    }
+  if (uc==1) { // revive upper case
+    if (wud.substr(0,1)>='a'&&wud.substr(0,1)<='z') { // 2nite shouldn't be upper cased
+      x=atoi(wud.substr(0,1))-32;y=itoa(x);wud=y+wud.substr(1)
+      }
+    }
+  trans+=wud+' '
+  }
+for (i=0;i<sp.length;i++) // remove padding space
+  while ((is=trans.indexOf(' '+sp.substr(i,1)+' '))!=-1) {
+    trans=trans.substr(0,is)+sp.substr(i,1)+trans.substr(is+3)
+    }
+trans+='\n\nTranslation by http://primepuzzle.com/blog/jspeek.html'
+trans+='\nusing a '+nwuds+' word dictionary.'
+if (p==1) what.form.outtext.value=trans
+else what.form.intext.value=trans
+}
+</script>
+<script>
+randombgs=[
+'categoryrain.jpg','birfday.jpg','empurroar.jpg','tobeelama.jpg',
+'tobee.jpg','toby_cowboy.jpg','crazy_tongue.gif',
+'station-mastah-2.jpg','station-mastah-1.jpg','obama-kittens.jpg',
+'lipstick-r.jpg','doctor.5.jpg','santa-claus.jpg','math.5.jpg',
+'puzzle.19.jpg','rectangles.jpg','valentymes.jpg','Matchstick_Lighter.jpg',
+'15951.jpg','amoeba.jpg','bike3.jpg','merritt_090302_9117.NEF.jpg',
+'leprechaun1.jpg','envelope.jpg','birfday.79.jpg']
+</script>
+</head>
+<body bgcolor=#808080>
+<table align=center width=89%><tr><td align=center>
+<form name='form'>
+<a href=http://primepuzzle.com/blog/jspeek.html><font size=+0 color=#ffffff><b>English / Toby Speak Online Translator</b></font></a>
+<p>
+<textarea name='intext' cols=80 rows=3></textarea>&nbsp;
+<p>
+<input value='Translate English to Toby Speak' type=button onClick='doit(1,this)'>
+&nbsp;<input value='Clear' type=button onClick='doitc(1,this)'>
+<p>
+<textarea name='outtext' cols=80 rows=3></textarea>&nbsp;
+<p>
+<input value='Dranzlade Tobee Speek tah Inglish' type=button onClick='doit(2,this)'>
+&nbsp;<input value='Clear' type=button onClick='doitc(2,this)'>
+</form>
+<p>
+<script>
+document.write('<b><font size=+0 color=#ffffff>Tobee sayz "Ize kno '+nwuds+' wurds!"</font></b>')
+</script>
+<p>
+<font size=+0 color=#ffffff><b>
+Want an "offline" Toby Speak translator? Grab <a href=http://primepuzzle.com/blog/tspeek.zip>tspeek.zip</a>
+<p>
+<script>
+jpg=randombgs[Math.floor(Math.random()*randombgs.length)]
+document.write('<img title='+jpg+' src=http://primepuzzle.com/blog/'+jpg+'>')
+document.write('<p>All '+randombgs.length+' images of Toby were created by DeeDee. Hit Refresh to see a different one!')
+</script>
+<script>
+function jumpurl(form) {location=form.title.options[form.title.selectedIndex].value}
+</script>
+<center>
+<form>
+<select name='title' multiple size=5 onChange='jumpurl(this.form)'>
+<script>
+for (i=0; i<randombgs.length; i++)
+  document.write('<option value='+randombgs[i]+'> ('+(i+1)+') '+randombgs[i].substr(0,randombgs[i].indexOf('.')))
+</script>
+</select>
+<p>
+
+Tired of hitting Refresh to see your favorite pic of Toby? Pick from the
+drop-down list above. Hit your Back button to come back here.
+
+</form>
+</center>
+</b></font>
+</td></tr></table>
+<p>
+</body>
+</html>
+

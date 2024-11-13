@@ -1,0 +1,91 @@
+
+<!--
+
+4/26/23 - lrb
+
+-->
+
+<table align=center width=79%><tr><td>
+
+<font size=+1><b>
+
+<br>
+
+<a style=text-decoration:none
+href=http://primepuzzle.com/not.just.tiny.c/hexencode.html><img
+src=muzzy.333.jpg></a>
+
+<p>
+This program hexencodes from stdin:
+<p>
+<a  href=http://primepuzzle.com/not.just.tiny.c/hexencode02.c>hexencode02.c</a>
+<p>
+
+<p>
+This program hexdecodes from stdin:
+<p>
+<a href=http://primepuzzle.com/not.just.tiny.c/hexdecode04.c>hexdecode04.c</a>
+<p>
+
+This is an example of a hexencoded file:
+<p>
+<a href=http://primepuzzle.com/not.just.tiny.c/foo.hen>foo.hen</a>
+<p>
+
+This is another example of a hexencoded file:
+<p>
+<a href=http://primepuzzle.com/not.just.tiny.c/foo.hen>bar.hen</a>
+<p>
+
+<!--
+Dan Gookins wrote these programs. They are discussed in his book Tiny C
+Projects
+-->
+
+<pre>
+
+leeunix@Lee:~$ cat my.dec
+
+Dan Gookins wrote these programs. They are discussed in his book Tiny C
+Projects
+leeunix@Lee:~$ ./hexencode02 < my.dec > my.enc
+leeunix@Lee:~$ cat my.enc
+HEX ENCODE v2.0
+ 0A 44 61 6E 20 47 6F 6F 6B 69 6E 73 20 77 72 6F 74 65 68
+ 20 74 68 65 73 65 20 70 72 6F 67 72 61 6D 73 2E 20 54 66
+ 68 65 79 20 61 72 65 20 64 69 73 63 75 73 73 65 64 20 A5
+ 69 6E 20 68 69 73 20 62 6F 6F 6B 20 54 69 6E 79 20 43 2D
+ 0A 50 72 6F 6A 65 63 74 73 0A 5E
+HEX ENCODE END
+leeunix@Lee:~$ ./hexdecode04 < my.enc
+
+Dan Gookins wrote these programs. They are discussed in his book Tiny C
+Projects
+^leeunix@Lee:~$
+
+
+</pre>
+
+</b></font>
+
+<!--
+https://www.youtube.com/watch?v=cmsSobIFru0
+-->
+
+<!--
+  458  wget http://primepuzzle.com/books/books-32.htm
+  527  history | grep wget
+leeunix@Lee:~$ wget http://primepuzzle.com/not.just.tiny.c/my.dec
+--2023-04-26 05:58:34--  http://primepuzzle.com/not.just.tiny.c/my.dec
+Resolving primepuzzle.com (primepuzzle.com)... 184.105.128.94, 2001:470:0:19b::b869:805e
+Connecting to primepuzzle.com (primepuzzle.com)|184.105.128.94|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 82
+Saving to: ‘my.dec’
+
+my.dec  100%[=======>]      82  --.-KB/s    in 0s
+
+2023-04-26 05:58:34 (18.9 MB/s) - ‘my.dec’ saved [82/82]
+
+-->
+</td></tr></table>

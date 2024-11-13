@@ -1,0 +1,208 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// This is a word search program.
+
+int firstrow, firstcol, i
+char board(10*10), bboard(500)
+
+reverse char word(0) [
+	int len;len = strlen(word)
+	int i; i = len
+	char foo(10)
+	while i >= 1 [
+	 	foo(i-1) = word(len - i); i = i - 1 
+		]
+	strcpy word, foo
+	]
+
+ne1_fill_diag [
+	int startrow, startcol
+	startrow = firstrow; startcol = 0
+	while startrow >= 0 [
+		bboard(i) = board(startrow * 10 + startcol)
+		i = i + 1; startcol = startcol + 1; startrow = startrow - 1
+		]
+	bboard(i) = ','
+	i = i + 1
+	]
+
+ne2_fill_diag [
+	int startrow, startcol
+	startrow = 9; startcol = firstcol
+	while startcol <= 9 [ 
+		bboard(i) = board(startrow * 10 + startcol)	
+		i = i + 1	
+		startcol = startcol + 1; startrow = startrow - 1	
+		]
+	bboard(i) = ','
+	i = i + 1
+	]
+
+ne_fill_diagonals [
+	firstrow = 2
+	while firstrow <= 9 [
+		ne1_fill_diag
+		firstrow = firstrow + 1
+		]
+	firstcol = 1
+	while firstcol <= 7 [
+		ne2_fill_diag
+		firstcol = firstcol + 1
+		]
+	]
+
+se1_fill_diag [
+	int startrow, startcol
+	startrow = 0; startcol = firstcol
+	while startcol <= 9 [
+		bboard(i) = board(startrow * 10 + startcol)
+		i = i + 1; startcol = startcol + 1; startrow = startrow + 1
+		]
+	bboard(i) = ','
+	i = i + 1
+	]
+
+se2_fill_diag [
+	int startrow, startcol
+	startrow = firstrow; startcol = 0
+	while startrow <= 9 [
+		bboard(i) = board((startrow) * 10 + startcol)	
+		i = i + 1	
+		startcol = startcol + 1; startrow = startrow + 1	
+		]
+	bboard(i) = ','
+	i = i + 1
+	]
+
+se_fill_diagonals [
+	firstcol = 7
+	while firstcol >= 0 [
+		se1_fill_diag
+		firstcol = firstcol - 1
+		]
+	firstrow = 1
+	while firstrow <= 7 [
+		se2_fill_diag
+		firstrow = firstrow + 1
+		]
+	]
+
+fill_rows [
+	firstrow = 0
+	while firstrow <= 9 [
+		firstcol = 0
+		while firstcol <= 9 [
+			bboard(i) = board(firstrow * 10 + firstcol)	
+			firstcol = firstcol + 1
+			i = i + 1
+			]
+		bboard(i) = ','
+		i = i + 1
+		firstrow = firstrow + 1	
+		]
+	]
+
+fill_cols [
+	firstcol = 0
+	while firstcol <= 9 [
+		firstrow = 0
+		while firstrow <= 9 [
+		bboard(i) = board(firstrow * 10 + firstcol)
+			firstrow = firstrow + 1
+			i = i + 1
+			]
+		bboard(i) = ','
+		i = i + 1
+		firstcol = firstcol + 1
+		]
+	]
+
+main [
+	char qc, bc; qc = 34; bc = 92
+	printf "usage: tc words.2.tc -r %cwords%c%cfilename%c%c%c", qc, bc, qc, bc, qc, qc
+	]
+
+words char file(0) [
+	printf "%cwords.2.tc - 4/29/21 - lrb%c", 10, 10
+	char boardf(30), wordsf(30), wbuff(200), bbuff(101), foo(10), bar(10)
+	int wflen, bflen, wctr, t(50), p, n, foundcnt, bb(100), howmany, ix, iy, k
+//	printf "%cEnter name of words file : ", 10
+//	gs wordsf
+	strcpy wordsf, "words."; strcat wordsf, file; strcat wordsf, ".txt" 
+	wflen = readfile wordsf, wbuff, 200
+	if wflen == 0 [printf "%cfile not found", 10; break]
+// 	printf "Enter name of board file : "
+// 	gs boardf
+	strcpy boardf, "board."; strcat boardf, file; strcat boardf, ".txt" 
+	bflen = readfile boardf, bbuff, 101
+	if bflen == 0 [printf "%cfile not found", 10; break]
+	wbuff(wflen - 1) = 0
+	bbuff(bflen - 1) = 0
+	wctr = split t, wbuff, " "
+	while p < wctr [	// display words
+		pl t(p)
+		p = p + 1
+		]
+	p = 0
+	printf "%c%c", 10, 10
+	while p < 10 [	// display board
+		pft bbuff + p * 10, bbuff + p * 10 + 9
+		pl ""
+		p = p + 1
+		]
+	strcpy board, bbuff
+	// fill "strips"
+	ne_fill_diagonals
+	se_fill_diagonals
+	fill_rows
+	fill_cols
+	howmany = split bb, bboard, ","
+	printf "%cthere are %d strips%c%c", 10, howmany, 10, 10
+	printf "ne and sw strip #s go from 1 to 15%c", 10
+	printf "se and nw strip #s go from 16 to 30%c", 10
+	printf "e and w strip #s go from 31 to 40%c", 10
+	printf "s and n strip #s go from 41 to 50%c", 10
+	while n < wctr [	// search "forward"
+		k = 0
+		while k < howmany [
+			ix = index (bb(k), strlen(bb(k)), t(n), strlen(t(n)))
+			if ix != 0 [foundcnt = foundcnt + 1; break]
+			k = k + 1
+			]
+		if ((k < howmany) * (ix != 0)) [
+			printf "%c %d %s", 10, foundcnt, t(n)
+			printf " found in %s at position %d", bb(k), ix
+			printf " in %dth strip dir = ", k + 1
+			p = k + 1
+			if p <= 15 [ps "ne"]
+			if ((p >= 16) * (p <= 30)) [ps "se"]
+			if ((p >= 31) * (p <= 40)) [ps "e"]
+			if ((p >= 41) * (p <= 50)) [ps "s"]
+			]
+		n = n + 1
+		]
+	n = 0
+	while n < wctr [	// search "backward"
+		k = 0
+		while k < howmany [
+			strcpy foo, bb(k); reverse foo
+			iy = index (foo, strlen(foo), t(n), strlen(t(n)))
+			if iy != 0 [foundcnt = foundcnt + 1; break]
+			k = k + 1
+			]
+		if ((k < howmany) * (iy != 0)) [
+			printf "%c %d %s", 10, foundcnt, t(n)
+			printf " found in %s at position %d", foo, iy
+			printf " in %dth strip dir = ", k + 1
+			p = k + 1
+			if p <= 15 [ps "sw"]
+			if ((p >= 16) * (p <= 30)) [ps "nw"]
+			if ((p >= 31) * (p <= 40)) [ps "w"]
+			if ((p >= 41) * (p <= 50)) [ps "n"]
+			]
+		n = n + 1
+		]
+	pl ""
+	]
+

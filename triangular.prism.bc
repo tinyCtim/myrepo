@@ -1,0 +1,12 @@
+/* by jmr - 1/28/22 */
+
+/*
+added scale ...
+*/
+
+/* scale=8 */
+
+/* bc triangular.prism.bc -l */
+
+define v(i, o, p) { return sqrt(i^2 - (o/2)^2 ) * o/2 * p; }
+v(26.7,48,16)

@@ -1,0 +1,43 @@
+
+white [
+MC '\'-'A', 1; MC '\'-1, 1; MC '3', 1; MC '7', 1; MC 'm', 1
+]
+
+cold [
+char one
+printf "%center number in 0..9 ",10
+one = getchar
+your '0','0',one
+printf "%cWhat color is your parachute?",10
+// white
+]
+
+your char h, t, o [
+MC '\'-'A', 1;MC '\'-1, 1;MC '3', 1;MC '8', 1;MC ';', 1;MC '5', 1
+MC ';', 1;MC h, 1; MC t, 1; MC o, 1;MC 'm', 1;
+if yes=='y' [MC h, 1; MC t, 1; MC o, 1;]
+]
+
+char yes
+
+main [
+white
+printf "%ccold.tc - lrb - 11/1/24%c%c", 10, 10, 10
+int i, j, k;char h, t, o;int brk
+yes = 'y'
+while ((brk==0) * (i<=2)) [
+h = i + '0';j = 0
+while ((brk==0) * (j<=9)) [
+t = j + '0';k = 0
+while k <= 9 [
+if (100 * i + 10 * j + k == 256) [brk = 1; break]
+o = k + '0'
+your h,t,o
+k = k + 1
+] // k
+j = j + 1
+] // j
+i = i + 1
+] // i
+MC 10, 1
+]

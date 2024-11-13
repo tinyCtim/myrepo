@@ -1,0 +1,99 @@
+
+/* Input: */
+
+/* Date as a 4-tuple */
+
+/* It's an encoded day of week,year,encoded month,day of month */
+
+/* Sunday=0, Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6 */
+
+/* January=0, February=1, March=2, April=3, May=4, June=5 */
+/* July=6, August=7, September=8, October=9, November=10, December=11 */
+
+/* 0,2017,0,15 represents Sunday 2017 January 15 */
+
+/* 1,2018,1,19 represents Monday 2018 February 19 */
+
+/* Output: */
+
+/* The month and year of the first occurrence of Friday the 13th that occurs after the input date */
+
+/* You may assume that the user's input is valid. */
+
+/* fri13.tc - 1/18/17 - tct */
+// updated on 9/13/24
+
+int gday_of_week,gyear,gmonth,gday
+int is_a_leap_year
+
+split int t(0);char s(0),d(0) [
+ int y,ix,tx,sl,ds;ds=strlen(d);t(0)=s;sl=strlen(s)
+ while (sl-tx) [
+  ix=index(s+tx,sl-tx,d,ds)
+  tx=tx+ix+ds-1;y=y+1;t(y)=s+tx;s(tx-ds)=0
+  ]
+ return y
+ ]
+
+leap_year int year [
+ if (year%400==0) return 1
+ else if (year%100==0) return 0
+ else if (year%4==0) return 1
+ else return 0
+ ]
+
+fix_g [ /* catch the illegals */
+ if (gday==32) [
+  if (gmonth==11) [
+   gmonth=0;gday=1;gyear=gyear+1;is_a_leap_year=leap_year(gyear)
+   ]
+ else [
+  gmonth=gmonth+1;gday=1
+  ]
+ ]
+ else if (gday==31) [
+  if ((gmonth==3)+(gmonth==5)+(gmonth==8)+(gmonth==10)) [gmonth=gmonth+1;gday=1;]
+  ]
+ else if (gday==30) [
+  if (gmonth==1) [
+   if (is_a_leap_year) [gmonth=2;gday=1]
+   ]
+  ]
+ else if (gday==29) [
+  if (gmonth==1) [
+   if (is_a_leap_year==0) [gmonth=2;gday=1]
+   ]
+  ]
+ ]
+
+main [
+ pl "enter day_of_week (0 thru 6 Sun thru Sat) : ";gday_of_week=gn
+ pl "enter year (e.g. 2024) : ";gyear=gn
+ pl "enter month (0 thru 11 Jan thru Dec) : ";gmonth=gn
+ pl "enter day (1 thru 31) : ";gday=gn
+ fri13
+ ]
+
+fri13 [
+ int month_name(12)
+ int day_of_week_name(7)
+ char foo(100),bar(100)
+ strcpy(foo,"Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,")
+ split month_name,foo,","
+ strcpy(bar,"Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,")
+ split day_of_week_name,bar,","
+ pl "Start date: "
+ ps day_of_week_name(gday_of_week);putchar ' ';ps month_name(gmonth);pn gday;pn gyear
+ gday=gday+1;gday_of_week=gday_of_week+1;gday_of_week=gday_of_week%7;
+ if ((gday==32)*(gmonth==11)) [gday=1;gmonth=0;gyear=gyear+1]
+ is_a_leap_year=leap_year(gyear)
+
+ while (((gday_of_week==5)*(gday==13))==0) [ /* main loop */
+  gday=gday+1;
+  fix_g
+  gday_of_week=gday_of_week+1;gday_of_week=gday_of_week%7;
+  ]
+
+ pl "The next Friday the thirteenth occurs in "
+ ps month_name(gmonth);pn gyear
+ ]

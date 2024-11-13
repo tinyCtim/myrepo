@@ -1,0 +1,50 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// 5/6/19 - lrb
+
+colorx char c [
+ // MC '\'-'A',1;MC '\'-1,1;MC '3',1;MC c,1;MC 'm',1
+ // hilo '0'
+ color c
+ pl "'0' black '1' red"
+ pl "'2' green '3' yellow"
+ pl "'4' blue  '5' magenta"
+ pl "'6' cyan  '7' white"
+ pl ""
+ ]
+
+main [
+ pl "color.tc - lrb - 4/3/18, 5/6/19"
+ char c
+ char tcbuff(40)
+ getproperty "pps/version.prop","os =",tcbuff,40,"..."
+ char os(30);strcpy os,tcbuff
+ pl ""
+ c='0'
+ while c<='7' [
+  if (index(os,strlen(os),"Linux",5)) colorx c
+  pl ""
+  putchar c
+  pl ""
+  c=c+1
+  ]
+ pl ""
+ ]
+ 
+try [
+ char c
+ lrblibver
+ char tcbuff(40)
+ getproperty "pps/version.prop","os =",tcbuff,40,"..."
+ char os(30);strcpy os,tcbuff
+ char yellow;yellow='3';char white;white='7';char red;red='1'
+ char blue;blue='4'
+ char buffer(40)
+ cdate buffer
+ if (index(os,strlen(os),"Linux",5)) colorx white
+ pl "Enter number 0..7 ";c=getchar;pl ""
+ if (index(os,strlen(os),"Linux",5)) colorx c
+ pl buffer
+ ]
+

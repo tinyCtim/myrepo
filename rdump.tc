@@ -1,0 +1,40 @@
+#include pps/library.tc
+#include pps/mathLib.tc
+#include pps/lrblib.tc
+
+// rdump.tc - lrb - 4/12/21
+
+main [
+ char fn(34)
+ printf "%crdump.tc - lrb - 4/12/21%c",10,10
+ printf "%cfile to dump? ",10
+ gs fn
+ rdump fn
+ ]
+ 
+rdump char fn(0) [ // dump file in hex and ascii
+ char file(30000),a(2),b(1),foo(16);int bytes,i,j,k
+ bytes=readfile fn,file,30000
+ printf "%cRec  0%c%c",10,10,10
+ while i<bytes [
+  if i%16==0 [
+   if i [printf " %s",foo;strcpy foo,"");printf "%c",10]
+   k=k+1
+   if ((k%17==0)+(k%9==0)) [
+    if (k%17==0) [sak;k=1]
+    printf "%cRec  %d%c%c",10,i/128,10,10
+    ]
+   ]
+  b(0)=j=file(i);if j<0 j=j+256
+  if ((b(0)>=' ')*(b(0)<='~')) strcat foo,b
+  else strcat foo,"."
+  ctoh j,a;printf "%s ",a
+  i=i+1
+  ]
+ if ((j=strlen(foo))==16) printf " %s",foo
+ else if j [
+  while j<16 [j=j+1;printf "   "]
+  printf " %s",foo
+  ]
+ printf "%c",10
+ ]

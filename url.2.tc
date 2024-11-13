@@ -1,0 +1,29 @@
+#loadMC urldownloadpi
+
+// url.2.tc - lrb - 10/28/24
+
+urldownload char url(0) [
+	return MC url, 1001
+	]
+
+// this program downloads a file 
+
+main [
+	int bsize; bsize = 45000
+	int remote_bytes, rv
+	char ftc(30),subdirectory(50)
+	printf "%cwhat is the name of the file you want to download? ", 10
+	gs ftc
+	pl ""
+	char remote(100)
+	strcpy remote, "http://primepuzzle.com/"
+	printf "%cwhat is the name of the subdirectory ", 10
+	gs subdirectory
+	strcat remote, subdirectory
+	strcat remote, "/"
+	strcat remote, ftc
+	rv = urldownload remote // download the remote file
+	if (rv != 1) [printf "%c%s not found%c", 10, remote, 10; abort]
+	printf "%c%s downloaded to url.txt", 10, remote
+	]
+

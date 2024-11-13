@@ -1,0 +1,9 @@
+1 INPUT "enter a number, like .001 "; S
+2 REM s=0.0001
+3 X2=1-S
+10 FOR X1=S TO 1 STEP S
+20 A1=S * (-X1 * (X1-1))
+30 X2=X2 - 2*A1/(-X2 * (X2-1))
+40 IF X2<X1 THEN END
+50 PRINT X1,X2
+60 NEXT X1

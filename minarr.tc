@@ -1,0 +1,24 @@
+
+// find the minimum value in an array of integers
+// a recursive solution in tinyC
+
+min int x,y [
+ if x<y return x
+ else return y
+ ]
+
+minarr int arr(0),n [
+ if n==0 return arr(0)
+ else return min(arr(n-1),minarr(arr,n-1))
+ ]
+
+main [
+ pl "minarr.tc - lrb - 4/5/22";pl ""
+ int arr(16),i
+ pl "enter random integer : ";seed=last=gn;pl ""
+ while i<=16 [arr(i)=random(-100,100);pn arr(i);i=i+1]
+ pl "";pl ""
+ pn minarr(arr,16)
+ pl ""
+ ]
+

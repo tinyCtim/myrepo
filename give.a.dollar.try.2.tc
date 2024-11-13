@@ -1,0 +1,91 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// ref: https://www.facebook.com/groups/299317782048/posts/10160467717107049/
+
+show_data int n, data(0) [ // display the integers in the array
+	int i
+	while i < n [
+		pn data(i)
+		i = i + 1
+		if i % 20 == 0 pl ""
+		]
+]
+
+ssort int data(0), n [ // selection sort
+ int min, i, j, k
+ while i < n - 1 [
+  j = i + 1
+  min = data(i)
+  k = i
+  while j < n [ // find smallest integer in unsorted data
+   if data(j) < min [
+    min = data(j)
+    k = j
+    ]
+   j = j + 1
+   ]
+  data(k) = data(i)
+  data(i) = min
+  i = i + 1
+  ]
+ ]
+
+give int lim, sd [
+ char yn
+ limit = lim
+ seed = last = sd
+ printf "%cwant to see progress dots? (y/n) : ", 10
+ yn = getchar
+ if yn == 'y' loud = 1
+ main
+ ]
+
+int limit
+int loud
+
+main [
+ char qt; qt = 34
+ int tot // 6/14/23 
+ printf "%c%cgive.a.dollar.try.2.tc - lrb - 6/14/23%c%c", 10, 10, 10, 10
+ if limit == 0 [
+  printf "%cUsage: tc give.a.dollar.try.2.tc -r %cgive(lim,sd)%c%c%c", 10, qt, qt, 10, 10
+  abort
+  ]
+ printf "%c", 10
+ int dollar(44), i, j, rn
+ char start(30), stop(30)
+ cdate start // capture start time
+ while i < 45 [ // give everybody $45 to start
+  dollar(i) = 45
+  i = i + 1
+  ]
+ while j < limit [ // main loop
+  i = 0
+  while i < 45 [ // inner loop
+   rn = random 0, 44 // moved this instruction up - 6/14/23
+   if dollar(i) > 0 [ // can't give if you don't have
+    while rn == i rn = random 0, 44 // can't give to self
+    dollar(rn) = dollar(rn) + 1 // give a random person $1
+    dollar(i) = dollar(i) - 1 // and deduct $1 from the giver
+    ]
+   i = i + 1
+   ] // end i
+  j = j + 1
+  if loud putchar '.' // show progress
+  ] // end j
+ int unit; unit = fopen "gad.txt", "w"
+ fpn_ns 45, unit; fputc 10, unit
+ i = 0
+ printf "%c%c", 10, 10
+ ssort dollar, 45 // sort the array
+ show_data(45,dollar); pl "";sak
+ while i < 45 [ // write out results
+  fpn_ns dollar(i), unit; fputc 10, unit
+  i = i + 1
+  ]
+ cdate stop // capture stop time
+ if loud printf "%c%cstart time : %s stop time : %s%c", 10, 10, start, stop, 10
+ fclose unit; printf "%cgad.txt written%c", 10, 10
+ ]
+

@@ -1,0 +1,65 @@
+<html>
+<!-- ip.html - lrb - 4/14/2012 -->
+
+<!-- 9/19/23 - handles letters, numbers, @, and space -->
+
+<!--
+https://tenor.com/search/dancing-letters-gifs
+-->
+
+<head>
+<link rel="icon" type="image/png" href="http://primepuzzle.com/dancing/letter-a-dancing.gif">
+<title>Dancing Letters!</title>
+<script src=http://primepuzzle.com/tpf/parms.js></script>
+<script>
+var nname='Hello',alertsw=0;
+if (params["nname"]) nname=unescape(params["nname"]?params["nname"]:"");
+if (params["alertsw"]) alertsw=unescape(params["alertsw"]?params["alertsw"]:"");
+function jumpurl(form) {location='ipl.try.html?alertsw='+alertsw+'&nname='+form.fnname.value;return true;}
+var prefix='http://primepuzzle.com/dancing/';
+</script>
+</head>
+<body>
+<table align=center width=83%><tr><td>
+<br>
+<font size=+1><b><center>
+<a href=http://primepuzzle.com/dancing/ipl.try.html><font size=+1><b>Dancing Letters!</b></font></a>
+<p>
+<script>
+var wrk='',indx,chr,ptext=nname;
+var alpha='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+for (i=0;i<ptext.length;i++) {
+ chr=ptext.substr(i,1);if (chr==' ' || chr=='+') chr='.';
+ indx=alpha.indexOf(chr);
+ if (chr=='?') chr='[';
+ if (indx==-1 && chr!='') wrk+=chr;
+ else {
+  if (indx>25 && indx<52) chr=alpha.substr(indx-26,1);
+  wrk+='<img src='+prefix+'letter-'+chr+'.gif>';
+ }}
+ if (alertsw==1) alert(wrk);
+ document.write(wrk+'<p>(<font color=darkblue>'+ptext+'</font>)');
+</script>
+<p>
+<form>
+<p>
+Fill in the text area and then click the Let's Dance! button
+<br><br>
+<p>
+<textarea name="fnname" rows="47" cols="50"></textarea>
+<p>
+<button type="button" onclick="jumpurl(this.form);">Let's Dance!</button>
+</form>
+<p>
+</center></b></font>
+<center>
+
+<audio controls><source src="http://primepuzzle.com/shakeyourbooty.mp3" type="audio/mpeg">Your browser does not support the audio tag.</audio>
+
+<!--
+<embed src="http://primepuzzle.com/shakeyourbooty.mp3" hidden=false loop=false autostart=true>
+-->
+
+</center>
+</td></tr></table>
+</body></html>

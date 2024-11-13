@@ -1,0 +1,141 @@
+#include pps/pyGraphicsLib.tc
+#include pps/library.tc
+
+main [xmas; pl""]
+
+xmas [
+
+pl "xmas.tc - lrb - 12/25/23"
+
+start "xmas", 900, 900
+rectangle 200,40,500,110
+
+//0
+moveto 220,90
+setfontsize 24
+setrgb 255,0,0 // red
+showtext "Merry__Christmas__Happy__New__Year"
+
+moveto 310,120
+setrgb 0,255,0 // green
+showtext "xmas.tc__lrb__12/25/23"
+
+setrgb 0,0,255 // blue
+//1
+moveto 110,850
+//2
+lineto 770,850
+//3
+lineto 770,660
+//4
+lineto 780,570
+next
+// full circle
+arc 780,570,30,0,360
+moveto 780,570
+//5
+lineto 670,550
+//6
+lineto 670,590
+//7
+lineto 625,575
+moveto 625,575
+//8
+lineto 625,640
+//9
+lineto 570,600
+//10
+lineto 475,640
+//11
+lineto 460,620
+//12
+lineto 300,700
+//13
+lineto 240,675
+//14
+lineto 175,625
+//15
+lineto 175,540
+//16
+lineto 225,575
+//17
+lineto 200,470
+next
+// full circle
+arc 200,470,30,0,360
+moveto 200,470
+//18
+lineto 260,450
+//19
+lineto 275,420
+//20
+lineto 280,400
+//21
+lineto 370,380
+//22
+lineto 400,425
+//23
+lineto 420,410
+//24
+lineto 440,450
+//25
+lineto 450,500
+//26
+lineto 625,500
+//27
+lineto 650,420
+//5
+lineto 670,550
+//27
+lineto 650,420
+//28
+lineto 660,390
+//29
+lineto 590,345
+//30
+lineto 670,300
+//31
+lineto 570,200
+next
+//full circle
+arc 570,200,30,0,360
+moveto 570,200
+//32
+lineto 545,220
+//33
+lineto 550,250
+//34
+lineto 475,250
+//35
+lineto 475,340
+//36
+lineto 450,335
+//37
+lineto 420,270
+//38
+lineto 350,285
+//39
+lineto 345,250
+//40
+lineto 260,210
+next
+// full circle
+arc 260,210,30,0,360
+moveto 260,210
+//41
+lineto 225,260
+//42
+lineto 250,320
+//43
+lineto 175,330
+//44
+lineto 255,420
+//19
+lineto 275,420
+//45
+moveto 240,675
+lineto 110,850
+
+showapp "mspaint.exe"
+show
+]

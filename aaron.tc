@@ -1,0 +1,57 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// aaron.tc - lrb - 11/3/21
+
+// This program displays the Ruth-Aaron pairs between user-supplied limits.
+// The code is similar to the code in lovers.tc, which computes amicable numbers.
+
+char primes(600)
+int primesa(150)
+
+sumpdiv int m,a(5) [ // sum of prime divisors
+ int o,s,v(0),i
+ while o<149 [
+  atoi primesa(o),v
+  if m%v(0)==0 [s=s+v(0);a(i)=v(0);i=i+1]
+  o=o+1
+  ]
+ return s
+ ]
+
+// 5, 24, 49, 77, 104, 153, 369, 492, 714, 1682, 2107, 2299, 2600, 2783, 5405,
+
+main [
+ int i,j,k,foo,bar,a(5),b(5),p,q,r
+ printf "%caaron.tc - 11/3/21 - lrb%c",10,10
+// load primes
+ strcpy primes,"2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 "
+ strcat primes,"73 79 83 89 97 101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 "
+ strcat primes,"179 181 191 193 197 199 211 223 227 229 233 239 241 251 257 263 269 271 277 281 "
+ strcat primes,"283 293 307 311 313 317 331 337 347 349 353 359 367 373 379 383 389 397 401 409 "
+ strcat primes,"419 421 431 433 439 443 449 457 461 463 467 479 487 491 499 503 509 521 523 541 "
+ strcat primes,"547 557 563 569 571 577 587 593 599 601 607 613 617 619 631 641 643 647 653 659 "
+ strcat primes,"661 673 677 683 691 701 709 719 727 733 739 743 751 757 761 769 773 787 797 809 "
+ strcat primes,"811 821 823 827 829 839 853 857 859 "
+ split primesa,primes," "
+ pl "Enter lower limit (2..5000) : ";i=gn;ps "Enter upper limit (2..5000) : ";j=gn
+ k=i
+ while k<=j [
+  p=0;while p<5 [b(p)=a(p)=0;p=p+1]
+  foo=sumpdiv k,a;bar=sumpdiv ((k+1),b)
+  if foo==bar [
+   p=0;q=1
+   printf "%c%d",10,k
+   while a(p)!=0 [pn a(p);q=q*a(p);p=p+1]
+   if q==k printf " *"
+   pl""
+   printf "%d",k+1
+   p=0;r=1
+   while b(p)!=0 [pn b(p);r=r*b(p);p=p+1]
+   if (r==(k+1)) printf " *"
+   ]
+  k=k+1
+  ]
+  pl""
+ ]
+

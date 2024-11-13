@@ -1,0 +1,17 @@
+D:\my-git-repo>tc fibpi.tc
+***  TINY-C VERSION 1.0,  COPYRIGHT 1977, T A GIBSON  ***
+        This C version copyright 2017, T A Gibson
+
+fibpi.tc - lrb - 6/25/21
+
+enter a number < 40 41
+
+fib(42) = 267914296
+
+fib(41) = 165580141
+
+ratio of these two Fibonacci numbers is 1.61803398874989483189
+
+done
+
+D:\my-git-repo>

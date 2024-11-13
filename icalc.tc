@@ -1,0 +1,449 @@
+[ Ed Davis - 27 Jul 2022
+
+    ed_davis2@yahoo.com
+
+    Tiny integer calculator
+
+    Priority Operator
+
+    11       ()
+    10       exponentiation: **
+    9        unary +, -, !
+    8        *, /, %
+    7        +, -
+    6        <<, >>
+    5        <, <=, >, >=
+    4        ==, !=
+    3        && ("and" is a synonym)
+    2        || ("or" is a synonym)
+    1        assignment: =
+
+    Follows standard C precedence where applicable
+
+    Expressions can also contain:
+
+    numbers
+    spaces
+    Also has 26 variables, named a,b, ..z
+    Also two functions: abs(expr) and rnd(expr)
+    Rnd returns a number >= 0 <= expr
+
+    For some reason, tiny-c doesn't like input from the clipboard,
+    so input has to be typed in.
+
+    examples:
+
+    2 + 3 * 4
+    = 14
+
+    (-1 * ((-1 * (5 * 15)) / 10))
+    = 7
+
+    (155 + 2 + 3 - 155 - 2 - 3 + 4) * 2
+    = 8
+
+    Spaces are not needed between operators and operands
+    (155+2+3-155-2-3+4)*2
+    = 8
+
+    a = 3 ** 4 / 5
+    = 16
+
+]
+
+// icalc.tc - 7/27/21 - minor edits - lrb
+// fixed parsing error in expr function - ed - 7/28/21
+// added exponentiation and introductory messages - lrb - 7/29/21
+// tweaked support for ^ per author's suggestions - lrb - 7/29/21
+
+// library: gs
+// Read a line from the terminal into buffer as a string
+// Also handle backspace
+
+gs char q(0) [
+    int x
+    x=0
+    while ((q(x) = MC(2)) != 10) [
+        if (q(x) == 13) break
+        if (q(x) == 24) [x = 0; pl("")]
+        else if (q(x) == 127) [if (x > 0) x = x - 1]
+        else if (q(x) == 8) [
+            if(x > 0) [
+                x = x - 1;
+                putchar(' ');
+                putchar(8);
+            ]
+        ]
+        else x = x + 1
+    ]
+    q(x) = 0
+    pl ""
+    return x
+]
+
+int buf_p, buf_len  // pos in input buffer, and len
+char buf(80)        // input buffer
+int the_num, sym    // last number read, symbol read
+int data(26)        // data store for var a,..z
+int data_index      // index of current var
+int error           // error encountered?
+
+// these are used as constants
+int eof_t, number_t, ident_t, unknown_t, NE, EQL, OR, AND, GE, LE, SHL, SHR, POW, RND, ABS
+char lparen, rparen, minus, bang, plus
+
+// get the next char from input string
+my_getc [
+    int ch
+
+    if (buf_p >= buf_len) return 26
+    ch = buf(buf_p)
+    buf_p = buf_p + 1
+    return ch
+]
+
+// need to rescan the last character
+my_putb [
+    buf_p = buf_p - 1
+]
+
+// boolean: is c numeric?
+digit char c [
+    return ((c >= '0') * (c <= '9'))
+]
+
+// end of transmission: ^z windows, ^d linux
+eot int c [
+    return ((c == 26) + (c == 4))
+]
+
+// get the next symbol from the input
+getsym [
+    int ch, p
+    char tmp(32)
+
+    // skip spaces
+    while (1) [
+        ch = my_getc()
+        if (ch != ' ') break
+    ]
+
+    //printf("getsym ch = %c %c", ch, 10)
+    // one of our operators? set sym appropriately
+    tmp(0) = sym = ch
+    if ((p = index("()+-/%", 6, tmp, 1)) > 0) [
+        ;
+    ] else if (ch == '=') [
+        ch = my_getc()
+        if (ch == '=')
+            sym = EQL
+        else if (eot(ch) == 0) my_putb()
+    ] else if (ch == '*') [
+        ch = my_getc()
+        if (ch == '*')
+            sym = POW
+        else if (eot(ch) == 0) my_putb()
+    ] else if (ch == '!') [
+        ch = my_getc()
+        if (ch == '=')
+            sym = NE
+        else if (eot(ch) == 0) my_putb()
+    ] else if (ch == '<') [
+        ch = my_getc()
+        if (ch == '=')
+            sym = LE
+        else if (ch == '<')
+            sym = SHL
+        else if (eot(ch) == 0) my_putb()
+    ] else if (ch == '>') [
+        ch = my_getc()
+        if (ch == '=')
+            sym = GE
+        else if (ch == '>')
+            sym = SHR
+        else if (eot(ch) == 0) my_putb()
+    ] else if (ch == '|') [
+        ch = my_getc()
+        if (ch == '|')
+            sym = OR
+        else [
+            printf("Expecting '||', found |%c%c", ch, 10)
+            sym = unknown_t
+            error = 1
+        ]
+    ] else if (ch == '&') [
+        ch = my_getc()
+        if (ch == '&')
+            sym = AND
+        else [
+            printf("Expecting '&&', found &%c%c", ch, 10)
+            sym = unknown_t
+            error = 1
+        ]
+    ] else if (digit(ch)) [
+        the_num = 0
+        while (digit(ch)) [
+            the_num = (10 * the_num) + (ch - '0')
+            ch = my_getc()
+        ]
+        if (eot(ch) == 0) my_putb()
+        sym = number_t
+    ] else if (alpha(ch)) [
+        // fold upper case to lower case
+        p = 0
+        while (alpha(ch)) [
+            if ((ch >= 'A') * (ch <= 'Z')) ch = ch + 32
+            if (p < 32) [
+                tmp(p) = ch
+                p = p + 1
+            ]
+            ch = my_getc()
+        ]
+        tmp(p) = 0
+        if (ceqn(tmp, "or", 3))
+            sym = OR
+        else if (ceqn(tmp, "and", 4))
+            sym = AND
+        else if (ceqn(tmp, "rnd", 4))
+            sym = RND
+        else if (ceqn(tmp, "abs", 4))
+            sym = ABS
+        else [
+            data_index = tmp(0) - 'a'
+            sym = ident_t
+        ]
+        if (eot(ch) == 0) my_putb()
+    ] else if (eot(ch)) [
+        sym = eof_t
+    ] else [
+        printf("unknown char %c%c", ch, 10)
+        sym = unknown_t
+        error = 1
+    ]
+    //printf("getsym sym = %d (%c) %c", sym, sym, 10)
+]
+
+// boolean: if s matches sym, get next symbol
+accept int s [
+    if (sym == s) [
+        getsym()
+        return 1
+    ]
+    return 0
+]
+
+// b ** e (exponentiation)
+pow int b, e [
+    int i, p
+
+    p = i = 1
+    while (i <= e) [
+        p = p * b
+        i = i + 1
+    ]
+    return p
+]
+
+// a shl b
+// 1 = * 2
+// 2 = * 4
+// 3 = * 8
+// 4 = * 16
+// 5 = * 32
+// 6 = * 64
+// 7 = * 128
+// 8 = * 256
+shl int a, b [
+    int mul
+
+    mul = pow(2, b)
+    return a * mul
+]
+
+shr int a, b [
+    int div
+
+    div = pow(2, b)
+    return a / div
+]
+
+paren_expr [
+    int n
+
+    accept(lparen)
+    n = expr(0)
+    if (accept(rparen) == 0) [
+        printf("Expecting right paren %c", 10)
+        return error = 1
+    ]
+    return n
+]
+
+// process an expression
+expr int minprec [
+    int n, offset
+
+    if (accept(minus)) [
+        n = -expr(9)
+    ] else if (accept(plus)) [
+        n = expr(9)
+    ] else if (accept(bang)) [
+        n = expr(9)
+        if (n == 0) n = 1
+        else n = 0
+    ] else if (sym == lparen) [
+        n = paren_expr()
+    ] else if (accept(RND)) [
+        n = paren_expr()
+        n = random(0, n)
+    ] else if (accept(ABS)) [
+        n = paren_expr()
+        if (n < 0) n = -n
+    ] else if (sym == number_t) [
+        n = the_num; getsym()
+    ] else if (sym == ident_t) [
+        n = data(data_index)
+        offset = data_index
+        getsym()
+    ] else if (sym == unknown_t) [
+        return 0
+    ] else [
+        printf("found %d, but expecting an operand %c", sym, 10)
+        return error = 1
+    ]
+
+    while (1) [
+        if        ((minprec <= 1) * (sym == '='))  [
+            getsym(); n = data(offset) = expr(1)    /* right associative, so no incr */
+
+        ] else if ((minprec <= 2) * (sym == OR))   [
+            getsym(); n = n + expr(3)
+            if (n) n = 1
+            else n = 0
+
+        ] else if ((minprec <= 3) * (sym == AND))  [
+            getsym(); n = n * expr(4)
+            if (n) n = 1
+            else n = 0
+
+        ] else if ((minprec <= 4) * (sym == EQL))  [
+            getsym(); n = n == expr(5)
+        ] else if ((minprec <= 4) * (sym == NE))   [
+            getsym(); n = n != expr(5)
+
+        ] else if ((minprec <= 5) * (sym == '<'))  [
+            getsym(); n = n <  expr(6)
+        ] else if ((minprec <= 5) * (sym == LE))   [
+            getsym(); n = n <= expr(6)
+        ] else if ((minprec <= 5) * (sym == '>'))  [
+            getsym(); n = n >  expr(6)
+        ] else if ((minprec <= 5) * (sym == GE))   [
+            getsym(); n = n >= expr(6)
+
+        ] else if ((minprec <= 6) * (sym == SHL))  [
+            getsym(); n = shl(n, expr(7))
+        ] else if ((minprec <= 6) * (sym == SHR))  [
+            getsym(); n = shr(n, expr(7))
+
+        ] else if ((minprec <= 7) * (sym == '+'))  [
+            getsym(); n = n + expr(8)
+        ] else if ((minprec <= 7) * (sym == '-'))  [
+            getsym(); n = n - expr(8)
+
+        ] else if ((minprec <= 8) * (sym == '*'))  [
+            getsym(); n = n * expr(9)
+        ] else if ((minprec <= 8) * (sym == '/'))  [
+            getsym(); n = n / expr(9)
+        ] else if ((minprec <= 8) * (sym == '%'))  [
+            getsym(); n = n % expr(9)
+
+        ] else if ((minprec <= 10) * (sym == POW)) [
+            getsym(); n = pow(n, expr(10))          /* right associative, so no incr */
+
+        ] else [
+            break
+        ]
+    ]
+    return n
+]
+
+size char me(0) [
+    char foo(13000)
+    return readfile me , foo , 13000
+]
+
+cpynl char arg(0) [
+    char nl(1); nl(0)=10
+    strcat helptxt, arg; strcat helptxt, nl
+]
+
+char helptxt(300)
+
+help [
+    pl ""
+    cpynl "11      ()"
+    cpynl "10      exponentiation: **"
+    cpynl "9       unary +, -, !"
+    cpynl "8       *, /, %"
+    cpynl "7       +, -"
+    cpynl "6       <<, >>"
+    cpynl "5       <, <=, >, >="
+    cpynl "4       ==, !="
+    cpynl "3       && (and is a synonym)"
+    cpynl "2       || (or is a synonym)"
+    cpynl "1       assignment: ="
+    pft helptxt,helptxt+strlen(helptxt)
+]
+
+main [
+    eof_t     = 0
+    number_t  = 1
+    ident_t   = 2
+    unknown_t = 3
+    NE        = 4
+    EQL       = 5
+    OR        = 6
+    AND       = 7
+    GE        = 8
+    LE        = 9
+    SHL       = 10
+    SHR       = 11
+    POW       = 12
+    RND       = 13
+    ABS       = 14
+    lparen = '('    // tiny c doesn't always like parens in expressions
+    rparen = ')'    // ditto
+    minus  = '-'    // or passing '-' instead of a variable
+    plus   = '+'    // ditto
+    bang   = '!'    // ditto
+
+    char msg(50); strcpy msg, "icalc3.1.tc - 7/29/22 - source code has"
+    printf "%c%s %d bytes%c%c", 10, msg, size("icalc3.1.tc"), 10, 10
+    printf("enter an expression at the > prompt, e.g.%c%c", 10, 10)
+    printf("(3 ** 4 / 5) - 7%c", 10)
+    printf("or a = (3 ** 4 / 5) - 7%c", 10)
+    printf("or b = 3%c", 10)
+    printf("or a ** b - 5%c", 10)
+
+    printf("%cpress Enter to quit%c%c", 10, 10, 10)
+
+    while (1) [
+        int n
+
+        ps(">")
+        buf_len = gs(buf)
+        // exit on empty lines
+        if (buf_len == 0) break
+
+        error = buf_p = 0
+        getsym()
+        if (sym == eof_t) break
+        n = expr(0)
+        if (error == 0)
+            if (sym == eof_t)
+                printf("= %d%c", n, 10)
+            else
+                printf("cannot parse expression - last sym %d %c", sym, 10)
+    ]
+]
+

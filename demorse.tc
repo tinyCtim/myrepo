@@ -1,0 +1,57 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// demorse.tc - decode Morse Code - lrb - 9/1,2,4,6/23
+
+// this was motivated by a post on the not just tinyC programming group and
+// was inspired by member Chang Carlos
+
+// globals
+
+int acode(40), amessage(200) // "pointers" to Morse Code strings and to message letters
+
+morse_to_ascii int mi [
+ int ci // code index
+ while ci <= 36 [
+  // require the letter code and the message code
+  // have same length and are the same string
+  if ((strlen(acode(ci)) == strlen(amessage(mi))) * (ceqn(amessage(mi), acode(ci), strlen(acode(ci))) == 1)) break
+  else ci = ci + 1
+  ]
+ if ci < 26 [putchar 'a' + ci; return]
+ if ci < 36 [putchar '0' + ci - 26; return]
+ putchar ' '
+ ]
+
+main [
+
+ int nm, nc // number of letters in message, number of codes supported
+ int mi // message index
+ char code(40*6), message(1000)
+ char filename(30)
+ int nb
+ 
+// strcat message, "... --- ... -..-. -.-. --.- " // SOS/CQ
+// strcat message, ".-.. .. ... .- -..-. --. -..-. -.-. -.-- .-. -..-. " // lisa/g/cyr/
+
+ printf "%cEnter name of file containing Morse Code : ",10
+ gs filename
+ nb = readfile filename, message, 1000
+ if nb <= 0 [printf "error on reading file"; abort]
+ printf "%c%s%c%cis %d bytes long%c%c", 10, message, 10, 10, nb, 10, 10
+ message(strlen(message) - 1 ) = 0
+ 
+ strcat code, ".- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- "         // a-m
+ strcat code, "-. --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --.. "       // n-z
+ strcat code, "----- .---- ..--- ...-- ....- ..... -.... --... ---.. ----. "  // 0-9
+ strcat code, "-..-. " // slash, a code used to separate words in a message
+
+ nm = split amessage, message, " "
+ nc = split acode, code, " "
+
+ while mi < nm [
+  morse_to_ascii(mi)
+  mi = mi + 1
+  ]
+ ]
+

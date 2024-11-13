@@ -1,0 +1,108 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// socks.try.tc.2 - lrb - 6/28/23
+
+[
+This program simulates the drawing of single socks from a bureau. You
+specify the number of different colors of socks you have. You continue
+to draw single socks until you have two pairs. e.g. two whites and two
+blues, or four whites. It can been shown that the worst case for c
+colors and f feet is 2f+(c-1)(f-1) socks. If you have 3 colors and 2
+feet, you need to draw 6 socks to guarantee you have two pair. You need
+to draw 19 socks if you have 16 colors to guarantee you have two pair.
+
+The average number of socks you draw to get your two pair is
+substantially fewer than the number that will guarantee you have two
+pair. e.g. the average is about 9 when there are 16 colors.
+
+We now support bipeds, quadrupeds, fleas, spiders, centipedes, tripedes, etc.
+]
+
+int debug,nc,sims,ap
+
+d [debug=1;main]
+
+test [
+ debug=1
+ nc=2;sims=300;ap=6;last=seed=31
+ printf "%c%ccolors=%d sims=%d feet=%d seed=%d%c",10,10,nc,sims,ap,seed,10
+ main
+ sak
+ nc=3;sims=300;ap=6;last=seed=27
+ printf "%c%ccolors=%d sims=%d feet=%d seed=%d%c",10,10,nc,sims,ap,seed,10
+ main
+ sak
+ nc=4;sims=300;ap=6;last=seed=141
+ printf "%c%ccolors=%d sims=%d feet=%d seed=%d%c",10,10,nc,sims,ap,seed,10
+ main
+ sak
+ ]
+
+main [
+ int fa(5000),sa(5000),sp,msp,mpc,i,j,total,x // 1/5,7,9/23
+ int pairs;pairs=2 // 1/9/23
+ char foo(20),bar(20),pair(500) // 1/14/23
+ msp=0 // initialize max socks picked
+ printf "%csocks.try.tc.2 - lrb - 6/28/23%c",10,10
+ if nc==0 [
+  printf "%cNumber of colors (between 2 and 16) : ",10;nc=gn
+  printf "%cNumber of simulations (1 to 1000) : ",10;sims=gn
+  printf "%cNumber of feet (humans 2, dogs 4, fleas 6, spiders 8, centipedes 100) : ",10
+  ap=gn
+  printf "%cSeed the random number generator with some odd number (e.g. 271) : ",10
+  last=seed=gn
+  ]
+ printf "%cCalculating ...%c",10,10 // 1/9/23
+ char time(20) // 1/9/23
+ cdate time // 1/9/23
+ printf "%cstart time : %s%c%c",10,time,10,10 // 1/9/23
+ while i<sims [ // 1/9/23
+  mpc=0;j=1
+  while j<=nc [sa(j)=0;j=j+1]
+  sp=0
+  while mpc<pairs [ // loop while matched pair count is less than pairs - 1/9/23
+   sp=sp+1 // bump socks picked
+   x=random(1,nc)
+   sa(x)=sa(x)+1 // add 1 to a random bucket
+   j=1
+   while j<=nc [
+    if (sa(j)==ap) [ // when pair found
+     mpc=mpc+1;sa(j)=0 // bump matched pair count, clear bucket
+     break // and get out
+     ]
+    j=j+1
+    ]
+   ]
+  if sp>msp msp=sp // update max socks picked
+  fa(sp)=fa(sp)+1 // update frequency array
+  total=total+sp // keep track of total socks pulled
+  if debug printf "%d ",i
+  i=i+1
+  ]
+ printf "%c%cNumber of simulations was %d",10,10,sims // 1/9/23
+ printf "%c%cAverage number of socks picked was %d",10,10,total/sims;dpf total%sims,sims,5 // 1/9/23
+ printf "%c%c",10,10
+ j=pairs*ap // 1/9/23
+ while j<=msp [
+  if fa(j) [
+   printf "%d,%d ",j,fa(j)
+   itoa j,foo
+   itoa fa(j),bar
+   strcat pair,foo;strcat pair,",";strcat pair,bar;strcat pair," "
+   ]
+  j=j+1
+  ]
+ printf "%c%cThe worst-case scenario is %d%c",10,10,pairs*ap+(ap-1)*(nc-1),10 // 1/9/23
+ cdate time
+ printf "%cstop time : %s%c",10,time,10 // 1/9/23
+ char tcbuff(40),os(30);int linux // 1/11/23
+ getproperty "pps/version.prop", "os =", tcbuff, 40, "..."
+ strcpy os, tcbuff
+ if (index(os, strlen(os), "Linux", 5)) linux = 1
+ if linux [
+  ]
+ else [
+  ]
+ ]
+

@@ -1,0 +1,62 @@
+#include pps/library.tc
+#include pps/lrblib.tc
+
+// morse.tc - 9/29/2012, 7/20/19, 8/21,22,24,25/21, 9/2,12/21, 9/2/23 - tag, sbg, lrb
+
+// input is now from a file (which can contain up to 9000 bytes)
+// support added for newlines
+// letters, numbers, spaces only
+// can specify delay between letters (seconds)
+// complains if file is not found
+// uppercase is now converted to lowercase
+// untranslatable characters are simply echoed
+// use of tolower improved
+// made bar local to main
+
+// globals
+
+int delay
+int barptr(38) // 26 letters + 10 digits + 1 for / character (for inter word)
+
+letnum char c [
+ int addr
+ if ((c >= 'a') * (c <= 'z')) addr = barptr(c - 97)
+ else if ((c >= '0') * (c <= '9')) addr = barptr(c - 48)
+ else if (c =='/') addr = barptr(36)
+ printf "%s ", addr
+ ]
+
+morse char s(0) [
+ printf "%c%s%c%c", 10, s, 10, 10
+ while (s(0)) [
+  letnum s(0)
+  sleep delay
+  s = s + 1
+  ]
+ pl ""
+ ]
+
+main [
+ char s(9000), mf(20)
+ char bar(37*6)
+ int bytes
+ printf "%cWelcome to morse.tc! - lrb - 9/2/23%c", 10, 10
+ printf "%cEnter delay between letters e.g. 0 or 1 etc. ", 10
+ delay = gn
+ strcpy bar, ".-,-...,-.-.,-..,.,..-.,--.,....,..,.---,-.-,.-..,--,"         // a-m
+ strcat bar, "-.,---,.--.,--.-,.-.,...,-,..-,...-,.--,-..-,-.--,--..,"       // n-z
+ strcat bar, "-----,.----,..---,...--,....-,.....,-....,--...,---..,----.,"  // 0-9
+ strcat bar, "-..-.," // slash
+ bar(strlen(bar)) = ','
+ split barptr, bar, ","
+ pl "enter the name of the file you want to translate into Morse code : "
+ gs mf
+ bytes = readfile mf, s, 9000
+ s(strlen(s)-1) = 0 // null out the final newline
+ if (bytes != 0) [
+  printf "%cyour file contains %d bytes%c", 10, bytes, 10
+  tolower s
+  morse s
+  ]
+ else printf "%cerror reading %s%c", 10, mf, 10
+ ]

@@ -1,0 +1,66 @@
+
+[
+
+- Clear Weather Accidents:
+
+- Bright: 10
+- Grey: 5
+- Evening: 8
+- Nighttime: 2
+
+- Slippery Weather Accidents:
+
+- Bright: 15
+- Grey: 12
+- Evening: 10
+- Nighttime: 5
+
+]
+
+// contingency.tc - lrb - 10/27,28/24
+
+// display proper fraction
+dpfx int n,d,p [
+ if p [MC 10*n/d,14;dpfx 10*n%d,d,p-1]
+ ]
+
+// dpfx helper function
+dpf int n,d,p [
+ putchar '.'
+ dpfx n,d,p
+ ]
+
+main [
+
+ printf "%ccontingency.tc - lrb - 10/28/24%c%c",10,10,10
+
+ int i,ntot,mtot,n,m
+
+ while i<=3 [
+  ps "enter number : "
+  n=gn;ntot=ntot+n
+  i=i+1
+  ]
+
+ i=0
+
+ while i<=3 [
+  ps "enter number : "
+  m=gn;mtot=mtot+m
+  i=i+1
+  ]
+
+ pl ""
+ dpf n,ntot,3
+
+ pl ""
+ dpf m,mtot,3
+
+ pl ""
+ if n*mtot-m*ntot pl "second probability is greater than the first"
+ else pl "first probability is greater than the second" 
+
+ pl ""
+
+ ]
+

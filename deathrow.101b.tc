@@ -1,0 +1,103 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// ref: https://en.wikipedia.org/wiki/100_prisoners_problem
+
+int linux
+
+getsec char st(0) [
+ char hh(8),mm(8),ss(8)
+// yyyy-mm-dd hh:mm:ss
+ strcpy hh,st+11 // hh:mm:ss
+ hh(2)=0
+ strcpy mm,hh+3 // mm:ss
+ mm(2)=0
+ strcpy ss,mm+3 // ss
+ ss(2)=0
+ int myinthh(0),myintmm(0),myintss(0)
+ atoi hh,myinthh;atoi mm,myintmm;atoi ss,myintss
+ // time in seconds using hours, minutes and seconds
+ return 3600*myinthh(0)+60*myintmm(0)+myintss(0)
+ ]
+
+timebetween char stop(0),start(0) [
+ int tstart,tstop
+ tstart=getsec start
+ tstop=getsec stop
+ int seconds // elapsed seconds
+ seconds=tstop-tstart
+ return seconds
+ ]
+
+color char c [MC '\'-'A',1;MC '\'-1,1;MC '3',1;MC c,1;MC 'm',1]
+
+yellow [color '3']
+white [color '7']
+red [color '2']
+blue [color '1']
+
+getrand int array(0) [
+ int v(0), ptr(200)
+ char buff(2000), nl(1)
+ nl(0) = 10
+ if linux system "./rand"
+ else system "rand.exe"
+ readfile("rand.out",buff,2000)
+ split ptr,buff,nl
+ int i
+ while i<100 [
+  atoi(ptr(i),v)
+  array(i) = v(0)
+  i=i+1
+  ]
+ ]
+
+main [
+ char tcbuff(40),os(30)
+ getproperty "pps/version.prop","os =",tcbuff,40,"..."
+ strcpy os,tcbuff
+ if (index(os,strlen(os),"Linux",5)) linux=1
+ if linux blue
+ printf "%cdeathrow.101b.tc - lrb - 4/30/23%c",10,10
+ if linux white
+ int array(100)
+ getrand array
+ int n;n=100
+ int i,j,tried_count,fail,tfail
+ int sims
+ printf "%cHow many simulations do you want (e.g. 100) : ",10
+ sims=gn
+ int icontents
+ char buffs(100),buffe(100)
+ cdate buffs
+ printf "%cStart time : %s%c",10,buffs,10
+ while j<=sims-1 [ // do sims times
+  i=0;fail=0
+  while ((i<=n-1)*(fail==0)) [ // do up to n times
+   tried_count=0
+   icontents=array(i) // get bucket labeled i's contents
+   // while contents is not = inmate # and tried_count < n/2
+   while ((icontents!=i)*(tried_count<n/2)) [
+    icontents=array(icontents)
+    tried_count=tried_count+1 // bump tried_count
+    ]
+   if tried_count==n/2 [
+    fail=1;tfail=tfail+1 // set fail to true and bump tfail
+    pn j+1;putchar '.';break
+    ]
+   i=i+1 // bump inmate #
+   ] // n
+  sleep 1
+  getrand array
+  if fail==0 [pn j+1; putchar '*']
+  j=j+1
+  ] // j
+ cdate buffe
+ printf("%cStop time : %s%c",10,buffe,10)
+ if linux red
+ int seconds;seconds=timebetween buffe,buffs
+ printf("%cruntime: %d minute(s) %d second(s)%c",10,seconds/60,seconds%60,10
+ if linux yellow
+ printf "%cinmates saved : %d inmates died : %d ",10,sims-tfail,tfail
+ if linux white
+ ]

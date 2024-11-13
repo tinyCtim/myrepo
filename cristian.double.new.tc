@@ -1,0 +1,34 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// lrb - 3/5/22 - for Cristian Meys Shappy
+
+// this Tiny C program reads a file of words and prints
+// the words w/ 3 double letters
+
+// next step: translate to C
+
+main [
+	char nl(1);nl(0)=10
+	char buffer(2000)
+	int word(1000)
+	int num,i,j,count
+	char work(20)
+	pl ""
+	pl "cristian.double.tc - lrb - 2/9/22"
+	pl ""
+	readfile "words.txt",buffer,2000
+	num=split word,buffer,nl
+	while i<num [
+		strcpy work,word(i)
+		j=0
+		count=0
+		while j<=strlen(work)-2 [
+			if work(j)==work(j+1) count=count+1
+			j=j+1
+			]
+		if count==3 pl work
+		i=i+1
+		]
+	]
+

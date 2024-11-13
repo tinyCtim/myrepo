@@ -1,0 +1,29 @@
+`GUESSNUM.TIN - lrb - 8/25/2010'
+t=0 `tries counter'
+`generate a random number in 0-99'
+:"seed (1-32767)" `16-bit integer compatibility'
+s=?
+{s==2*s/2}s=s+1 `make odd'
+l=99
+l=l*s
+{l<0}l=0-l `-l crashes interpreter'
+w=l/8
+v=w/100
+w=w-v*100
+:"guess number (0-99)"
+H g=?
+t=t+1
+{g<w}->L
+{g>w}->I
+:"Bingo! It took you "
+;t
+{t==1};" try."
+{t<>1};" tries."
+:""
+!
+L :"too low"
+->H
+I :"too high"
+->H
+! `needed by interpreter'
+

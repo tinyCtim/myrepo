@@ -1,0 +1,17 @@
+`TUNXIS.TIN - lrb - 10/1/2010'
+`Could tiny be used to teach things like factors?'
+:"What number do you want to factor?"
+n=?
+m=1
+T {n<>m*n/m}->H
+;m
+;","
+H m=m+1
+{m<n}->T
+;n
+;" are all the factors of "
+;n
+;"."
+:""
+!
+

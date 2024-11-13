@@ -1,0 +1,90 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+[
+hash.9.30.24.tc - 9/30/24 - lrb
+August Programming Challenge on not just tiny-c Programming Group
+]
+
+hash int a, b, c, d [
+ return a * 1000 + b * 100 + c * 10 + d
+ ]
+
+char buffer(500)
+int bytes
+ 
+file char hashin(0) [
+ int unit
+ unit = fopen hashin, "r"
+ if unit == -1 [
+  printf "error on open"; abort
+  ]
+ bytes = readfile hashin, buffer, 500
+ printf"%cbytes read %d", 10, bytes, 10
+// get rid of line ender
+ int i; i = bytes - 1
+ while buffer(i) != ',' i = i - 1
+ printf" bytes used %d ", i + 1
+ buffer(i + 1) = 0
+ pft buffer + i + 2, buffer + bytes - 1 // display any comments
+ fclose unit
+ main
+ ]
+
+main [
+ printf "%chash.9.30.24.tc - 9/30/24 - lrb%c", 10, 10
+ char qt; qt = 34
+ printf "%cusage (e.g.): tc hash.9.30.24.tc -r %cfile\%chashin.4.txt\%c%c%c", 10, qt, qt, qt, qt, 10
+ if strlen(buffer) == 0 abort
+ int a, b, c, d
+ char canswer(4)
+ int answer(0)
+ int elementp(9)
+ char p0(30), p1(30), p2(30), p3(30)
+ char q0(30), q1(30), q2(30), q3(30)
+ int ne
+ ne = split elementp, buffer, ","
+
+ strcpy p0, elementp(0)
+ strcpy p1, elementp(1)
+ strcpy p2, elementp(2)
+ strcpy p3, elementp(3)
+
+ strcpy q0, elementp(4)
+ strcpy q1, elementp(5)
+ strcpy q2, elementp(6)
+ strcpy q3, elementp(7)
+
+ strcpy canswer, elementp(8)
+ atoi canswer, answer
+
+ printf"%c1st list%c", 10, 10
+
+ printf"%c1 %s", 10, p0
+ printf"%c2 %s", 10, p1
+ printf"%c3 %s", 10, p2
+ printf"%c4 %s", 10, p3
+
+ printf "%c", 10
+
+ printf"%c2nd list%c", 10, 10
+
+ printf"%c1 %s", 10, q0
+ printf"%c2 %s", 10, q1
+ printf"%c3 %s", 10, q2
+ printf"%c4 %s", 10, q3
+
+ printf "%c", 10
+
+ printf"%center number in 2nd list that corresponds to number 1 in 1st list: ", 10
+ a = gn
+ printf"enter number in 2nd list that corresponds to number 2 in 1st list: "
+ b = gn
+ printf"enter number in 2nd list that corresponds to number 3 in 1st list: "
+ c = gn
+ printf"enter number in 2nd list that corresponds to number 4 in 1st list: "
+ d = gn
+
+ if hash(a, b, c, d) == answer(0) printf "%ccorrect", 10 // need parens!
+ else printf "%cincorrect", 10
+ ]

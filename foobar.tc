@@ -1,0 +1,62 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// foobar.tc - lrb - 5/28/21
+
+// depending on which operating system is running, launch the appropriate
+// Karel the Robot hurdling program
+
+main [
+	char buff(40)
+	char cmdw(100), cmdl(100) // Windows command string, Linux command string
+
+// various needed characters
+
+	char qt(1); qt(0) = 34 // double quote
+	char bsl(1); bsl(0) = 92 // backslash
+	char cma(1); cma(0) = ',' // comma
+	char z(1); z(0) = '0' // zero
+	char sqt(1); sqt(0) = 39 // single quote
+
+// build Windows command
+
+	strcpy cmdw, "tc sampler.windows.again.tc -r "
+	strcat cmdw, qt
+	strcat cmdw, "karel"
+	strcat cmdw, bsl
+	strcat cmdw, qt
+	strcat cmdw, "sampler.kw"
+	strcat cmdw, bsl
+	strcat cmdw, qt
+	strcat cmdw, cma
+	strcat cmdw, z
+	strcat cmdw, qt
+
+// build Linux command
+
+	strcpy cmdl, "./tc sampler.tc -r "
+	strcat cmdl, sqt
+	strcat cmdl, "karel"
+	strcat cmdl, qt
+	strcat cmdl, "sampler.kw"
+	strcat cmdl, qt
+	strcat cmdl, cma
+	strcat cmdl, z
+	strcat cmdl, sqt
+
+//	tc sampler.windows.again.tc -r "karel\"sampler.kw\",0"
+//	./tc sampler.tc -r 'karel"sampler.kw",0'
+
+//	printf "%c%s%c", 10, cmdw, 10
+//	printf "%c%s%c", 10, cmdl, 10
+//	sak
+
+	getproperty "pps/version.prop","os =",buff,40,"..."
+	if (index (buff,40,"Windows",7)) [
+		system cmdw
+		]
+	if (index (buff,40,"Linux",5)) [
+		system cmdl
+		]
+	]
+

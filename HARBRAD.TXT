@@ -1,0 +1,181 @@
+
+                           HARBRAD Documentation
+
+Note: "HARBRAD" comes from Mark Harris and my efforts to teach assembly 
+language programming to undergraduates. It is a make believe language for a 
+make believe computer. An assembler and interpreter are provided, so you can 
+actually run programs written in HARBRAD. Not very big ones, but, then 
+again, "Smaller *Is* Better." - Lee Bradley
+
+Here's a program written in 'HARBRAD' Machine Language.  
+
+     00,+700
+     01,+299
+     02,+700
+     03,+399
+     04,+800
+     05,+900
+
+It reads a number (+700 is a code for "read the number typed into the 
+computer and put it into a place called A, the Accumulator".) It stores 
+(+299) a copy of the Accumulator into the 99th location of the  computer's 
+"Memory."  A second number is read (+700.) The number in location 99 is 
+added (+399) to the Accumulator and the sum is printed (+800.) The program 
+stops when it sees the code +900.
+
+When programs are written in "High Level Languages" like Pascal or Basic, 
+before the computer can run them, they have to be changed into codes much 
+like the example above.
+
+The HARBRAD interpreter HRUN allows you to RUN programs such as the 
+one shown above. Consider the following program:
+
+     10 '
+     20 PRINT "Boy makes good on baseball cards!"
+     30 '
+     40 FOR I=1 TO 7
+     50 INPUT N
+     60 S=S+N
+     70 NEXT I
+     80 IF S>25 THEN PRINT 100+5*(S-25)
+     90 IF S<=25 THEN PRINT 3*S
+
+Here's a story to go along with it.  Each day of the week (thus the loop 
+uses a 7) Ned, a bubble gum card collector, enters into the computer the 
+number of baseball cards he's collected from bubble gum purchases. At the 
+end of the week, his friend Ted gives him 3 cents per card if there were 25 
+or fewer collected. If more than 25 were collected, he gets a buck (100 
+cents) plus a nickel for each card over the 25 he collected.
+
+Here's the same program in our machine code.
+
+     Machine     Symbolic     Comment
+
+     00,+000        DS        NEDANTED.HBS
+     01,+000        DS
+     02,+123        L    SV   INITIALIZE DAYS  
+     03,+224        ST   DL   LEFT WITH A 7.   
+     04,+700        RD        GET FIRST DAY'S  
+     05,+225     L1 ST   CT   TAKE. SAVE IT.   
+     06,+124        L    DL   UPDATE DAY'S     
+     07,+426        S    ON   LEFT.            
+     08,-313        BRZ  CP   IF WEEK OVER, GO 
+     09,+224        ST   DL   TO CALC PAY ELSE 
+     10,+700        RD        GET NEXT DAY'S   
+     11,+325        A    CT   TAKE AND UPDATE  
+     12,-105        BR   L1   TOTAL.           
+     13,+125     CP L    CT   CALCULATE PAY:   
+     14,+427        S    TF   IF <= 25, GET 3  
+     15,-219        BRP  L2   CENTS PER CARD 
+     16,+125        L    CT                    
+     17,+529        M    TH                    
+     18,-121        BR   PT                    
+     19,+530     L2 M    FV   ELSE GET 5 CENTS 
+     20,+328        A    OH   PER CARD OVER  
+     21,+800     PT PT        25 + $1.  PRINT  
+     22,+900        STOP      AND STOP.        
+     23,+007     SV DW   +007 7 DAYS IN A WEEK 
+     24,+000     DL DS   01   DAYS LEFT AREA   
+     25,+000     CT DS   01   CARD TOTAL AREA
+     26,+001     ON DW   +001 THE VALUE 1      
+     27,+025     TF DW   +025 THE VALUE 25     
+     28,+100     OH DW   +100 ONE DOLLAR       
+     29,+003     TH DW   +003 3 CENTS
+     30,+005     FV DW   +005 5 CENTS
+
+It's often easier to solve a problem by first writing out your approach in 
+English.  Then write it in Symbolic Code. Finally, translate the L's to 
++1's etc. Any instruction that refers to a memory location symbolically is 
+resolved by finding what location ended up with the symbolic label. For 
+example,
+
+        L    CT
+
+at location 16 becomes
+
+     +125 
+
+because the symbolic label CT ended up as the name for memory location 25.
+
+The instructions have two parts, what they do (Add to the Accumulator, 
+STore a copy of the contents of the Accumulator, if the Accumulator is 
+Positive, then BRanch etc.) and what they do it to.
+
+For example, in the instruction
+
+     +289
+
++2 means STore Accumulator and 89 is where to STore it.
+
+HRUN does the interpreting (ie. RUNs the program.) It reads in an .HBO 
+(HARBRAD Object) program and then runs it. This .HBO file could be the 
+result of a hand assembly or it could be the output of HASM, the 
+HARBRAD Assembler.
+
+In this program, 100 memory locations are represented by an array MEMORY. The 
+defined functions FNOC (OpCode) and FNOD (OperanD) split the machine codes 
+into the "what" and "to what" parts. PC contains the location of the 
+next instruction to be carried out, usually the one just past the one 
+currently being carried out.
+
+The remaining code carries out the instructions. PC gets updated during 
+each execution cycle. Here's a table which summarizes the HARBRAD Machine 
+Language codes.
+
++1xx	Load the Accumulator with a copy of Memory location xx 
++2xx	STore the Accumulator with a copy of Memory location xx
++3xx	Add to the Accumulator the number in Memory location xx
++4xx	Subtract from the Accumulator the number in Memory location xx
++5xx	Multiply the Accumulator by the number in Memory location xx
++6xx	Divide the Accumulator by the number in Memory location xx
++700	ReaD a number into the Accumulator
++800	PrinT the number in the Accumulator
++900	STOP (return to operating system level)
+
+-1xx	BRanch to the instruction at Memory location xx
+-2xx	BRanch if Accumulator is Positive
+-3xx	BRanch if Accumulator is Zero
+-4xx	BRanch if Accumulator is Negative
+-5xx	BRanch if Accumulator is Not Positive
+-6xx	BRanch if Accumulator is Not Negative
+-7xx	BRanch if Accumulator is Not Zero
+
+Note: HARBRAD is an INTEGER machine. Therefore, the Divide instruction only 
+gives you the whole number part of the quotient. ie. 5/2 = 2. This fact can 
+be taken advantage of (and is in the two sample programs PRIMES and 
+COCONUT.)
+
+                Assembler Directives ("Pseudo Operations")
+
+?xxx    DW   ?xxx  define word. ? is + or -. xxx is decimal literal to put 
+                   at current location.
++000    DS         define a storage location  
+                   allocate.
+
+Note: It should be mentioned that the HARBRAD assembler is pretty 
+primitive. You need to use the following instruction format, *exactly*, or 
+it won't work! The numbers at the top are print positions ("card columns".) 
+LB is a one or two character label, OPCD is an up to 4 character operation 
+code, OPND is an up to 4 character operand. Comments may be placed anywhere 
+from print position 14 on.
+
+              111 1
+     12 4567 9012 4
+
+     LB OPCD OPND COMMENTS
+
+examples:
+
+     L2 M    FV   ELSE GET 5 CENTS 
+        A    OH   PER CARD OVER  
+     C  BRN  D    NO COMMENT ...
+     PT PT        25 + $1.  PRINT  
+        STOP      AND STOP.        
+     SV DW   +007 7 DAYS IN A WEEK 
+     DL DS   01   DAYS LEFT AREA   
+
+Programming involves solving two kinds of problems. The "easier" of the two 
+is *syntactic*. Spell the codes correctly, put them in the right print 
+positions, etc. The "harder" of the two is *algorithmic*. Get your logic 
+right! Programming can be extremely difficult and debugging can take many 
+many hours.

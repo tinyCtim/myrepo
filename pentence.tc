@@ -1,0 +1,43 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// pentence.tc - 1/8,10/22 - lrb
+
+// this program generates 5-word sentences (aka pentences)
+// introduced on not just tiny-c programming group
+
+// (https://www.facebook.com/groups/299317782048/posts/10160057769847049)
+
+main [
+ printf "%cpentence.tc - 1/10/22 - lrb%c",10,10
+ printf "%center a random number, e.g. 37: ",10;seed=last=gn
+ int i
+ while i<10 [
+  pent;i=i+1
+  ]
+ ]
+
+addspace char string(0) [
+ strcat string," "
+ ]
+
+pent [
+ char nouns(200),verbs(200),adjectives(200),adverbs(200) // order of these two declares
+ int nounsp(7),verbsp(7),adjectivesp(7),adverbsp(7) // seems to matter!
+ strcpy nouns,"woman,turtle,table,amoeba,lamp,friend,tiger,pterodactyl,"
+ strcpy verbs,"swims,elopes,slithers,sucks,blows,outruns,composes,sings,"
+ strcpy adjectives,"big,thin,plump,thick,round,slimy,jealous,smelly,"
+ strcpy adverbs,"slowly,easily,quickly,anxiously,arrogantly,awkwardly,bashfully,moderately,"
+ char pentence(100)
+ int rnc,rvc,rjc,rlc
+ split nounsp,nouns,",";split verbsp,verbs,","
+ split adjectivesp,adjectives,",";split adverbsp,adverbs,","
+ rnc=random 0,7; rvc=random 0,7; rjc=random 0,7; rlc=random 0,7
+ strcpy pentence,"the "
+ strcat pentence,adjectivesp(rjc);addspace(pentence)
+ strcat pentence,nounsp(rnc);addspace(pentence)
+ strcat pentence,verbsp(rvc);addspace(pentence)
+ strcat pentence,adverbsp(rlc)
+ printf "%c%s%c",10,pentence,10
+ ]
+

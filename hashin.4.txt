@@ -1,0 +1,4 @@
+zero,aardvark,epistle,funny,second,first,last,third,3214,
+
+see http://primepuzzle.com/not.just.tiny.c/hash.txt
+

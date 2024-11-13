@@ -1,0 +1,135 @@
+
+[
+concentration - lrb
+
+We use a 4x4 board. Example: bottom (hidden) and top (shown)
+
+gfcd
+beah
+deah
+bgcf
+
+xxxx
+xxxx
+xxxx
+xxxx
+
+tc concen.tc
+
+http://primepuzzle.com/not.just.tiny.c/concen.txt
+http://primepuzzle.com/not.just.tiny.c/concen.tc
+]
+
+// fill mat with a character
+ar2d_fill char f, mat(0) [
+	int end; end = 2 + mat(0) * mat(1)
+	int i; i = 1; while ((i = i + 1) < end) mat(i) = f
+]
+
+// mat must have size at least 2 + rows * cols
+ar2d_setup int rows, cols; char mat(0) [
+	mat(0) = rows
+	mat(1) = cols
+]
+
+ar2d_print char mat(0) [
+	int r, c, rows, cols
+	rows = mat(0); cols = mat(1)
+	while r < rows [
+		if r pl ""
+		while c < cols [
+			putchar ar2d_val(r, c, mat)
+			c = c + 1
+		]
+		r = r + 1
+		c = 0
+	]
+]
+
+// return value of mat(r, c)
+ar2d_val int r, c; char mat(0) [
+	return mat(2 + c + r * mat(1))
+]
+
+// set value of mat(r, c) to a character
+ar2d_set char x; int r, c; char mat(0) [
+	mat(2 + c + r * mat(1)) = x
+]
+
+main [
+	printf "%cconcen.tc - 6/17/20 - lrb%c", 10, 10
+	// bottom and top of board
+	char first, ch_1, ch_2, sideb(2 + 4 * 4), sidet(2 + 4 * 4)
+	int play_1_sc, play_2_sc, i, cur_play, assigned, rnum
+	int r, c, row_1, col_1, row_2, col_2, bool, work(15)
+	ar2d_setup 4, 4, sidet; ar2d_setup 4, 4, sideb
+	first = 'a'
+	printf "%cEnter a random number (e.g. 17 or 311) ", 10
+	last = seed = gn
+	// initialize the board
+	ar2d_fill 'x', sideb; ar2d_fill 'x', sidet
+	i = -1; while ((i = i + 1) <= 15) [
+		if i % 2 == 1 work(i - 1) = work(i) = (i - 1) / 2
+	]
+	while assigned <= 15 [ // place the characters on the board
+		rnum = random 0, 15
+		// must be unassigned
+		while sideb(2 + rnum) != 'x' rnum = random 0, 15
+		sideb(2 + rnum) = first + work(assigned)
+		assigned = assigned + 1
+	]
+	// play the game
+	while play_1_sc + play_2_sc < 8
+	[
+		cur_play = cur_play % 2 + 1
+		// show scores and board
+		printf "%cplayer 1 : %d  player 2 : %d%c%c", 10, play_1_sc, play_2_sc, 10, 10
+		ar2d_print sidet
+		while 1 [
+			// ask player for row col pairs
+			printf "%c%cplayer %d, your turn%c%c", 10, 10, cur_play, 10, 10
+			printf "row 1 (1..4) ? "; row_1 = gn; printf "col 1 (1..4) ? "; col_1 = gn
+			printf "row 2 (1..4) ? "; row_2 = gn; printf "col 2 (1..4) ? "; col_2 = gn
+			// insist that they are legal, haven't been matched yet, and are different
+			bool = (row_1 >= 1) * (row_1 <= 4); bool = bool * (col_1 >= 1) * (col_1 <= 4)
+			bool = bool * (row_2 >= 1) * (row_2 <= 4); bool = bool * (col_2 >= 1) * (col_2 <= 4)
+			if bool
+			[
+				bool = ar2d_val((row_1 - 1), (col_1 - 1), sidet) == 'x'
+				bool = bool * (ar2d_val((row_2 - 1), (col_2 - 1), sidet) == 'x')
+				bool = bool * ((row_1 != row_2) + (col_1 != col_2))
+			]
+			if bool break
+		]
+		r = 0; pl ""
+		while r <= 3 [	// show what the player picked
+			c = 0
+			while c <= 3 [
+				bool = (r == (row_1 - 1)) * (c == (col_1 - 1))
+				bool = bool + (r == (row_2 - 1)) * (c == (col_2 - 1))
+				if bool printf "%c", ar2d_val(r, c, sideb)
+				else printf " "
+				c = c + 1
+			]
+			printf "%c", 10
+			r = r + 1
+		]
+		ch_1 = ar2d_val((row_1 - 1), (col_1 - 1), sideb)
+		ch_2 = ar2d_val((row_2 - 1), (col_2 - 1), sideb)
+		if ch_1 == ch_2  // match!
+		[
+			if cur_play == 1 play_1_sc = play_1_sc + 1 // credit the player
+			else play_2_sc = play_2_sc + 1
+			// space these out so they can't be picked again
+			ar2d_set ' ', (row_1 - 1), (col_1 - 1), sidet
+			ar2d_set ' ', (row_2 - 1), (col_2 - 1), sidet
+		]
+	] // end of play loop
+	// show bottom
+	pl ""
+	ar2d_print sideb
+	// announce the winner
+	if (play_1_sc > play_2_sc) printf "%c%cplayer 1 wins!", 10, 10
+	else if (play_1_sc < play_2_sc)	printf "%c%cplayer 2 wins!", 10, 10
+	else printf "%c%ctie game!", 10, 10
+]

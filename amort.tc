@@ -1,0 +1,41 @@
+#loadMC amortpi
+
+// https://www.facebook.com/groups/299317782048/permalink/10156960401077049/
+
+// this program calculates how many months you need to pay off a loan of a
+// specified amount given a specified annual interest rate and a specified
+// monthly payment. this is a tinyC solution. kelsey.c is a C solution.
+
+// https://en.wikipedia.org/wiki/Amortization_calculator
+
+amort int amount(0), principal(0), interest(0), result(0) [
+	MC amount, principal, interest, result, 1001
+	]
+
+pmdiv int dec1(0), dec2(0), result(0) [ // poor man's divide
+	result(0) = dec1(0) * dec2(1); result(1) = dec1(1) * dec2(0)
+	]
+
+assign int d(0), s(0) [
+	d(0) = s(0); d(1) = s(1)
+	]
+
+main [
+	printf "%camort.tc - lrb - 11/19/18%c", 10, 10
+	char buff(18)
+	cdate buff; printf "%cToday's date and time are %s", 10, buff
+	int a, p, i
+	int dec100(1), dec12(1), deca(1), decp(1), deci(1), result(1)
+	printf "%c%cmonthly payment amount (e.g. 100) ? ", 10, 10; a = gn
+	printf "principle (amount borrowed) (e.g. 2000) ? "; p = gn
+	printf "annual percent interest rate (e.g. 8) ? "; i = gn
+	deca(0) = a; deca(1) = 1; decp(0) = p; decp(1) = 1
+	deci(0) = i; deci(1) = 1
+	dec100(0) = 100; dec100(1) = 1; dec12(0) = 12; dec12(1) = 1
+	pmdiv deci, dec100, result; assign deci, result
+	pmdiv deci, dec12, result; assign deci, result
+	amort deca, decp, deci, result
+	printf "%cnumber of monthly payments is ", 10
+	printf "%d.%d%c", result(0) / result(1), result(0) % result(1), 10
+	]
+

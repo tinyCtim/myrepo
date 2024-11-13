@@ -1,0 +1,113 @@
+
+* Program .... : MENU4-4.CMD
+* Notes ...... : Order Books. Last updated on 6/25/2024
+
+* Note - Inv is database
+
+ERASE
+SET INDEX TO Pubcode
+COPY TO Tempfile FOR QTYONHAND<MINSTOCK
+USE Tempfile
+IF # > 0
+ SELE SECO
+ USE Onorder INDEX o-isbn
+ SELE PRIM
+*1
+ DO WHILE .NOT. EOF
+  STORE QTYONHAND TO qty
+  STORE ISBN TO misbn
+  SELE SECO
+  FIND &misbn
+* NEXT LINE NEEDS TO BE HERE
+  SET DELETE ON
+*2
+  DO WHILE misbn = S.ISBN .AND. .NOT. EOF
+   STORE S.ORDERSIZE+qty TO qty
+   SKIP
+  ENDDO
+*2
+  SELE PRIM
+  IF qty >= MINSTOCK
+   DELETE
+  ENDIF
+  SKIP
+ ENDDO
+*1
+ GO TOP
+ RESTORE FROM Ponumber ADDITIVE
+ ERASE
+ SET MARGIN TO 15
+* UNCOMMENT NEXT LINE AFTER TESTING VIA SCREEN
+* SET FORMAT TO PRINT
+*1
+ DO WHILE .NOT. EOF
+  STORE m.ponumber+1 to m.ponumber
+  STORE PUBCODE TO mpubid
+  STORE 0 TO subtotal
+*2
+  DO WHILE PUBCODE = mpubid .AND. .NOT. EOF
+   SELE SECO
+   USE Publish INDEX Pubid
+   FIND &mpubid
+   SELE PRIM
+   @ 6,1 SAY 'PURCHASE ORDER'+STR(m.ponumber,5)
+   @ 6,62 SAY cdate
+   @ 7,30 SAY "Lee's Books"
+   @ 8,29 SAY '24 EAST CEDAR ST'
+   @ 9,26 SAY 'NEWINGTON, CT 06111-2534'
+   @ 11,1 SAY NAME
+   @ 12,1 SAY ADDRESS
+   @ 13,1 SAY TRIM(CITY)+', '+STATE+' '+ZIP
+   @ 15,1 SAY 'ISBN NUMBER'
+   @ 15,15 SAY 'BOOK TITLE/AUTHOR'
+   @ 15,55 SAY 'QTY'
+   @ 15,64 SAY 'COST'
+   @ 15,75 SAY 'TOTAL'
+   STORE 17 TO line
+   SELE SECO
+* INDEX CLAUSE IS NEEDED
+   USE Onorder INDEX o-isbn
+   SELE PRIM
+*3
+   DO WHILE PUBCODE = mpubid .AND. line<55 .AND. .NOT. EOF
+    @ line,1 SAY ISBN
+    @ line,15 SAY TITLE
+    @ line,55 SAY STR(ORDERSIZE,3)
+    @ line,60 SAY STR(COST,8,2)
+    @ line,70 SAY STR(COST*ORDERSIZE,10,2)
+    @ line+1,15 SAY AUTHOR
+    STORE line+3 TO line
+    STORE COST*ORDERSIZE+subtotal TO subtotal
+    SELE SECO
+    APPEND BLANK
+    REPLACE S.ISBN WITH P.ISBN, S.ORDERSIZE WITH P.ORDERSIZE,;
+      PONUMBER WITH m.ponumber, ORDERDATE WITH DATE()
+    SELE PRIM
+    WAIT
+    SKIP
+    ENDDO
+*3
+   IF PUBCODE # mpubid .OR. EOF
+    @ line+1,60 SAY 'TOTAL'
+    @ line+1,70 SAY STR(subtotal,10,2)
+   ENDIF
+   EJECT
+  ENDDO
+*2
+* COMMENT OUT NEXT 3 LINES AFTER TESTING
+* STORE ' ' TO ak
+* @ 24,1 SAY 'STRIKE ANY KEY' GET ak
+* READ NOUPDATE
+ ENDDO
+*1
+ SET FORMAT TO SCREEN
+ SELE SECO
+ USE
+ SELE PRIM
+ SAVE ALL LIKE ponumber TO Ponumber
+ENDIF
+USE Inv
+SET MARGIN TO 0
+DELETE FILE Tempfile.dbf
+SET DELETE OFF
+RETURN

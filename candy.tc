@@ -1,0 +1,28 @@
+
+// candy.tc - 10/19,20/20 - lrb
+
+bar int b, w [
+ return b + (b - 1) / (w - 1)
+ ]
+
+main [
+ int b, w
+ printf "%ccandy.tc - 10/20/20 - lrb%c", 10, 10
+ printf "%cEnter dollars (e.g. 15) : ", 10
+ b = gn
+ printf "%cEnter wrappers (e.g. 3) : ", 10
+ w = gn
+ printf "%cYou can buy %d chocolate bars.", 10, bar b, w
+ ]
+
+loop [
+ int b, w
+ b = 5
+ w = 3
+ while b <= 35 [
+  printf "%cWith %d dollars you can buy %d chocolate bars.", 10, b, bar b, w
+  b = b + 1
+  ]
+ ]
+
+

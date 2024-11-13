@@ -1,0 +1,93 @@
+
+		The classic game of Concentration
+
+Run this program by typing at a command prompt
+
+tc concen.tc
+
+You will be asked to enter a random number.
+
+You will see a 4x4 array of x's. You will type two pairs of numbers
+representing the row and column locations of your guess. You are shown
+the two letters which lie under your choices. You might see for example
+the letters b and h. If they match, your score goes up by 1. Whether
+they match or not, it is now the next player's turn. The game ends when
+the total of the two players' scores is 8.
+
+On each turn the top of the board is displayed. Any "cards" that have
+been matched appear as spaces, all others as x's.
+
+The winner is declared at the end of the game, or a tie is announced.
+
+Here's the beginning of a sample run.
+
+tc concen.tc
+
+player 1 : 0    player 2 : 0
+
+xxxx
+xxxx
+xxxx
+xxxx
+
+player 1, your turn
+
+row 1 (1..4) ? 3
+col 1 (1..4) ? 1
+row 2 (1..4) ? 1
+col 2 (1..4) ? 3
+
+  b
+
+c
+
+
+player 1 : 0    player 2 : 0
+
+xxxx
+xxxx
+xxxx
+xxxx
+
+player 2, your turn
+
+row 1 (1..4) ? 1
+col 1 (1..4) ? 1
+row 2 (1..4) ? 1
+col 2 (1..4) ? 2
+
+ch
+
+
+
+
+player 1 : 0    player 2 : 0
+
+xxxx
+xxxx
+xxxx
+xxxx
+
+player 1, your turn
+
+row 1 (1..4) ? 1
+col 1 (1..4) ? 1
+row 2 (1..4) ? 3
+col 2 (1..4) ? 1
+
+c
+
+c
+
+
+player 1 : 1    player 2 : 0
+
+ xxx
+xxxx
+ xxx
+xxxx
+
+player 2, your turn
+
+row 1 (1..4) ?
+

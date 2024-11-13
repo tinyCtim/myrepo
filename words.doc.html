@@ -1,0 +1,206 @@
+
+<title>words.doc</title>
+
+<table align=center width=79%><tr><td>
+
+<pre><font size=+2><b>
+<a href=http://primepuzzle.com/not.just.tiny.c/words.doc.html>Requirements and strip numbering scheme for word search program</a>
+
+I thought it would be interesting to automate the solution to word
+search puzzles. For words, I pick the names of characters from a book
+I've read. I arrange them in a square array.
+
+I wrote a program to do this. It reads two files.
+
+For example (10 by 10) - say the words and the "board" are
+
+tao tort art oat form rot trot tram lee
+
+..........
+.        .
+.        .
+.        .
+.  e     .
+.f  et   .
+. o ol   .
+.mart    .
+. t m    .
+..........
+
+The found words and their directions from start to finish (think of a
+compass) are
+
+lee - nw
+oat - s
+tort - sw
+art - e
+form - se 
+rot - ne
+trot - ne
+tram - w
+tao - n
+
+The word file would be a line that looks like this:
+
+lee tao tort art oat form rot trot tram 
+
+There is a space character on the right of each word (including the last
+word).
+
+The board file would be a single line that looks like this (we show two
+lines here but needs to be one line in the file itself):
+
+...........        ..        ..        ..  e     .
+.f  et   .. o ol   ..mart    .. t m    ...........
+
+Concatenate the rows from the above board. Make sure you include the
+spaces.
+
+The program reads the words file and the board file and figures out in
+which "strips" of the board each word is found and the direction the
+word goes in. A link to the program's source code and the numbering
+scheme I used follows. Sample runs of the program follow this.
+
+<a href=http://primepuzzle.com/not.just.tiny.c/words.2.tc>http://primepuzzle.com/not.just.tiny.c/words.2.tc</a>
+
+<img border=3 title=1 src=http://primepuzzle.com/not.just.tiny.c/Image_00088.jpg>
+
+<img border=3 title=2 src=http://primepuzzle.com/not.just.tiny.c/Image_00089.jpg>
+
+<img border=3 title=3 src=http://primepuzzle.com/not.just.tiny.c/Image_00090.jpg>
+                    
+<img border=3 title=4 src=http://primepuzzle.com/not.just.tiny.c/Image_00091.jpg>
+
+<img border=3 title=5 src=http://primepuzzle.com/not.just.tiny.c/Image_00092.jpg>
+
+D:\>tc words.2.tc
+***  TINY-C VERSION 1.0,  COPYRIGHT 1977, T A GIBSON  ***
+        This C version copyright 2017, T A Gibson
+
+words.2.tc - 4/23/21 - lrb
+
+Enter name of words file : words.invisible.1.txt
+Enter name of board file : board.invisible.1.txt
+
+ANDRAS
+APRILIS
+BELA
+BENYAKOV
+EDITH
+ELISABET
+ELZA
+FLORA
+GYORGY
+JOZSEF
+KLARA
+MATYAS
+NOVAK
+SANDOR
+TAMAS
+TIBOR
+
+ GYORGY  T
+  TH J  E
+  ITSOABMA
+ ABIIZAAAN
+RRODLSBRTD
+VOREIEEAYR
+ LDLRFLLAA
+ FENP AKSS
+BENYAKOV
+NOVAKSAMAT
+
+there are 50 strips
+
+ne and sw strip #s go from 1 to 15
+se and nw strip #s go from 16 to 30
+e and w strip #s go from 31 to 40
+s and n strip #s go from 41 to 50
+
+ 1 ANDRAS found in T ANDRAS T at position 3 in 50th strip dir = s
+ 2 BELA found in Y AABELAOA at position 5 in 47th strip dir = s
+ 3 BENYAKOV found in BENYAKOV   at position 1 in 39th strip dir = e
+ 4 ELISABET found in NEELISABET at position 3 in 8th strip dir = ne
+ 5 ELZA found in BFDELZA   at position 4 in 7th strip dir = ne
+ 6 GYORGY found in  GYORGY  T at position 2 in 31th strip dir = e
+ 7 JOZSEF found in GJOZSEF KS at position 2 in 46th strip dir = s
+ 8 MATYAS found in  EMATYAS A at position 3 in 49th strip dir = s
+ 9 NOVAK found in NOVAKSAMAT at position 1 in 40th strip dir = e
+ 10 TIBOR found in YTIBORDENV at position 2 in 43th strip dir = s
+ 11 APRILIS found in KAPRILIS R at position 2 in 45th strip dir = n
+ 12 EDITH found in AYNLEDITHO at position 5 in 44th strip dir = n
+ 13 FLORA found in OEFLORA  G at position 3 in 42th strip dir = n
+ 14 KLARA found in MVKLARAB   at position 3 in 48th strip dir = n
+ 15 SANDOR found in SANDOR at position 1 in 27th strip dir = nw
+ 16 TAMAS found in TAMASKAVON at position 1 in 40th strip dir = w
+
+done
+
+D:\>tc words.2.tc
+***  TINY-C VERSION 1.0,  COPYRIGHT 1977, T A GIBSON  ***
+        This C version copyright 2017, T A Gibson
+
+words.tc - 4/23/21 - lrb
+
+Enter name of words file : words.invisible.2.txt
+Enter name of board file : board.invisible.2.txt
+
+ADAM
+BARNA
+GERARD
+HASZ
+ILANA
+KOZMA
+LEVI
+NAGY
+PAUL
+PERRET
+POLANER
+ROSEN
+VAGO
+ZOLTAN
+
+    ROGAV 
+  A E  P  
+YGANN  EIN
+ZOLTAN RVE
+   MLL RES
+  Z O IELO
+AO ZP  T R
+KDSDRAREG 
+ AA  BARNA
+H  MLUAP  
+
+there are 50 strips
+
+ne and sw strip #s go from 1 to 15
+se and nw strip #s go from 16 to 30
+e and w strip #s go from 31 to 40
+s and n strip #s go from 41 to 50
+
+ 1 ADAM found in ADAM at position 1 in 29th strip dir = se
+ 2 BARNA found in  AA  BARNA at position 6 in 39th strip dir = e
+ 3 HASZ found in HASZOL E   at position 1 in 8th strip dir = ne
+ 4 KOZMA found in KOZMA  A at position 1 in 6th strip dir = ne
+ 5 PERRET found in APERRETERP at position 2 in 48th strip dir = s
+ 6 ZOLTAN found in ZOLTAN RVE at position 1 in 34th strip dir = e
+ 7 GERARD found in  GERARDSDK at position 2 in 38th strip dir = w
+ 8 ILANA found in AGTILANA  at position 4 in 22th strip dir = nw
+ 9 LEVI found in  NG LEVI V at position 5 in 49th strip dir = n
+ 10 NAGY found in NIE  NNAGY at position 7 in 33th strip dir = w
+ 11 PAUL found in   PAULM  H at position 3 in 40th strip dir = w
+ 12 POLANER found in L RPOLANER at position 4 in 45th strip dir = n
+ 13 ROSEN found in  A ROSEN   at position 4 in 50th strip dir = n
+ 14 VAGO found in  VAGOR     at position 2 in 31th strip dir = w
+
+done
+
+I make what I call <a href=http://primepuzzle.com/not.just.tiny.c/pip.html>PIP</a>s (Puzzle In Puzzles). Here's the one I made for
+my friend Jonas.
+
+<img title="assembled by Jonas" src=http://primepuzzle.com/not.just.tiny.c/pippip.resized.jpg>
+
+</b></font></pre>
+
+</td></tr></table>
+

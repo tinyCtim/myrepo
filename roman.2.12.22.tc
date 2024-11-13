@@ -1,0 +1,243 @@
+#include pps/pyGraphicsLib.tc
+#include pps/library.tc
+#include pps/lrblib.tc
+
+// this program reads two roman numerals and outputs their sum (or
+// product), both graphically and on the screen
+
+// https://www.geeksforgeeks.org/converting-decimal-number-lying-between-1-to-3999-to-roman-numerals/
+
+// 8/31/19 - decimal to roman numeral logic simplified
+
+// 2/12/22
+
+// python must be installed and cairopy.py must be available
+// this uses mspaint to display the graphic file under Windows
+// under Linux, display (imdisplay) must be available
+
+// adding more use of setrgb
+
+rtod char r(0) [ // roman to decimal
+ char rn(7),rl(20),wk1(1),wk2(1)
+ int l,rni(7),pos,d,i1,i2
+ strcpy rn," IVXLCDM"
+ rni(0)=0;rni(1)=1;rni(2)=5
+ rni(3)=10;rni(4)=50;rni(5)=100
+ rni(6)=500;rni(7)=1000
+ strcpy rl,r;strcat rl," "
+ wk1(1)=wk2(1)=0
+ l=strlen(rl)
+ while pos<l-1 [
+  wk1(0)=rl(pos);wk2(0)=rl(pos+1)
+  i1=index(rn,8,wk1,1)-1;i2=index(rn,8,wk2,1)-1
+  if i1<i2 [ // e.g. CM
+   d=d+rni(i2)-rni(i1);pos=pos+2
+   ]
+  else [ // e.g. XI
+   d=d+rni(i1);pos=pos+1
+   ]
+  ]
+ return d
+ ]
+
+put_roman char c(0) [ // put roman numeral
+ printf "%s",c
+ int j,pos;pos=1
+ while (j<strlen(c)) [
+  if (c(j)=='M')      mf pos
+  else if (c(j)=='D') df pos
+  else if (c(j)=='C') cf pos
+  else if (c(j)=='L') lf pos
+  else if (c(j)=='X') xf pos
+  else if (c(j)=='V') vf pos
+  else if (c(j)=='I') fi pos
+  pos=pos+1;j=j+1
+  ]
+ ]
+
+int xcol(3),xrow(3)   // X   10
+int ecol(3),erow(3)   // =   equals
+int pcol(3),prow(3)   // +   plus
+int mcol(4),mrow(4)   // M   1000
+int icol(1),irow(1)   // I   1
+int vcol(2),vrow(2)   // V   5
+int lcol(2),lrow(2)   // L   50
+int ccol(3),crow(3)   // C   100
+int dcol(2),drow(2)   // D   500
+int tcol(3),trow(3)   // x   times
+
+mf int pos [ // M
+ moveto iicol-60*(13-pos)-(60-mcol(0)),mrow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-mcol(1)),mrow(1)+rowoffset
+ lineto iicol-60*(13-pos)-(60-mcol(2)),mrow(2)+rowoffset
+ lineto iicol-60*(13-pos)-(60-mcol(3)),mrow(3)+rowoffset
+ lineto iicol-60*(13-pos)-(60-mcol(4)),mrow(4)+rowoffset
+ ]
+
+fi int pos [ // I (can't name it if)
+ moveto iicol-60*(13-pos)-(60-icol(0)),irow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-icol(0)),irow(1)+rowoffset
+ ]
+
+vf int pos [ // V
+ moveto iicol-60*(13-pos)-(60-vcol(0)),vrow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-vcol(1)),vrow(1)+rowoffset
+ lineto iicol-60*(13-pos)-(60-vcol(2)),vrow(2)+rowoffset
+ ]
+
+lf int pos [ // L
+ moveto iicol-60*(13-pos)-(60-lcol(2)),lrow(2)+rowoffset
+ lineto iicol-60*(13-pos)-(60-lcol(1)),lrow(1)+rowoffset
+ lineto iicol-60*(13-pos)-(60-lcol(0)),lrow(0)+rowoffset
+ ]
+
+xf int pos [ // X
+ moveto iicol-60*(13-pos)-(60-xcol(0)),xrow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-xcol(3)),xrow(3)+rowoffset
+ moveto iicol-60*(13-pos)-(60-xcol(2)),xrow(2)+rowoffset
+ lineto iicol-60*(13-pos)-(60-xcol(1)),xrow(1)+rowoffset
+ ]
+
+cf int pos [ // C
+ moveto iicol-60*(13-pos)-(60-ccol(0)),crow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-ccol(1)),crow(1)+rowoffset
+ lineto iicol-60*(13-pos)-(60-ccol(2)),crow(2)+rowoffset
+ lineto iicol-60*(13-pos)-(60-ccol(3)),crow(3)+rowoffset
+ ]
+
+df int pos [ // D
+ moveto iicol-60*(13-pos)-(60-dcol(0)),drow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-dcol(1)),drow(1)+rowoffset
+ lineto iicol-60*(13-pos)-(60-dcol(2)),drow(2)+rowoffset
+ lineto iicol-60*(13-pos)-(60-dcol(0)),drow(0)+rowoffset
+ ]
+
+pf int pos [ // + (plus)
+ moveto iicol-60*(13-pos)-(60-pcol(0)),prow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-pcol(1)),prow(1)+rowoffset
+ moveto iicol-60*(13-pos)-(60-pcol(2)),prow(2)+rowoffset
+ lineto iicol-60*(13-pos)-(60-pcol(3)),prow(3)+rowoffset
+ ]
+
+ef int pos [ // = (equals)
+ moveto iicol-60*(13-pos)-(60-ecol(0)),erow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-ecol(1)),erow(1)+rowoffset
+ moveto iicol-60*(13-pos)-(60-ecol(2)),erow(2)+rowoffset
+ lineto iicol-60*(13-pos)-(60-ecol(3)),erow(3)+rowoffset
+ ]
+
+tf int pos [ // x (times)
+ moveto iicol-60*(13-pos)-(60-tcol(0)),trow(0)+rowoffset
+ lineto iicol-60*(13-pos)-(60-tcol(3)),trow(3)+rowoffset
+ moveto iicol-60*(13-pos)-(60-tcol(2)),trow(2)+rowoffset
+ lineto iicol-60*(13-pos)-(60-tcol(1)),trow(1)+rowoffset
+ ]
+
+int iicol,rowoffset
+
+main [
+ char c(100)
+ iicol=840
+ int N(3),C(9),X(9),I(9) // Note: Can't use variable name of M
+
+ split N,",M,MM,MMM,",","
+ split C,",C,CC,CCC,CD,D,DC,DCC,DCCC,CM,",","
+ split X,",X,XX,XXX,XL,L,LX,LXX,LXXX,XC,",","
+ split I,",I,II,III,IV,V,VI,VII,VIII,IX,",","
+
+ xcol(0)=10;xrow(0)=30
+ xcol(1)=50;xrow(1)=30
+ xcol(2)=10;xrow(2)=70
+ xcol(3)=50;xrow(3)=70
+
+ pcol(0)=20;prow(0)=50
+ pcol(1)=40;prow(1)=50
+ pcol(2)=30;prow(2)=40
+ pcol(3)=30;prow(3)=60
+
+ ecol(0)=20;erow(0)=43
+ ecol(1)=40;erow(1)=43
+ ecol(2)=20;erow(2)=57
+ ecol(3)=40;erow(3)=57
+
+ tcol(0)=20;trow(0)=40
+ tcol(1)=40;trow(1)=40
+ tcol(2)=20;trow(2)=60
+ tcol(3)=40;trow(3)=60
+
+ mcol(0)=10;mrow(0)=70
+ mcol(1)=10;mrow(1)=30
+ mcol(2)=30;mrow(2)=50
+ mcol(3)=50;mrow(3)=30
+ mcol(4)=50;mrow(4)=70
+
+ icol(0)=30;irow(0)=70
+ icol(1)=30;irow(1)=30
+
+ vcol(0)=10;vrow(0)=30
+ vcol(1)=30;vrow(1)=70
+ vcol(2)=50;vrow(2)=30
+
+ lcol(0)=10;lrow(0)=30
+ lcol(1)=10;lrow(1)=70
+ lcol(2)=50;lrow(2)=70
+
+ ccol(0)=50;crow(0)=30
+ ccol(1)=10;crow(1)=30
+ ccol(2)=10;crow(2)=70
+ ccol(3)=50;crow(3)=70
+
+ dcol(0)=10;drow(0)=70
+ dcol(1)=50;drow(1)=50
+ dcol(2)=10;drow(2)=30
+
+ printf "%croman.tc - lrb - 2/12/22%c",10,10
+ start "roman",900,500
+ setfontsize 24
+
+ char r1(20),r2(20),port(1)
+ int d1,d2,d3
+
+ printf "%cEnter Roman numeral 1 ( e.g. XVII ) : ",10
+ gs r1
+ printf "Enter Roman numeral 2 ( e.g. LV ) : "
+ gs r2
+ printf "+ or * (add or multiply) ? ";port(0)=getchar
+ printf "%c%c",10,10
+ d1=rtod r1;d2=rtod r2
+ if (port(0)=='+') [d3=d1+d2;pf 12]
+ else if (port(0)=='*') [d3=d1*d2;tf 12]
+ if d3>3999 [
+  printf "%cSum or product %d is bigger than I can handle.%c",10,d3,10
+  abort
+  ]
+ put_roman r1
+ printf " %c ",port(0)
+ rowoffset=100
+ put_roman r2
+ ef 12
+ printf " = "
+ rowoffset=200
+ strcpy c,N(d3/1000)
+ strcat c,C(d3%1000/100)
+ strcat c,X(d3%100/10)
+ strcat c,I(d3%10)
+ put_roman c
+ printf "%c%c%d %c %d = %d",10,10,d1,port(0),d2,d3
+ setrgb 0,0,255 // blue
+ moveto 75,340
+ showtext "Enjoy!"
+ moveto 75,400
+ setrgb 0,255,0 // green
+ shownum d1;showtext port;shownum d2;showtext "=";shownum d3
+ moveto 75,450
+ setrgb 255,0,0 // red
+ showtext "Enjoy!"
+ char yn(0)
+ printf"%c%cDo you want to display the graphic (y/n) ",10,10; yn(0) = getchar
+ tolower yn
+ if (yn(0) == 'n') showapp "" // i.e. don't display the graphic
+ else if (yn(0) == 'y') showapp "display" // overrides default display
+ show
+ putchar 10
+ ]

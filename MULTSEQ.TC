@@ -1,0 +1,73 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+/* multseq.tc - lrb - 9/14/13 */
+
+/* See http://primepuzzle.com/tc/multseqtxt.html for a discussion */
+/* of this program. */
+
+/* This program computes 3^n-3n. For background, see */
+/* http://primepuzzle.com/tc/sequence.html. */
+
+// 7/13/21 - made Gibson compliant
+
+/* subtract computes the difference of a and b and puts it in a. */
+/* It destroys the contents of b. 9's complement arithmetic is used. */
+ 
+subtract int a(0),b(0),d [
+ int i
+ while i<=d [
+  b(i)=9-b(i)
+  i=i+1
+  ]
+ add(a,b,d)
+ b(d)=1
+ i=0
+ while i<d [
+  b(i)=0
+  i=i+1
+  ]
+ add(a,b,d)
+ ]
+
+/* add computes the sum of a and b and puts it in a. */
+
+add int a(0),b(0),d [
+ int i,c,w
+ while i<=d [
+  w=a(d-i)+b(d-i)+c;a(d-i)=w%10;c=w/10
+  i=i+1
+ ]]
+
+/* multiply computes the product of m and a and puts it in a. */
+
+multiply int a(0),m,d [
+ int i,c,w
+ while i<=d [
+  w=a(d-i)*m+c;a(d-i)=w%10;c=w/10
+  i=i+1
+ ]]
+
+main [
+ pl "multseq.tc - 7/13/21 - tct"
+ int a(6000),b(6000),i,j,d,n
+ pl "enter a number less than 12000: ";n=gn;pl ""
+ d=(n+1)/2;a(d)=3
+ while i<=n-2 [ /* compute 3^n */
+  putchar '.';if ((i+1)%40==0) pl ""
+  multiply(a,3,d)
+  i=i+1
+  ]
+ i=0
+ while n>0 [b(d-i)=n%10;n=n/10;i=i+1]
+ multiply(b,3,d) /* b now holds 3n */
+ subtract(a,b,d) /* compute 3^n-3n */
+ i=0;while (a(i)==0) i=i+1 /* don't print leading 0's */
+ j=i;pl "";pl "The";pn d-i+1;ps " digit value is";pl "";putchar(7);sak;pl "";pl ""
+ while i<=d [
+  MC a(i),14
+  i=i+1;if ((i-j)%40==0) pl ""
+  ]
+ pl ""
+ ]
+

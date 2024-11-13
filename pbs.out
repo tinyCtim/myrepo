@@ -1,0 +1,35 @@
+
+L:\hdrive.7.6.20>tc pbs.tc
+***  TINY-C VERSION 1.0,  COPYRIGHT 1977, T A GIBSON  ***
+        This C version copyright 2017, T A Gibson
+
+pbs.tc - personalized book selector - lrb - 8/2/20
+
+Learning C with Tiny C,Scott Guthrey,programming,,,, scored 4
+The Lovely Bones,Alice Sebold,fiction,mystery,crime,mystical realism, scored 1
+Lie Down with Lions,Ken Follett,fiction,history,romance,, scored 4
+The Devil in the White City,Erik Larson,nonfiction,history,,, scored 6
+The Pillars of the Earth,Ken Follett,novel,fiction,history,, scored 6
+The Old Man and the Sea,Ernest Hemingway,novel,fiction,,, scored 2
+The C Programming Language,Kernighan & Richie,technical,programming,,, scored 5
+The Glass Lake,Maeve Binchy,novel,fiction,mystery,, scored 2
+Animal Dreams,Barbara Kingsolver,novel,fiction,,, scored 2
+
+This was the contents of the "universe" of books (Personalized Book Selector - Form Responses 1.csv)
+
+Animal Dreams,Barbara Kingsolver,novel,fiction,,,
+The Glass Lake,Maeve Binchy,novel,fiction,mystery,,
+The C Programming Language,Kernighan & Richie,technical,programming,,,
+The Old Man and the Sea,Ernest Hemingway,novel,fiction,,,
+The Pillars of the Earth,Ken Follett,novel,fiction,history,,
+The Devil in the White City,Erik Larson,nonfiction,history,,,
+Lie Down with Lions,Ken Follett,fiction,history,romance,,
+The Lovely Bones,Alice Sebold,fiction,mystery,crime,mystical realism,
+Learning C with Tiny C,Scott Guthrey,programming,,,,
+
+This was the contents of the books provided by the reader. (Personalized Book Selector - Form Responses 2.csv)
+
+The C Programming Language,Kernighan & Richie,technical,programming,,,
+The Pillars of the Earth,Ken Follett,novel,fiction,history,,
+The Devil in the White City,Erik Larson,nonfiction,history,,,
+Learning C with Tiny C,Scott Guthrey,programming,,,,

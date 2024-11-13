@@ -1,0 +1,114 @@
+<pre>
+
+If you run Windows, you may use PuTTY, an SSH and telnet client. https://www.putty.org/
+
+If you run Linux, your may run ssh, (Secure Shell).
+
+Use host name: november.he.net (This is the server I use.)
+
+login as: primepzl
+
+primepzl@november.he.net's password: xxxxxxxx (ask me for the password)
+
+Change to the following directory:
+
+primepzl@november:~$ cd public_html/linux
+
+The following runs Peter Schorn's Z80 simulator.
+
+primepzl@november:~/public_html/linux$ ./altairz80l64
+
+Altair 8800 (Z80) simulator V4.0-0 Beta        git commit id:     2203
+
+sim>do nzcom
+
+64K CP/M Version 2.2 (SIMH ALTAIR 8800, BIOS V1.25, 2 HD, 15-Jan-07)
+
+Here is a sample session under Linux.
+
+leeunix@Lee:~$ ssh primepzl@november.he.net
+primepzl@november.he.net's password:
+You have new mail.
+Last login: Sat May 11 02:08:13 2024 from 107.170.233.148
+primepzl@november:~/public_html/not.just.tiny.c$ cd ..
+primepzl@november:~/public_html$ cd linux
+primepzl@november:~/public_html/linux$ ./altairz80l64
+
+Altair 8800 (Z80) simulator V4.0-0 Beta        git commit id:     2203
+sim> do nzcom
+
+nzcom 8/21/20
+
+64K CP/M Version 2.2 (SIMH ALTAIR 8800, BIOS V1.25, 2 HD, 15-Jan-07)
+
+A>c:
+C>dir
+C: ADDCR    TC  : ART      OUT : ART1     BAS : ART1     COM
+C: ART1     REL : ARUNZ09U DOC : ARUNZ09U LBR : ASCII    COM
+C: ASM      COM : BOT99    TC  : CTC      ASM : D        COM
+C: DDT      COM : DSTATS   COM : E        LBR : EASE     HLP
+C: EDITNDR  COM : ENVSRC12 COM : FA       COM : FACT     TC
+C: GUESSNUM TC  : HELLO    TC  : HELPLSH  COM : JULY16   COM
+C: LEEDATA  TXT : LEESHORT TXT : LSH      HLP : LSH      WS
+C: LSH12    COM : LSH12    FOR : LSH12    NOT : LSH12-4  COM
+C: LSH12B   LBR : LSHF12   COM : LSHF12-4 COM : LSHINST  COM
+C: PACE     BAS : PACE     COM : PF       TC  : PIECES   TC
+C: PPS      TC  : RDUMP    COM : RDUMP    HLP : TC       ASM
+C: TC       COM : TCAP24   COM : TINY-C   LBR : TREE     TC
+C: Z3ENV    Z80 : ZDE      COM : ZDENSTAL COM : ZRLSH    3OM
+C: ZRLSHF   3OM : CDIR     TXT : LSH12-4  VAR : ASCII    LF
+C: ASCII    PRN : ASCII    HEX : ASCII    ASM
+C>tc
+
+***  TINY-C   VERSION 1.0  ***
+
+COPYRIGHT 1977, T A GIBSON
+
+>>>.r pps
+>>>.g
+
+***  TINY-C   VERSION 1.0  ***
+
+COPYRIGHT 1977, T A GIBSON
+
+>.r fact
+ 197
+ 0 16 197 6803
+>./
+ 0 16 197 6803
+>.p 20
+
+/*
+/* recursive factorial routine.
+/*
+fact int x [
+ if (x <= 1) return 1
+ else return x*fact(x-1)
+ ]
+/*
+/* driver.
+/*
+test int x [
+ pn x
+ ps "! =" 
+ pn fact(x)
+]
+
+>.test 7
+ 7! = 5040
+>.x
+
+
+DONE
+>>>.x
+
+C>halt
+
+HALT instruction, PC: 00100 (HALT)
+sim> bye
+Goodbye
+primepzl@november:~/public_html/linux$ exit
+logout
+Connection to november.he.net closed.
+leeunix@Lee:~$
+

@@ -1,0 +1,71 @@
+<center>
+<pre>
+
+<a href=http://primepuzzle.com/tunxis/venn.html><font size=+3><b>Venn diagram approach to Contest question #16</b></font></a>
+</font size=+3></b></a><font size=+1><b>
+There are 71 students in the Travel Club. They discovered that 37
+members have visited Canada, 34 have visited Mexico, 33 have been
+to Scotland, 13 have visited Canada and Mexico, 11 have been only
+to Scotland, and 15 have been only to Canada. 9 have been to
+Canada and Mexico, but not to Scotland. Some club members have
+not been to any of the three foreign countries, and some have been
+to all three countries.
+
+How many students haven’t been to any of the three countries?
+
+<img border=2 title=3 src=http://primepuzzle.com/tunxis/venn3a.jpg>
+
+<img border=2 title=1 src=http://primepuzzle.com/tunxis/venn1.jpg>
+
+<img border=2 title=2 src=http://primepuzzle.com/tunxis/venn2.jpg>
+
+Here is an alternative way to solve this problem, using matrices.
+
+a+b+c+d=37,c+d+f+g=34,e+b+c+f=33,c+d=13,e=11,a=15,d=9,a+b+c+d+e+f+g+h=71
+
+AX = B		X = A<sup>-1</sup>B
+
+B =	37
+	34
+	33
+	13
+	11
+	15
+	9
+	71
+	
+	 		 1 	 1	 1	 1	 0	 0	 0	 0		   
+	0	0	1	1	0	1	1	0
+	0	1	1	0	1	1	0	0
+A =	0	0	1	1	0	0	0	0
+	0	0	0	0	1	0	0	0
+	1	0	0	0	0	0	0	0
+	0	0	0	1	0	0	0	0
+	1	1	1	1	1	1	1	1
+	
+
+	0	0	0	0	0	1	0	0
+	1	0	0	-1	0	-1	0	0
+	0	0	0	1	0	0	-1	0
+	0	0	0	0	0	0	1	0
+A<sup>-1</sup> =   0	0	0	0	1	0	0	0
+	-1	0	1	0	-1	1	1	0
+	1	1	-1	-1	1	-1	-1	0
+	-1	-1	0	1	-1	0	0	1
+
+<a href=https://matrix.reshish.com/inverCalculation.php>https://matrix.reshish.com/inverCalculation.php</a>
+
+	15
+	9
+	4
+ X =	9
+	11
+	9
+	12
+	2
+
+2 people have visited no countries
+</b></font>
+
+</pre>
+</center>

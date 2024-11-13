@@ -1,0 +1,43 @@
+
+// 6/22/23 - lrb - added random positioning of message
+// showing column, row and frame values on row 22
+
+// 5/29/24 - we check which operating system we're in and,
+// if in Windows, launch the Windows version of this program
+
+pos int c,r;char msg(0) [
+ printf "%c%c%d;%dH%s",27,91,r,c,msg
+ ]
+
+main [
+ char tcbuff(40),os(40)
+ getproperty "pps/version.prop","os =",tcbuff,40,"..."
+ strcpy os, tcbuff
+ if (index(os,strlen(os),"Windows",7)) [
+  system "tc.exe testpospi.tc"
+  abort
+  ]
+ char lb; lb = 91
+ char esc; esc = 27
+ printf "%c%cH%c%c2J",esc,lb,esc,lb // home cursor, clear screen
+ int frame
+ printf "%ctestpos.tc - 5/29/24%c", 10, 10; sleep 5
+ int c, r, v(0)
+ char buff(40), seconds(2)
+ cdate buff
+ strcpy seconds, buff + 17
+ atoi seconds, v
+ seed = last = v(0)
+ frame = 1
+ while 1 [
+  c = random 20, 60
+  r = random 5, 15
+  pos 30, 22, ""
+  printf "col = %2d row = %2d frame = %3d", c, r, frame
+  pos c, r, "hello all!"
+  frame = frame + 1
+  if c == 31 break
+  sleep c%4
+  pos c, r, "           "
+  ]
+ ]

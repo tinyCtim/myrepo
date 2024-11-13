@@ -1,0 +1,126 @@
+
+<table align=center width=79%><tr><td>
+
+<pre><b><font size=+2>
+A key decision I made after trying other approaches was to drive my
+logic by keeping a close eye on a global variable gp<a
+style=text-decoration:none
+href=http://primepuzzle.com/lee-bradley/Projects/Project_millipede/chomsky.html>.</a>
+
+This was declared up top as follows:
+
+	char *gp;
+
+gp is a "pointer" to a place in memory that holds a value that is a
+character.
+
+We read a text file into an array which we declare
+
+	char buffer[10000];
+
+We initialize gp like so:
+
+	gp=buffer;
+
+An array's name is a pointer to the first slot in the 10000 slots
+allocated.
+
+One of the things I had to do was figure out how I could get to the
+first relevant byte in my data file. That would be the first digit of
+the number 18.
+
+Millie
+
+leg (mibs covered),time (tibs on watch at end of leg)
+
+1,18
+2,48
+3,58
+4,61
+5,66
+
+I wrote a function called find_char which took a character argument and
+returned either a 1 or a 0.
+
+int find_char(char c) {
+ while (*gp!=c) {
+  ++gp;
+  if (gp==end) return 0;
+  }
+  return 1;
+ }
+
+Putting an asterisk in front of gp gives you the value of the character
+that gp is pointing at.
+
+There are various ways you can decide to go about this but since I knew
+once I got to my 18 I would then simply need to look for the next comma,
+the next comma etc. I decided to code
+
+// get past the text that precedes the data
+ find_char(right_paren);++gp;
+ find_char(right_paren);++gp;
+
+and then code
+
+ while (1) {
+  if (find_char(',')==0) break;
+  ++gp;
+
+  etc. etc.
+  
+ }
+ 
+The find_char function advances the pointer while it's not pointing at
+the sought for character. The above ++gp gets past the found character.
+So we scoot past the two right parentheses and then past the comma that
+is in
+
+1,18
+
+So now we're looking at the high order digit in the 18.
+
+After dealing with the 18 we look for the next comma, bump gp up by 1
+and are now able to process the 48. etc. etc.
+
+The
+
+  if (find_char(',')==0) break;
+  
+is the way we break out of the main loop of the program. Looking again
+at the definition of the function find_char we see that it returns 0
+when
+
+	gp==end
+
+Now end is established at an early stage of the program to point at the
+last byte of the data file.
+
+After we've got gp to point at the high order digit we use our find_char
+function to locate the newline character at the end of line and then
+have enough information to convert the character string holding the
+entire number to an integer (this is what atoi does), and store it in a
+slot in the array called
+
+ int accum_time[200];
+
+The rest of the program does some comparing of the values of pace
+
+  pace=accum_time[j+1]-accum_time[j];
+
+as j cycles from 0 to i-2 (where i is 13 for a 13 "mib" run) to
+determine which leg was the fastest (smallest value of pace) and which
+was the slowest (biggest value of pace).
+
+The overall average pace is
+
+ average_whole=accum_time[i-1];
+ printf("%c%cAverage pace was %3.1f",10,10,(float)average_whole/i);
+
+</pre>
+
+</font>
+
+</b>
+
+</td></tr></table>

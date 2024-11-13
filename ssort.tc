@@ -1,0 +1,54 @@
+
+// selection sort
+
+// added timing - 7/3/20
+
+show_data int n, data(0) [ // display the integers in the array
+	int i
+	while i < n [
+		pn data(i)
+		i = i + 1
+		if i % 20 == 0 pl ""
+		]
+]
+
+main [
+	printf "%cssort.tc - 7/3/20 - lrb%c", 10, 10
+	pl "number of elements to sort : "
+	int n
+	n = gn
+	int i, j, k, min, data(n)
+	pl "random integer : "
+	last = seed = gn
+	// load array with random integers
+	i = 0
+	while i < n [
+		data(i) = random 0, 99
+		i = i + 1
+		]
+	printf "%cbefore sort%c%c", 10, 10, 10
+	show_data n, data
+	char buff(19)
+	cdate buff
+	printf "%cstart time: %s%c", 10, buff, 10
+	i = 0
+	while i < n - 1 [
+		j = i + 1
+		min = data(i)
+		k = i
+		while j < n [ // find smallest integer in unsorted data
+			if data(j) < min [
+				min = data(j)
+				k = j
+				]
+			j = j + 1
+			]
+		data(k) = data(i)
+		data(i) = min
+		i = i + 1
+		]
+	cdate buff
+	printf "%cend time: %s%c", 10, buff, 10
+	printf "%c%cafter sort%c%c", 10, 10, 10, 10
+	show_data n, data
+]

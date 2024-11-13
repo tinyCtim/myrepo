@@ -1,0 +1,58 @@
+#loadMC urldownloadpi
+
+// url.tc - lrb - 5/9/24
+
+// buffer size is now 45000
+
+urldownload char url(0) [
+	return MC url, 1001
+	]
+
+// build a message digest command line
+
+mdcheck char ftc(0) [
+	char cmd(100)
+	char quote(1); quote(0) = '"'
+	char bs(1); bs(0) = '\'
+	strcpy cmd,"tc -q md.tc -r"
+	strcat cmd, quote
+	strcat cmd, "md"
+	strcat cmd, bs
+	strcat cmd, quote
+	strcat cmd, ftc
+	strcat cmd, bs
+	strcat cmd, quote
+	strcat cmd, quote
+	system cmd
+	]
+
+[
+this program compares a local file with a remote file. the remote
+directory is hardcoded. it is Windows dependent. a file named url.txt
+is created in the local directory and contains what was downloaded
+]
+
+main [
+	int bsize; bsize = 45000  // lrb - 6/27/23
+	char bufferl(bsize), bufferr(bsize)
+	int local_bytes, remote_bytes, rv
+	char ftc(30)
+	printf "%cwhat is the name of the file you want to compare / download? ", 10
+	gs ftc
+	pl ""
+	local_bytes = readfile ftc, bufferl, bsize
+	if (local_bytes == 0) [printf "%c%s not found%c", 10, ftc, 10; abort]
+	mdcheck ftc // compute and display the message digest of the local file
+	char remote(100)
+//	strcpy remote, "http://primepuzzle.com/not.just.tiny.c/"
+	strcpy remote, "http://primepuzzle.com/blog/"
+	strcat remote, ftc
+	rv = urldownload remote // download the remote file
+	if (rv != 1) [printf "%c%s not found%c", 10, remote, 10; abort]
+	remote_bytes = readfile "url.txt", bufferr, bsize
+	mdcheck "url.txt" // compute and display the message digest of the remote file
+	// display the sizes in bytes of both files
+	printf "%cremote_bytes = %d %c", 10, remote_bytes, 10
+	printf "%clocal_bytes = %d %c", 10, local_bytes, 10
+	]
+

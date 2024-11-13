@@ -1,0 +1,11 @@
+:"PULLEYS.TIN - lrb - 7/27/11, 7/3/12"
+:"See http://tinyurl.com/Phizziks"
+:"(http://primepuzzle.com/tunxis/pulleys.html)"
+:"This was written to figure out multiples of 72."
+:""
+P:d*72
+d=d+1
+{d<4}->P
+:""
+!
+

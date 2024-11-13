@@ -1,0 +1,44 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// graph.tc - 1/14/23 - lrb
+
+asterisk int y [
+ while y [
+  putchar '*'
+  y = y - 1
+  ]
+ ]
+
+main [
+ printf "%cgraph.tc - lrb - 11/9/24%c",10,10
+ int foo(100),bar(100),v(0)
+ int baz(1)
+ char pair(500)
+ int pairs,wpairs
+ char file(30),fnm(30)
+ strcpy file, "graph.inp.txt"
+ printf "%cI will graph %s. ", 10, file
+ printf "Press the enter key or type in the file name : "
+ gs fnm
+ if strlen(fnm) == 0 ;
+ else strcpy file, fnm
+ readfile file,pair,500
+ strcat pair," "
+ pairs = split foo,pair," "
+ pairs = pairs - 1
+ while wpairs <= pairs [
+  strcpy bar,foo(wpairs)
+  strcat bar,","
+  split baz,bar,","
+  pl " "
+  ps baz(0)
+  putchar ' '
+  atoi baz(1),v
+  asterisk v(0)
+  printf " (%d)",v(0)
+  wpairs = wpairs + 1
+  ]
+  pl " "
+ ]
+

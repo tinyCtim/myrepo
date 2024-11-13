@@ -1,0 +1,40 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// estimates phi using ratios of Fibonacci numbers
+
+// globals
+
+int numb
+
+fab int i [
+	numb = i
+	main
+	]
+
+fib int i [
+	if i>1 return (fib (i-1) + fib (i-2))
+	return 1
+	]
+
+main [
+	printf "%cfib.tc - lrb - 6/23/21%c", 10, 10
+	int number
+	if numb != 0 number = numb
+	else [
+			printf "%center a number < 23 ", 10
+			number = gn
+			]
+	int f2, f1
+	f2 = fib number
+	f1 = fib number-1
+	pl ""
+	pn f2
+	pl ""
+	pn f1
+	pl ""
+	MC f2 / f1, 14
+	dpf f2 % f1, f1, 20
+	pl ""
+	]
+

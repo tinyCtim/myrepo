@@ -1,0 +1,76 @@
+***  TINY-C VERSION 1.0,  COPYRIGHT 1977, T A GIBSON  ***
+        This C version copyright 2017, T A Gibson
+
+elect.tc - lrb - 11/7/20
+
+PA has 20 AL has 3 AR has 11 GA has 16 NC has 15 NV has 6
+
+0 means Trump got the state
+1 means Biden got the state
+
+ 0 0 0 0 0 0 possibility #0 Biden gets 0 additional electoral votes Trump wins
+ 1 0 0 0 0 0 possibility #1 Biden gets 20 additional electoral votes Biden wins
+ 0 1 0 0 0 0 possibility #2 Biden gets 3 additional electoral votes Trump wins
+ 1 1 0 0 0 0 possibility #3 Biden gets 23 additional electoral votes Biden wins
+ 0 0 1 0 0 0 possibility #4 Biden gets 11 additional electoral votes Trump wins
+ 1 0 1 0 0 0 possibility #5 Biden gets 31 additional electoral votes Biden wins
+ 0 1 1 0 0 0 possibility #6 Biden gets 14 additional electoral votes Trump wins
+ 1 1 1 0 0 0 possibility #7 Biden gets 34 additional electoral votes Biden wins
+ 0 0 0 1 0 0 possibility #8 Biden gets 16 additional electoral votes Trump wins
+ 1 0 0 1 0 0 possibility #9 Biden gets 36 additional electoral votes Biden wins
+ 0 1 0 1 0 0 possibility #10 Biden gets 19 additional electoral votes Biden wins
+ 1 1 0 1 0 0 possibility #11 Biden gets 39 additional electoral votes Biden wins
+ 0 0 1 1 0 0 possibility #12 Biden gets 27 additional electoral votes Biden wins
+ 1 0 1 1 0 0 possibility #13 Biden gets 47 additional electoral votes Biden wins
+ 0 1 1 1 0 0 possibility #14 Biden gets 30 additional electoral votes Biden wins
+ 1 1 1 1 0 0 possibility #15 Biden gets 50 additional electoral votes Biden wins
+ 0 0 0 0 1 0 possibility #16 Biden gets 15 additional electoral votes Trump wins
+ 1 0 0 0 1 0 possibility #17 Biden gets 35 additional electoral votes Biden wins
+ 0 1 0 0 1 0 possibility #18 Biden gets 18 additional electoral votes Biden wins
+ 1 1 0 0 1 0 possibility #19 Biden gets 38 additional electoral votes Biden wins
+ 0 0 1 0 1 0 possibility #20 Biden gets 26 additional electoral votes Biden wins
+ 1 0 1 0 1 0 possibility #21 Biden gets 46 additional electoral votes Biden wins
+ 0 1 1 0 1 0 possibility #22 Biden gets 29 additional electoral votes Biden wins
+ 1 1 1 0 1 0 possibility #23 Biden gets 49 additional electoral votes Biden wins
+ 0 0 0 1 1 0 possibility #24 Biden gets 31 additional electoral votes Biden wins
+ 1 0 0 1 1 0 possibility #25 Biden gets 51 additional electoral votes Biden wins
+ 0 1 0 1 1 0 possibility #26 Biden gets 34 additional electoral votes Biden wins
+ 1 1 0 1 1 0 possibility #27 Biden gets 54 additional electoral votes Biden wins
+ 0 0 1 1 1 0 possibility #28 Biden gets 42 additional electoral votes Biden wins
+ 1 0 1 1 1 0 possibility #29 Biden gets 62 additional electoral votes Biden wins
+ 0 1 1 1 1 0 possibility #30 Biden gets 45 additional electoral votes Biden wins
+ 1 1 1 1 1 0 possibility #31 Biden gets 65 additional electoral votes Biden wins
+ 0 0 0 0 0 1 possibility #32 Biden gets 6 additional electoral votes Trump wins
+ 1 0 0 0 0 1 possibility #33 Biden gets 26 additional electoral votes Biden wins
+ 0 1 0 0 0 1 possibility #34 Biden gets 9 additional electoral votes Trump wins
+ 1 1 0 0 0 1 possibility #35 Biden gets 29 additional electoral votes Biden wins
+ 0 0 1 0 0 1 possibility #36 Biden gets 17 additional electoral votes Biden wins
+ 1 0 1 0 0 1 possibility #37 Biden gets 37 additional electoral votes Biden wins
+ 0 1 1 0 0 1 possibility #38 Biden gets 20 additional electoral votes Biden wins
+ 1 1 1 0 0 1 possibility #39 Biden gets 40 additional electoral votes Biden wins
+ 0 0 0 1 0 1 possibility #40 Biden gets 22 additional electoral votes Biden wins
+ 1 0 0 1 0 1 possibility #41 Biden gets 42 additional electoral votes Biden wins
+ 0 1 0 1 0 1 possibility #42 Biden gets 25 additional electoral votes Biden wins
+ 1 1 0 1 0 1 possibility #43 Biden gets 45 additional electoral votes Biden wins
+ 0 0 1 1 0 1 possibility #44 Biden gets 33 additional electoral votes Biden wins
+ 1 0 1 1 0 1 possibility #45 Biden gets 53 additional electoral votes Biden wins
+ 0 1 1 1 0 1 possibility #46 Biden gets 36 additional electoral votes Biden wins
+ 1 1 1 1 0 1 possibility #47 Biden gets 56 additional electoral votes Biden wins
+ 0 0 0 0 1 1 possibility #48 Biden gets 21 additional electoral votes Biden wins
+ 1 0 0 0 1 1 possibility #49 Biden gets 41 additional electoral votes Biden wins
+ 0 1 0 0 1 1 possibility #50 Biden gets 24 additional electoral votes Biden wins
+ 1 1 0 0 1 1 possibility #51 Biden gets 44 additional electoral votes Biden wins
+ 0 0 1 0 1 1 possibility #52 Biden gets 32 additional electoral votes Biden wins
+ 1 0 1 0 1 1 possibility #53 Biden gets 52 additional electoral votes Biden wins
+ 0 1 1 0 1 1 possibility #54 Biden gets 35 additional electoral votes Biden wins
+ 1 1 1 0 1 1 possibility #55 Biden gets 55 additional electoral votes Biden wins
+ 0 0 0 1 1 1 possibility #56 Biden gets 37 additional electoral votes Biden wins
+ 1 0 0 1 1 1 possibility #57 Biden gets 57 additional electoral votes Biden wins
+ 0 1 0 1 1 1 possibility #58 Biden gets 40 additional electoral votes Biden wins
+ 1 1 0 1 1 1 possibility #59 Biden gets 60 additional electoral votes Biden wins
+ 0 0 1 1 1 1 possibility #60 Biden gets 48 additional electoral votes Biden wins
+ 1 0 1 1 1 1 possibility #61 Biden gets 68 additional electoral votes Biden wins
+ 0 1 1 1 1 1 possibility #62 Biden gets 51 additional electoral votes Biden wins
+ 1 1 1 1 1 1 possibility #63 Biden gets 71 additional electoral votes Biden wins
+
+done

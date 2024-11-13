@@ -1,0 +1,96 @@
+
+// 3/14/22 - despooner.tc - lrb
+
+// ref: https://www.facebook.com/groups/299317782048/posts/10160175550887049/
+
+// offer to [s]ew a woman to her [sh]eet
+// 1        2  3                 4   5
+// offer to shew a woman to her seet
+// 1        4 3                 25
+
+// Don't forget to [clocks] your [set] ahead tonite
+// 1               2       3     4    5
+// Don't forget to set your clocks ahead tonite
+// 1               4  3     2     5
+
+// In honor of [sav].e. light [day]ing, write a program that despoonerizes phrases
+// 1           2       3      4    5
+// In honor of day light saving, write a program that despoonerizes phrases
+// 1           4  3      2  5
+
+main [
+
+ printf "%cdespooner.tc - lrb - 3/14/22%c",10,10
+
+ char intext(200),outtext(200)
+
+ printf "%cinput text (e.g. In honor of [sav].e. light [day]ing) : ",10;gs intext
+
+ // strcpy intext,"In honor of [sav].e. light [day]ing"
+ // strcpy intext,"Don't forget to [clocks] your [set] ahead tonite"
+ // strcpy intext,"offer to [s]ew a woman to her [sh]eet"
+
+ // remove any periods
+
+ int pos
+ char work(200)
+ if index intext,strlen(intext),".",1 [
+	while intext(pos)!='.' [
+		work(pos)=intext(pos)
+		pos=pos+1
+		]
+	pos=pos+1;pos=pos+2 // get past the . then past the char and the .
+	strcat work,intext+pos
+	strcpy intext,work
+	]
+ pl intext
+
+ // break up into 5 pieces
+
+ char piece1(50),piece2(50),piece3(50),piece4(50),piece5(50)
+ pos=0
+ int wpos
+ while intext(pos)!='[' [
+	piece1(wpos)=intext(pos)
+	wpos=wpos+1;pos=pos+1
+	]
+// pl piece1
+ pos=pos+1
+ wpos=0	
+ while intext(pos)!=']' [
+	piece2(wpos)=intext(pos)
+	wpos=wpos+1;pos=pos+1
+	]
+// pl piece2
+ pos=pos+1
+ wpos=0
+ while intext(pos)!='[' [
+	piece3(wpos)=intext(pos)
+	wpos=wpos+1;pos=pos+1
+	]
+// pl piece3
+ pos=pos+1
+ wpos=0	
+ while intext(pos)!=']' [
+	piece4(wpos)=intext(pos)
+	wpos=wpos+1;pos=pos+1
+	]
+// pl piece4
+ pos=pos+1
+ strcpy piece5,intext+pos
+// pl piece5
+
+ strcat outtext,piece1
+ strcat outtext,piece4
+ strcat outtext,piece3
+ strcat outtext,piece2
+ strcat outtext,piece5
+
+// In honor of [sav] light [day]ing, write a program that despoonerizes phrases
+
+// strcpy outtext,"In honor of day light saving, write a program that despoonerizes phrases"
+
+ printf "%c%s%c",10,outtext,10
+
+ ]
+

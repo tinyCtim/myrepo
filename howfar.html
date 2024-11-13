@@ -1,0 +1,80 @@
+
+<html>
+
+<!-- howfar.html - lrb - 2/24/3 -->
+
+<!--
+2/25/3 - now using Dr. Math's version of von Neumann story (mostly because it
+talks about a series, not a sequence)
+-->
+
+<!-- 2/26/3 - cosmetic mod's -->
+<!-- 1/2/4 - fixed spelling of "traveled" -->
+<!-- 1/30-31/22 - got rid of Dr. Math link etc. -->
+
+<head><title>Two Trains and a Fly</title></head>
+
+<body>
+<table align=center width=79%><tr><td>
+<center><img src=http://primepuzzle.com/leeslightest/2trains_flypath_ani.gif></center>
+<p>
+<b>
+<center>The Classic "Two Trains and a Fly" problem
+<p>
+<script>
+document.write('<p><small><i><a href="http://www.primepuzzle.com/leeslightest/howfar.html">URL: ' + document.URL + '</a></i></small>');
+</script>
+<p>
+</center>
+<p>
+Two trains, 20 miles apart, approach each other going 10 mph. A fly travels
+between them at 15 mph, zig-zagging just before getting smooshed by an oncoming
+train. Question: How far does the fly fly before meeting his ultimate demise?
+<p>
+<font color=red>Here's a famous story about the physicist and mathematician John von Neumann :</font>
+<p>
+Another mathematician knew the quick solution to the Fly problem and
+wanted to see von Neumann struggle with it. He posed the question and von
+Neumann responded with the right answer in a few seconds.
+<p>
+"Interesting," said the first mathematician. "Most people try to sum the
+infinite series."
+<p>
+"What do you mean?" von Neumann replied. "That's how I did it."
+<p>
+<font color=red>Approach #1 (the "von Neumann" way)</font>
+<pre>         --->                                        <---
+     <-- Dt -->                                  <-- Dt -->
+     .---------|---------------------------------|---------.
+     <-------------------  Df  ------------------>
+</pre>
+<p>
+(1) Let Df = the distance the fly travels on the first leg = 15*t where t = some time.<br>
+(2) Let Dt = the distance each train travels on the first leg = 10*t where t = the same time. Since<br>
+(3) Df+Dt = 20, it follows (divide (1) by (2) and use (3)) that<br>
+(4) Df/(20-Df) = 15/10. After some manipulation, this implies that<br>
+(5) Df = (3/5)*20.
+<p>
+It can be seen that we now have a new, similar problem. The distance has been
+reduced to<pre>
+     .........|---------------------------------|..........
+              <-----------  Df - Dt -----------></pre>
+Using (3) and (5) it can be seen that<br>
+(6) Df-Dt = (1/5)*20.<br>
+Thus, the distance has been "shrunk" by a factor of 1/5. Applying
+this reasoning repeatedly, the total distance traveled by the fly is<br>
+(7) Dftotal = (3/5)*20*(1+(1/5)+(1/5)^2+(1/5)^3+ ...)<br>
+This is a "geometric series." When r<1, 1+r+r^2+r^3+ ... = 1/(1-r).
+(If you aren't familiar with this fact, multiply both sides by (1-r) and you'll get 1=1.) Thus,<br>
+(8) Dftotal = (3/5)*20*(1/(1-1/5)) = (3/5)*20*(5/4) = 15.
+<p>
+<font color=red>Approach #2 (the "Distance = Rate * Time" way)</font>
+<p>
+It's clear it will take 1 hour before the trains crash. Therefore<br>
+(1) Dftotal = 15*1 = 15.
+<br><br>
+
+</body>
+
+</html>
+

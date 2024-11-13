@@ -1,0 +1,20 @@
+
+* Program .... : MENU4-1.FMT
+* Notes ...... : Format file for adding / editing book titles.
+* 4/26/2007 - move ISBN # a bit to the left
+
+@  3,28 SAY "Lee's Books"
+@  6,1  SAY 'AUTHOR........ ';
+        GET AUTHOR PICTURE '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+@  6,48 SAY 'ISBN NUMBER... : ' + misbn
+@  8,1  SAY 'TITLE......... ';
+        GET TITLE PICTURE '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+@ 10,1  SAY 'SUBJECT.......' GET SUBJECT PICTURE '!!!!!!!!!!!!!!!'
+@ 12,1  SAY 'QUANTITY......' GET QTYONHAND
+@ 12,25 SAY 'ORDER SIZE....' GET ORDERSIZE
+@ 12,50 SAY 'MINIMUM STOCK.' GET MINSTOCK
+@ 14,1  SAY 'LIST PRICE....' GET LISTPRICE
+@ 14,50 SAY 'OUR COST......' GET COST
+@ 16,1  SAY 'PUBLISHER..... : '+NAME
+
+

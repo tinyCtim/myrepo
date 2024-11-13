@@ -1,0 +1,62 @@
+
+notes awn hash.9.30.24.tc 
+
+Dais iz a program dat tests yur knowledge ov related wurds. Two lists 
+ov wurds r presented. U enter faw numbers in response tah faw 
+questions. If da 1st wurd in da 1st list corresponds tah da 3rd wurd 
+(za) in da second list, u enter a 3. If da 2nd wurd in da 1st 
+list corresponds tah da 2nd wurd (za) in da second list, u enter a 2.
+etc.
+
+Da program iz cawld hash.9.30.24.tc cuz id uses a vewy simple 
+"hashing" method tah determine if u getz dem awl ryet.
+
+Da program wiyill juz announce ow u shud invoke id if u don't 
+zupply a command tail. Da -r command line option iz tinyC's way tah run 
+a function udda dan da main function. In dais case u r feeding id 
+da function named file and da nayme ov an input file.
+
+Here's an eggzample ov a file dat wud wuk:
+
+zero,aardvark,epistle,funnee,second,fuhst,lazt,third,3214,
+
+zee http://primepuzzle.com/not.juz.tiny.c/hash.txt 
+
+Da matching pairs r explained below. In dais eggzample, da 
+correspondence iz based awn da alphabetic order ov da wurds in da 
+fuhst list.
+
+fuhst list    second list 
+
+zero          second 
+aardvark      fuhst 
+epistle       lazt 
+funnee         third 
+
+zero iz da alphabetically lazt wurd (wurd 3 in da second list)
+aardvark iz da alphabetically fuhst (wurd 2 in da second list)
+epistle iz da alphabetically second (wurd 1 in da second list)
+funnee iz da alphabetically third (wurd 4 in da second list)
+
+Da #include lines in da program r needed cuz id uses 
+functions dey contain.
+
+Comments in tinyC programs r lines dat begin wid //. "Sneaky block 
+comments" yews a pair ov left and ryet brackets.
+
+Da file function reads da input file into a buffer. Id alzo reports 
+ow many bytes r read and ow many bytes r uzed. Any bytes dat 
+appear aftah da lazt comma r displayed.
+
+Da split function iz uzed tah populate da fuhst 8 valyouze into 8 
+variables and da lazt value into anothah variable. Da function atoi iz 
+uzed tah turn dais lazt string into an integer.
+
+Da user iz asked tah enter da 4 answers she/he tinkz r correct. A 
+numeric comparison iz made at da end tah zee if da answer iz correct or 
+inkorrek.
+
+
+Translation by Toby Speak Version 2.2o
+The dishunary contains 799 wurds.
+

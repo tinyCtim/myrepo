@@ -1,0 +1,24 @@
+#loadMC pifib
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// estimates phi using ratios of Fibonacci numbers
+
+fib int n [
+	return MC(n, 1001)
+	]
+
+main [
+	printf "%cfibpi.tc - lrb - 6/25/21%c", 10, 10
+	int number, f2, f1
+	printf "%center a number < 40 ", 10
+	number = gn
+	f2 = fib(number + 1)
+	f1 = fib(number)
+	printf "%cfib(%d) = %d%c%cfib(%d) = %d%c%c", 10, number + 1, f2, 10, 10, number, f1, 10, 10
+	printf "ratio of these two Fibonacci numbers is "
+	MC f2 / f1, 14 // prints the whole number part of the ratio
+	dpf f2 % f1, f1, 20 // prints the decimal point and the decimal digits
+	pl ""
+	]
+

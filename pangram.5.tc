@@ -1,0 +1,32 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// pangrams are phrases that contain all the letters of the alphabet
+
+// Pack my box with five dozen liquor jugs.
+// How quickly daft jumping zebras vex!
+
+pangram char ph(0) [ // returns 1 if ph is a pangram, 0 if not
+	char ll(1),lu(1)
+	int i,len;len=strlen(ph)
+	ll(0)='a'-1;lu(0)='A'-1
+	while i < 26 [
+		ll(0)=ll(0)+1;lu(0)=lu(0)+1
+		if (index(ph,len,ll,1)==0)*(index(ph,len,lu,1)==0) return 0
+		i=i+1
+		]
+	return 1
+	]
+
+main [
+	char tcbuff(40),os(30),ph(200)
+	getproperty "pps/version.prop","os =",tcbuff,40,"..."
+	strcpy os,tcbuff
+	if (index(os,strlen(os),"Linux",5)) color '4' // blue
+	pl "pangram.tc - 3/8/22 - lrb";pl ""
+	if (index(os,strlen(os),"Linux",5)) color '7' // white
+	pl "Enter phrase : ";gs ph
+	if pangram(ph) pl "yup"
+	else pl "nope"
+	]
+

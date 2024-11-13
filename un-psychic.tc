@@ -1,0 +1,163 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+[
+
+https://www.facebook.com/groups/299317782048/permalink/10159560530607049/
+
+this program generates a random card from a deck and lets you ask
+questions that help you guess the card. it was the June '21 programming
+challenge on the not just tinyC Programming Group
+
+usage:
+
+tc un-psychic.tc
+tc un-psychic.tc -r cheat
+tc un-psychic.tc -r avg
+
+]
+
+korrek [printf "%ckorrek!%c", 10, 10]
+
+inkorrek [printf "%cinkorrek!%c", 10, 10]
+
+face [
+	if ((valuea >= 11) * (valuea <= 13)) korrek
+	else inkorrek
+	]
+
+club [
+	if suita == 'C' korrek
+	else inkorrek
+	]
+
+diamond [
+	if suita == 'D' korrek
+	else inkorrek
+	]
+
+heart [
+	if suita == 'H' korrek
+	else inkorrek
+	]
+
+spade [
+	if suita == 'S' korrek
+	else inkorrek
+	]
+
+even [
+	if ( (valuea >=2) * (valuea <= 10) * (valuea % 2 == 0) ) korrek
+	else inkorrek
+	]
+
+div3 [
+	if ( (valuea >=2) * (valuea <= 10) * (valuea % 3 == 0) ) korrek
+	else inkorrek
+	]
+
+div5 [
+	if ( (valuea >=2) * (valuea <= 10) * (valuea % 5 == 0) ) korrek
+	else inkorrek
+	]
+
+ace [
+	if valuea == 1 korrek
+	else inkorrek
+	]
+
+value [
+	int va
+	printf "%cvalue of card (Ace = 1, non-face = 2-10, face = 11-13 for J-K) ? ", 10
+	va = gn
+	if (va == valuea) korrek
+	else inkorrek
+	]
+
+guess [
+	char sa(1)
+	int va
+	printf "%csuit (c/C d/D h/H s/S)? ", 10
+	sa(0) = gc
+	toupper sa
+	printf "%cvalue of card (Ace = 1, non-face = 2-10, face = 11-13 for J-K) ? ", 10
+	va = gn
+	if ( (sa(0) == suita) * (va == valuea) ) [
+		printf "%ckorrectamundo!%c", 10,  10
+		abort
+		]
+	else printf "%cnope%c", 10,  10
+	]
+
+// globals
+
+int valuea; char suita
+int debug
+
+cheat [
+	debug = 1
+	main
+	]
+
+pn int i [MC i, 14]
+
+avg [
+	int guesses, times_played, tot_guesses, save
+	printf "%cplease enter the number of times you've played this game : ", 10
+	save = times_played = gn
+	pl ""
+	while times_played [
+		printf "please enter the number of guesses needed for game # %d : ", save - times_played + 1
+		guesses = gn
+		tot_guesses = tot_guesses + guesses
+		times_played = times_played - 1
+		]
+	printf "%cthe average number of guesses in a game was ", 10
+	pn tot_guesses / save
+	tot_guesses = tot_guesses % save
+	dpf tot_guesses, save, 3
+	pl ""
+	]
+
+main [
+	printf "%cun-psychic.tc - 5/17/21 - lrb%c", 10, 10
+	printf "%chttp://primepuzzle.com/not.just.tiny.c/unpsychic.png%c", 10, 10
+	if debug != 1 [
+		printf "%cUsage:%c%c", 10, 10, 10
+		printf "tc un-psychic.tc", 10
+		printf "%ctc un-psychic.tc -r cheat", 10
+		printf "%ctc un-psychic.tc -r avg%c", 10, 10
+		]
+	char pick, suit(3)
+	suit(0) = 'C'; suit(1) = 'D'; suit(2) = 'H'; suit(3) = 'S'
+	printf "%cplease type in some random number, like 17 : ", 10; seed = last = gn
+	suita = suit(random(0, 3))
+	valuea = random(1, 13)
+	if debug printf "%c%c %d%c", 10, suita, valuea, 10
+	int qa
+	pl "I've chosen a card from a 52 card deck. See if you can guess it ..."; pl ""
+
+	while 1 [
+		printf "%cnumber of questions asked so far = %d%c", 10, qa, 10
+		qa = qa + 1
+
+		printf "%cq quit f face card? c club? d diamond? h heart? s spade?%c", 10, 10
+		printf "e even? 3 div by 3? 5 div by 5? a ace? v value? g guess my card?%c", 10
+		printf "%cyour choice (q f c d h s e 3 5 a v g) ? ", 10; pick = gc
+		pl ""
+
+		if ( (pick == 'q') + (pick == 'Q') ) abort
+		if ( (pick == 'f') + (pick == 'F') ) face
+		if ( (pick == 'c') + (pick == 'C') ) club
+		if ( (pick == 'd') + (pick == 'D') ) diamond
+		if ( (pick == 'h') + (pick == 'H') ) heart
+		if ( (pick == 's') + (pick == 'S') ) spade
+		if ( (pick == 'e') + (pick == 'E') ) even
+		if ( (pick == '3')                 ) div3
+		if ( (pick == '5')                 ) div5
+		if ( (pick == 'a') + (pick == 'A') ) ace
+		if ( (pick == 'v') + (pick == 'V') ) value
+		if ( (pick == 'g') + (pick == 'G') ) guess
+		]
+	]
+

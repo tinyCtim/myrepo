@@ -1,0 +1,80 @@
+#include pps/library.tc
+#include lrblib.tc
+
+// hrun.tc - 11/25/18, 4/28/19, 6/9/19 - lrb
+// this is an interpreter for programs written in HARBRAD assembly language
+
+int memory(99),pc // memory array, program counter
+
+fnoc [return memory(pc)/100] // opcode
+
+fnod [ // operand
+ int w;w=memory(pc)%100
+ if w<0 w=-w
+ return w
+ ]
+
+main [ // main program
+ char f(50),lines(2000),ad(2),instr(4),wrk(40),yn,tracing // widened 4/28/19
+ int v1(0),v2(0),nl(1),line(90),lct,wlct,i1,i2,i,npc,acc
+ nl(0)=10
+ printf "%chrun.tc - 6/9/19 - lrb%c",10,10
+ printf "%cobject filename (.hbo will be appended) ",10;gs f
+ strcat f,".hbo"
+ readfile f,lines,2000
+ lct=split line,lines,nl
+ while wlct<lct [ // load memory w/ the program code
+  strcpy wrk,line(wlct)
+  ad(0)=wrk(0);ad(1)=wrk(1)
+  instr(0)=wrk(3);instr(1)=wrk(4);instr(2)=wrk(5);instr(3)=wrk(6)
+  atoi ad,v1;atoi instr,v2
+  memory(v1(0))=v2(0)
+  wlct=wlct+1
+  ]
+ printf "%cturn tracing on (y/n) ? ",10;tracing=getchar
+ i1=fnoc;i2=fnod
+ while i1!=9 [ // interpret the code
+  if ((tracing=='y')+(tracing=='Y')) [printf "%cpc=%d code=%d",10,pc,memory(pc)]
+  npc=pc+1
+  if (i1==1) acc=memory(i2)
+  else
+  if (i1==2) memory(i2)=acc
+  else
+  if (i1==3) acc=acc+memory(i2)
+  else
+  if (i1==4) acc=acc-memory(i2)
+  else
+  if (i1==5) acc=acc*memory(i2)
+  else
+  if (i1==6) acc=acc/memory(i2)
+  else
+  if (i1==7) [printf " ? ";acc=gn]
+  else
+  if (i1==8) pn acc
+  else
+  if (i1==-1) npc=i2
+  else
+  if ((i1==-2)*(acc>0)) npc=i2
+  else
+  if ((i1==-3)*(acc==0)) npc=i2
+  else
+  if ((i1==-4)*(acc<0)) npc=i2
+  else
+  if ((i1==-5)*(acc<=0)) npc=i2
+  else
+  if ((i1==-6)*(acc>=0)) npc=i2
+  else
+  if ((i1==-7)*(acc!=0)) npc=i2
+  pc=npc
+  i1=fnoc;i2=fnod
+  ]
+ if ((tracing=='y')+(tracing=='Y')) [printf "%cpc=%d code=%d",10,pc,memory(pc)]
+ printf "%c%cmemory dump (y/n) ? ",10,10;yn=getchar
+ printf "%c%c",10,10
+ if ((yn=='y')+(yn=='Y')) [
+  while i<=99 [
+   printf "%2d %3d ",i,memory(i);i=i+1
+   if i%10==0 printf "%c",10
+   ]
+  ]
+ ]

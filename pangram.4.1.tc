@@ -1,0 +1,43 @@
+
+// pangrams are phrases that contain all the letters of the alphabet
+
+// Pack my box with five dozen liquor jugs.
+// How quickly daft jumping zebras vex!
+// The quick brown fox jumps over the lazy dog.
+
+laurie [
+	char foo(150)
+	foo="Laurie von Schmidt's birthday is on Feb. 28, a pangram cuz I "
+	strcat foo,"just wogged exactly 5 miles, i.e. not quickly."
+	pl foo
+	mainarg foo
+	]
+
+pangram char ph(0) [ // returns 1 if ph is a pangram, 0 if not
+	char ll(1),lu(1)
+	int i,len;len=strlen(ph)
+	ll(0)='a'-1;lu(0)='A'-1
+	while i < 26 [
+		ll(0)=ll(0)+1;lu(0)=lu(0)+1
+		if (index(ph,len,ll,1)==0)*(index(ph,len,lu,1)==0) return 0
+		i=i+1
+		]
+	return 1
+	]
+
+// you may invoke this program via
+
+// tc pangram.4.1.tc -r "mainarg\"blah blah blah\""
+// tc pangram.4.1.tc -r laurie
+
+mainarg char ph(0) [
+	if strlen(ph)==0 [pl "Enter phrase : ";gs ph]
+	if pangram(ph) pl "yup"
+	else pl "nope"
+	]
+
+main [
+	char ph(200)
+	mainarg ph
+	]
+

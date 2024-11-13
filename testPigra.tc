@@ -1,0 +1,58 @@
+#loadMC pigra
+#include pps/pigra_lib.tc
+#include pps/library.tc
+#include pps/lrblib.tc
+
+// testPigra.tc - T A Gibson
+
+// https://www.facebook.com/groups/299317782048/permalink/10159648769607049/
+
+int devil
+	
+egg [
+	devil = 666
+	main
+	]
+
+bendell [
+	char jgs(300)
+	sleep 5
+	readfile "devil.txt", jgs, 110
+	pl ""
+	pft jgs, jgs + 110 - 1
+	sleep 5
+	pl ""
+	]
+
+main [
+	printf "%ctestPigra.tc - lrb - 6/19/21%c", 10, 10
+//	printf "%c%cDo you want to visit the page that talks about this program? (y/n) ", 10, 10
+//	char yn; yn = gc
+//	if yn == 'y' [
+//		printf "%c%cClose the window after browsing ...", 10, 10
+//		sleep 5
+//		system "permalink.html"
+//		sak
+//		]
+	sleep 5
+	blank
+	plot 30,50
+	text 32,50," <-- see the dot"
+	show
+	sleep 4
+	plot 48,28
+	text 50,28," <-- another"
+	show
+	sleep 4
+	text 55,26,"mangled text"
+	line 10,10,70,70
+	circle 40,40,25,29
+	star 40,40,25,7
+	text 32,50," <-- see the dot"
+	text 24,12,"Tiny C rocks!"
+	show
+	blank
+	sleep 5
+	if devil == 666 bendell
+	]
+

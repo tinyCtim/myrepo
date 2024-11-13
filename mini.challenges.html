@@ -1,0 +1,404 @@
+
+<title>mini challenges</title>
+
+<table align=center width=79%><tr><td>
+
+<br><b><font size=+2>
+
+<center><img border=0 title="mini challenges"
+src=http://primepuzzle.com/lee-bradley/220px-Sonic_modern_and_classic_designs.png></center>
+
+<p>
+
+To build up your knowledge of C and to eventually solve the
+
+<p>
+
+<a href=http://primepuzzle.com/runlog/february.24.html>March Programming Challenge</a>
+
+<p>
+
+here is a set of mini challenges.
+
+<p>
+
+Write a program in C that reads two numbers, a minutes number and a
+seconds number, and displays the total seconds. For example, if 14 is
+read and then 23 is read, the program should display the number 863,
+because 60*14+23=863.
+
+<p>
+
+A solution for this challenge is at <a
+href=http://primepuzzle.com/jslinux/chapter.0.c>http://primepuzzle.com/jslinux/chapter.0.c</a>
+
+<p>
+
+<font color=darkblue>Chapter 1.</font>
+
+<p>
+
+<img
+src=http://primepuzzle.com/lee-bradley/220px-Sonic_modern_and_classic_designs.25.png>
+
+<p>
+
+Sonic the hedgehog takes a total of 863 seconds to run a mile. His
+<i>pace</i> is 14:23, because 863/60 = 14 minutes, with a remainder of
+23 seconds.
+
+<p>
+
+Write a program in C which reads a number representing total seconds and
+outputs <i>two</i> numbers, the minutes and the seconds corresponding to
+the input. Require that the input be less than 1500.
+
+<p>
+
+A solution for this challenge is at <a
+href=http://primepuzzle.com/jslinux/chapter.1.c>http://primepuzzle.com/jslinux/chapter.1.c</a>
+
+<p>
+
+<a name=2></a><font color=darkblue>Chapter 2.</font>
+
+<p>
+
+Write a program in C that reads values like the following:
+
+<p>
+
+3<br>
+14,23<br>
+13,19<br>
+12,47<br>
+
+<p>
+
+The first number is the number of pairs of numbers that follow. The pairs
+stand for Sonic the hedgehog's running pace in minutes,seconds per mile.
+
+<p>
+
+Your program should output the fastest pace (in our example it would be
+12,47), the slowest pace (14,23) and the average pace. To get the average
+pace, turn the pairs into seconds, add these seconds, then divide
+by 3. Drop any partial seconds. Convert this quotient into minutes,seconds.
+
+<p>
+
+14*60+23 + 13*60+19 + 12*60+47 = 2429 seconds<br>
+2429/3 = 809 seconds (partial seconds dropped)<br>
+809 seconds = 13 minutes and 29 seconds<br>
+
+<p>
+
+A solution for this challenge is at <a
+href=http://primepuzzle.com/jslinux/chapter.2.c>http://primepuzzle.com/jslinux/chapter.2.c</a>
+
+<p>
+
+<a name=3></a><font color=darkblue>Chapter 3.</font>
+
+<p>
+
+<img title="Sonic the running hedgehog" src=http://primepuzzle.com/tpf/sonic.gif>
+
+<p>
+
+Write a program in C that reads data like
+
+<p>
+
+5<br>
+3.1,13:25<br>
+3.2,13:29<br>
+3.3,14:20<br>
+3.4,14:10<br>
+3.5,10:29<br>
+
+<p>
+
+The first number read is the number of pairs of mile mark,pace in mm:ss
+(minutes and seconds) which follow.
+
+<p>
+
+Output the average pace, the fastest pace and the mile mark at which it
+occurred, and the slowest pace and the mile mark at which it occurred.
+
+<p>
+
+In our example the output would look like
+
+<p>
+
+Average pace : 13:10<br>
+Fastest pace : 10:29 which occurred at mile mark 3.5<br>
+Slowest pace : 14:20 which occurred at mile mark 3.3<br>
+
+<p>
+
+<font color=red>Note: The exercises in Chapters 4 and 5 will show you how to parse
+strings and use library functions.</font>
+
+<p>
+
+Solution:
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/library.c>http://primepuzzle.com/jslinux/library.c</a>
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/library.h>http://primepuzzle.com/jslinux/library.h</a>
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/chapter.3.c>http://primepuzzle.com/jslinux/chapter.3.c</a>
+
+<p>
+
+<a name=4></a><font color=darkblue>Chapter 4.</font>
+
+<p>
+
+<img title="Sonic the running hedgehog" src=http://primepuzzle.com/tpf/sonic.gif>
+
+<p>
+
+Write a program in C that reads a line feed delimited text file and
+outputs each line on a new line.
+
+<p>
+
+Use the file at <a
+href=http://primepuzzle.com/jslinux/chapter.4.txt>http://primepuzzle.com/jslinux/chapter.4.txt</a>
+to test the program.
+
+<p>
+
+We have completed this one for you as file reading, pointer usage, and
+several string functions may be unfamiliar. We will use some of the
+ideas in this program to solve the exercise in Chapter 3.
+
+<p>
+
+We will need to parse a long string like (&lt;nl> stands for a newline character)
+
+<p>
+
+3.4,14:10&lt;nl>3.5,13:12&lt;nl> etc.
+
+<p>
+
+into individual strings
+
+<p>
+
+3.4,14:10 and 3.5,13:12
+
+<p>
+
+A solution for this challenge is at <a
+href=http://primepuzzle.com/jslinux/chapter.4.c>http://primepuzzle.com/jslinux/chapter.4.c</a>
+
+<p>
+
+<a name=5></a><font color=darkblue>Chapter 5.</font>
+
+<p>
+
+<img title="library" src="http://primepuzzle.com/books/books.jpg" border="0">
+
+<p>
+
+Libraries contain books, movies etc. Computer programs use libraries
+too. They are collections of <i>functions</i>.
+
+<p>
+
+Write a program in C that uses a library defined in a file named
+library.c that contains a function that displays mm:ss when given total
+seconds.
+
+<p>
+
+Example run:
+
+<p>
+
+D:\jslinux>chapter.5.exe
+
+<p>
+
+enter seconds 834
+
+<p>
+
+mm:ss 13:54
+
+<p>
+
+D:\jslinux>
+
+<p>
+
+Solution:
+
+<p>
+
+<a href=http://primepuzzle.com/jslinux/library.c>http://primepuzzle.com/jslinux/library.c</a>
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/library.h>http://primepuzzle.com/jslinux/library.h</a>
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/chapter.5.c>http://primepuzzle.com/jslinux/chapter.5.c</a>
+
+<p>
+
+<a name=6></a><font color=darkblue>Chapter 6.</font>
+
+<p>
+
+<img title="Solar panel array" src=http://primepuzzle.com/lee-bradley/solar.jpg>
+
+<p>
+
+Arrays may be used to hold a series of related data.
+
+<p>
+
+Write a program in C to read in a file of line feed delimited data and
+store the "records" in a character array.
+
+<p>
+
+Use the file at <a
+href=http://primepuzzle.com/jslinux/chapter.4.txt>http://primepuzzle.com/jslinux/chapter.4.txt</a>
+
+<p>
+
+A simple example of the use of a character array is at <a
+href=http://primepuzzle.com/jslinux/arrays.c>http://primepuzzle.com/jslinux/arrays.c</a>
+
+<p>
+
+Then read in two numbers, n and m, a starting record number and an ending
+record number.
+
+<p>
+
+Display these records and the average pace in mm:ss of the records between
+the nth and mth records (inclusive). Use 0-based indexing. That is, the
+first record is record 0.
+
+<p>
+
+Use the ideas in previous chapters to solve the problem.
+
+<p>
+
+For example:
+
+<p>
+
+If the n and m are 7 and 12 your output should be
+
+<p>
+
+0.7,18:34<br>
+0.8,16:40<br>
+0.9,16:23<br>
+1.0,19:25<br>
+1.1,18:39<br>
+1.2,19:56<br>
+
+<p>
+
+18:16
+
+<p>
+
+Solution:
+
+<p>
+
+<a href=http://primepuzzle.com/jslinux/library.c>http://primepuzzle.com/jslinux/library.c</a>
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/library.h>http://primepuzzle.com/jslinux/library.h</a>
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/chapter.6.c>http://primepuzzle.com/jslinux/chapter.6.c</a>
+
+<p>
+
+<a name=7></a><font color=darkblue>Chapter 7.</font>
+
+<p>
+
+<img title="chasing your (command) tail" src=http://primepuzzle.com/lee-bradley/image119.jpg>
+
+<p>
+
+How do you handle command tails in C?
+
+<p>
+
+This program solves the March Programming Challenge.
+
+<p>
+
+The file to be read is supplied via a command tail.
+
+<p>
+
+chapter.7.exe -f filename [-n num]
+
+<p>
+
+The -n num option tells the program how many consecutive records to
+average.
+
+<p>
+
+We print the average pace for each num contiguous records.<br>
+We print the fastest average pace of any num contiguous records.<br>
+We print the slowest average pace of any num contiguous records.<br>
+
+<p>
+
+<a href=http://primepuzzle.com/jslinux/library.c>http://primepuzzle.com/jslinux/library.c</a>
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/library.h>http://primepuzzle.com/jslinux/library.h</a>
+
+<p>
+
+<a
+href=http://primepuzzle.com/jslinux/chapter.7.c>http://primepuzzle.com/jslinux/chapter.7.c</a>
+
+<p>
+
+</pre>
+
+<br>
+
+</td></tr></table>
+

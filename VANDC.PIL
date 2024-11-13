@@ -1,0 +1,56 @@
+R:Vowels and Consonants Version 83.03.07
+R:By Kurt Albrecht
+R:Minor spelling corrections - Lee Bradley - 7/27/21
+
+S:CLEAR
+T:Vowels and Consonants
+:By Kurt Albrecht
+:
+:My name's Heath, what's yours?
+A:$NAME
+T:
+:$name, I'm going to ask you to name some of the vowels and consonants
+:of the alphabet.
+
+*BEGIN
+T:
+:Which would you like to try first; vowels or consonants?
+:Just press either V or C.
+I:
+M:V,C
+TN:I'm not sure I understand you. Please re-phrase your answer.
+JN:BEGIN
+M:V
+JN:CONSONANTS
+
+*VOWELS
+T:
+:$name, please name a vowel.
+A:$ANSWER
+M:A,E,I,O,U,Y
+UY:CORRECT
+TN:I'm sorry, $answer is not a vowel.
+J:CONTINUE?
+
+*CONSONANTS
+T:
+:Try and name a consonant $name.
+A:$ANSWER
+M:B,C,D,F,G,H,J,K,L,M,N,P,Q,R,S,T,V,W,X,Y,Z
+UY:CORRECT
+TN:Nope, $answer is not a consonant.
+J:CONTINUE?
+
+*CORRECT
+T:That's right $name!!!
+E:
+
+*CONTINUE?
+T:Do you want to continue (Just press either Y or N)?
+I:
+M:Y,N
+TN:I'm sorry $name, But I don't understand you.
+JN:CONTINUE?
+M:Y
+JY:BEGIN
+T:Well I hope you enjoyed our little game $name, so long.

@@ -1,0 +1,79 @@
+
+125 N: 20 P: ~ Pause constant, lines per screen constant
+
+#S,1; ~ pause ...
+
+"!Print ASCII table, 1/30/93 - 5/30/08, Lee Bradley!!" 
+
+32 s: 128 e: 2 M:  ~ start char., end char., number of columns
+
+"First ASCII character = SPACE!"
+"Last ASCII character = DEL!"
+"Number of columns = 2!!"
+"Defaults OK (Y/N) ? "  ?' r:
+
+r. 'n = r. 'N = + [
+
+"!!Enter the decimal value of the first ASCII character to print."
+"!(32 = SPACE) ? " ? s:
+"!!Now enter the decimal value of last ASCII character to print."
+"!(127 = DEL) ? " ? 1 + e:
+("!How many columns do you want (1..6) ? " ? M: M. 6 > M. 1 < + ^)
+"!"  ]
+
+#S,1;
+#D;
+0 l: s. c:
+
+~ Main loop
+
+(
+e. c. - ^					~ While not done 
+c. 100 < ['0 !']
+c. 10 < ['0 !']
+c. ! "  " #H,c.;  " "
+
+32 c. > [94 !' c. 64 + !']
+31 c. < [32 c. !' !']
+" |"                                            ~ Print dec., hex., char.
+
+c. 1 + c: 					~ Bump char., and when  
+1 c. s. - M. \ -[#C,l;]				~ appropriate, print new line
+)
+
+"!"
+
+~ Macros follow
+
+$H   ~ Convert decimal to hexadecimal
+1% w:
+w. 16 / 9 / [w. 16 / 10 - 'A + !']
+10 w. 16 / > [w. 16 / '0 + !']
+w. 16 \ 9 > [w. 16 \ 10 - 'A + !']
+10 w. 16 \ > [w. 16 \ '0 + !']
+@
+
+$S  ~ Pause
+N. 1% * w: ( w. 1 - w: w. ^ )
+@
+
+$C ~ Count lines, do heading 
+"!"
+1%. 1 + 1%:
+P. 1%. = ["! "  "Strike Any Key -- " 0 1%: ?' 0 * 32 + 8 !' !' #D;]
+@
+
+$D ~ Heading 
+"!"
+#Z;
+M. w: ( "Dec" "  " "Hx" " " "Ch |" w. 1 - w: w. ^) "!!"
+@
+
+$Z ~ Universal clear screen
+24 w:
+(w. ^
+'J 64 - !'
+w. 1 - w:
+)
+@
+

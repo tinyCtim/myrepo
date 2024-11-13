@@ -1,0 +1,58 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// foo returns the number of double letters in word
+
+foo char word(0) [
+ char ch;int count,length,i
+ length=strlen(word)
+ ch=word(0) // save first letter
+ i=1 // start comparing just past it
+ while i<length [ // process the whole word
+  if ch==word(i) [ // got a match?
+   count=count+1 // bump match count
+   i=i+1 // get past matched letter
+   ]
+  ch=word(i) // save letter that you're on
+  i=i+1 // advance to next letter
+  ]
+ return count
+ ]
+
+// reads file fi and displays all words that have double letters
+// along w/ the number of double letters in the word
+
+double char fi(0) [
+ // worda holds the positions of the words in the file
+ int i,j,k,n,count,verbose,sl,nwlines,worda(5000)
+ // t holds the contents of the file 
+ char t(25000)
+ char lfs(1),crlfs(2);lfs(0)=10;crlfs(0)=13;crlfs(1)=10
+ k=readfile fi,t,25000-1
+ printf "%cseconds to pause between words? ",10;sl=gn
+ printf "%cshow all words (1) or just those with duplicate letters (0) ",10;verbose=gn
+ printf "%cthe file is %d bytes long.%c",10,k,10
+ strcat t,lfs;k=k+1 // just to make sure there is a line ender
+ // replace any carriage return linefeeds w/ newlines
+ while i=index(t,k,crlfs,2) t(i-1)=10
+ i=0;pl ""
+ // replace newlines w/ spaces
+ while (i=index(t,k,lfs,1)) [nwlines=nwlines+1;t(i-1)=32]
+ n=split worda,t," "
+ printf "%d word(s) and %d newline(s) found%c",n-nwlines+1,nwlines,10
+ while j<n [ // main loop
+  sleep sl
+  count=foo worda(j)
+  if verbose pl worda(j)
+  if count printf "%c%s %d",10,worda(j),count
+  j=j+1
+  ]
+ ]
+
+main [
+ printf "%cdouble.tc - lrb - 1/10/20%c",10,10
+ char fi(40)
+ printf "%cEnter the name of a text file to be read : ",10;gs fi
+ double fi
+ printf "%c",10
+ ]

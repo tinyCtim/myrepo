@@ -1,0 +1,22 @@
+
+// addcr.tc - lrb
+
+main [ // add carriage returns in front of linefeeds
+
+ char nf(30),onf(30),fcon(2000),f1con(2000);int nfl,onfl,i,j,fl,wfl
+ printf "%caddcr.tc - lrb - 10/26/24 - add carriage returns in front of linefeeds%c",10,10
+ while nfl==0 [printf "%cinput file? ",10;nfl=gs(nf)]
+ while onfl==0 [printf "output file? ";onfl=gs(onf)]
+ fl=readfile nf,fcon,2000
+ printf "%c%d characters in input file",10,fl
+ while i<fl [
+  if fcon(i)==10 [f1con(j)=13;j=j+1]
+  f1con(j)=fcon(i);j=j+1
+  i=i+1
+  ]
+ wfl=writefile onf,f1con,j
+ printf "%c%d characters in output file",10,wfl
+ printf "%c%d carriage returns added",10,wfl-fl
+
+ ]
+

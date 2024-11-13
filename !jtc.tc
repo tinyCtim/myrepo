@@ -1,0 +1,60 @@
+
+[
+
+initial blank line ok cuz no #includes
+
+!jtc.tc - lrb
+
+tc !jtc.tc -r maintiny
+tc !jtc.tc -r mainmatch
+tc !jtc.tc
+
+changed on 5/6/22. 5/18/23
+
+]
+
+url int n; char u(0); [
+ if n == 4 strcpy u,"tinyurl.com/apgttmol"; // programmer's.guide.html
+ if n == 1 strcpy u,"http://primepuzzle.com/not.just.tiny.c/!jtc.html"
+ if n == 2 strcpy u,"http://primepuzzle.com/not.just.tiny.c/Table_Of_Contents.html"
+ if n == 3 [pl "deprecated";abort]
+ if n == 6 strcpy u,"https://www.facebook.com/groups/299317782048/permalink/10159648769607049/"
+ if n == 5 MC 109 // abort
+ ]
+
+sak char s(0) [
+ printf "%c%s%c", 10, s, 10
+ char ch; ch = getchar
+ ]
+
+int n;
+
+maintiny [pl "type an integer in [1..6] "; n = gn; main;]
+
+mainmatch [
+ system "tc matched_pair.tc -r mainv";
+ maintiny;
+ ]
+
+main [
+ int i; i = 5;
+ while i [
+  printf "%cGive thanks!", 10;
+  i = i - 1;
+  ]
+ char u(100), tcbuff(40);
+ getproperty "pps/version.prop", "os =", tcbuff, 40, "...";
+ int win; win = index(tcbuff, strlen(tcbuff), "Windows", 7);
+ char u(100)
+ if win [
+  pl ""
+  url(1, u)
+  printf "%crunning %s locally", 10 , u
+  pl ""
+  sak "Hit it!"
+  if n != 0 [url(n, u); printf "%claunch %s", 10, u; sak "Hit it again!";]
+  system "!jtc.html"
+  ]
+ pl "";
+ ]
+

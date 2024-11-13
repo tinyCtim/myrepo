@@ -1,0 +1,93 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+#include pps/mathLib.tc
+
+// sample usage under Linux       ./tc ver.tc -r 'ver"yes!!!!!"'
+// sample usage under Windows       tc ver.tc -r "ver\"blah\""
+
+// the amy function was motivated by a problem my Statistics tutee worked on
+
+// x  f
+// ----
+// 5  2
+// 7  8
+// 8 11
+ 
+// http://primepuzzle.com/tunxis/amy_final.html
+// tc ver.tc -r amy
+
+amy [
+ printf "%camy - 6/12/19%c", 10, 10
+ int num, denom
+ num = 21 * 1146 - 23716; denom = 21 * 20
+ printf "%cnum = %d denom = %d", 10, num, denom 
+ printf "%cvariance is ", 10; dpf num, denom , 4 // display proper fraction
+ num = num * 1000000; denom = denom * 1000000
+ num = asqrt num; denom = asqrt denom
+ printf "%cstandard deviation is ", 10; dpf num, denom, 4
+ pl ""
+ ]
+
+main [
+ char qc; qc = '"'
+ pl "usage: on Linux type"
+ printf "%c./tc ver.tc -r 'ver%csome phrase%c'", 10, qc, qc, 10
+ pl "usage: on Windows type"
+ printf "%ctc ver.tc -r %cver\%csome phrase\%c%c", 10, qc, qc,qc, qc, 10
+ ]
+
+ver char v(0) [
+ printf "%cver.tc - lrb - 6/9/21%c",10,10
+ char tcbuff(40)
+ printf "%cThe tiny-C build date is ",10
+ getproperty "pps/version.prop","date =",tcbuff,40,"..."
+ printf "%s",tcbuff
+ printf "%cThe operating system is ",10
+ getproperty "pps/version.prop","os =",tcbuff,40,"..."
+ printf "%s",tcbuff
+ char os(30);strcpy os,tcbuff
+ printf "%cThe program length is ",10
+ getproperty "pps/tc.prop","PRLEN",tcbuff,40,"..."
+ printf "%s",tcbuff
+ printf "%ctiny-C authors ",10
+ getproperty "pps/tc.prop","AUTHOR1",tcbuff,40,"..."
+ printf "%s",tcbuff
+ getproperty "pps/tc.prop","AUTHOR2",tcbuff,40,"..."
+ printf ", %s",tcbuff
+ getproperty "pps/tc.prop","AUTHOR3",tcbuff,40,"..."
+ printf ", %s",tcbuff
+ char mydate(20);cdate mydate
+ printf "%cThe current date and time is %s",10,mydate,10
+// int pi;printf "%cEnter a number : ",10;pi=gn
+ int pi; pi = 31415
+ char table(30);strcpy table,"tiny-C rocks!"
+ printf "%cA number and a message for the day follow.%c%c",10,10,10
+ printf "%15d",pi
+ printf "%c%15s%c",10,table,10
+ if pi==31415 [
+  printf "%c%cUsing functions from the libraries%c",10,10,10
+  char u(100)
+  url(1,u);printf "%c%s",10,u
+  lrblibver
+  char yellow;yellow='3'
+  // ANSI escape sequences are supported under Linux
+//  if (index(os,strlen(os),"Linux",5)) color yellow
+//  color '4' // blue
+  printf "%c%chttp://primepuzzle.com/not.just.tiny.c/ver.amy.tc%c%c",10,10,10,10
+  char white;white='7'
+//  if (index(os,strlen(os),"Linux",5)) color white
+//  color '7' // white
+  ]
+ else [printf "%c%cMIGHT WANT TO TRY ENTERING 31415 NEXT TIME ... :-)%c%c",10,10,10,10]
+ char pie(100);pie="3.1415926535897932384"
+ printf "Your command tail was %s",v
+ if (pi>=3) [
+  printf "%c%s",10,pie
+  printf "%cyummm",10
+  ]
+ else [
+  printf "%cI prefer cheesecake",10
+  ]
+ printf "%c",10
+ ]
+

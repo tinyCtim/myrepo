@@ -1,0 +1,54 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// amend.2.tc - 1/2,3/21 - tct
+
+// this program tells you what colors to use when filling out Jason Fox's
+// "Scary Paige" puzzle
+
+// http://primepuzzle.com/not.just.tiny.c/Table_Of_Contents.html#amend
+
+main [
+ printf "%camend.2.tc - 1/3/21 - tct%c", 10, 10
+ char lf(1), safa(1000), tcbuff(40), os(30)
+ int bytes, ncount, safap(200), number(0), linux
+ char green; green = '2'
+ char magenta; magenta = '5'
+ char red; red = '1'
+ char yellow; yellow = '3'
+ char white; white = '7'
+ lf(0) = 10
+ bytes = readfile "saf.txt", safa, 1000
+ ncount = split safap, safa, lf
+ printf "%cbytes read %d numbers found %d%c", 10, bytes, ncount, 10
+ getproperty "pps/version.prop", "os =", tcbuff, 40, "..."
+ strcpy os, tcbuff
+ if (index(os, strlen(os), "Linux", 5)) linux = 1
+ while ncount [
+  atoi safap(ncount - 1), number
+  if linux color white
+  if (number(0) % 13 == 0) [
+   printf "%d %d", ncount, number(0)
+   if linux color green
+   printf " green "
+   ] 
+  else if (number(0) % 17 == 0) [
+   printf "%d %d", ncount, number(0)
+   if linux color magenta
+   printf " magenta "
+   ]
+  else if (number(0) % 19 == 0) [
+   printf "%d %d", ncount, number(0)
+   if linux color red
+   printf " red "
+   ]
+  else [
+   printf "%d %d", ncount, number(0)
+   if linux color yellow
+   printf " yellow "
+   ]
+  ncount = ncount - 1
+  ]
+ if linux color white
+ ]
+

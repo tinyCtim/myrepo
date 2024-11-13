@@ -1,0 +1,145 @@
+
+<html>
+
+<!-- tile.html - tct - 2/23/9 4/13/20 -->
+
+<head><title>Tile a square with 5 rectangles with edges in [1,10]</title></head>
+
+<body>
+
+<table align=center width=97%><tr><td>
+
+<br>
+
+<b>
+
+<center>
+
+<a href=http://primepuzzle.com/tc/tile.html><font color=darkblue size=+2>Tile a square with 5 rectangles with edges in [1,10]</font></a>
+
+<p>
+
+<font color=darkblue size=+1>
+
+<img border=3 title="n1= 10 n2= 1 n3= 6 n4= 5 n5= 8 n6= 3 n7= 9 n8= 2 n9= 7 n10= 4
+" src=http://primepuzzle.com/tc/100_3814.L.JPG><p>
+11*11 = 121 = 10*2 + 6*1 + 7*4 + 9*3 + 8*5<p>
+<img border=3 title="n1= 10 n2= 1 n3= 9 n4= 2 n5= 8 n6= 3 n7= 6 n8= 5 n9= 7 n10= 4
+" src=http://primepuzzle.com/tc/100_3815.L.JPG><p>
+11*11 = 121 = 10*5 + 9*1 + 7*4 + 6*3 + 8*2<p>
+<img border=3 title="n1= 10 n2= 3 n3= 7 n4= 6 n5= 4 n6= 9 n7= 8 n8= 5 n9= 1 n10= 2" src=http://primepuzzle.com/tc/100_3812.L.JPG><p>
+13*13 = 169 = 10*5 + 7*3 + 2*1 + 9*8 + 6*4<p>
+<img border=3 title="n1= 10 n2= 3 n3= 8 n4= 5 n5= 4 n6= 9 n7= 7 n8= 6 n9= 1 n10= 2" src=http://primepuzzle.com/tc/100_3813.L.JPG><p>
+13*13 = 169 = 10*6 + 8*3 + 2*1 + 9*7 + 5*4<p>
+
+</center>
+
+<p>
+
+</font>
+
+<font color=red size=+1>
+
+<p>
+
+Here's a diagram showing the geometry involved.
+
+</font>
+
+<font color=#000000 size=+1>
+
+<pre>
+          n8                  n7
+       +-----+-------------------------------------+
+       +     +                                     +
+       +     +                                     + n6
+    n1 +     +                                     +
+       +     +------------------------------+------+
+       +     +             n10              +      +
+       +     +                              +      +
+       +     +                           n9 +      +
+       +     +                              +      +
+       +-----+------------------------------+      + n5
+       +                                    +      +
+       +                                    +      +
+    n2 +                                    +      +
+       +                                    +      +
+       +------------------------------------+------+
+                       n3                      n4
+</pre>
+
+<font color=red size=+1>
+
+<p>
+
+Here's a sample run of tile.tc, a Tiny-C program that figures out all
+possible solutions of the tiling problem.
+
+</font>
+
+<font color=#000000 size=+1>
+
+<pre>
+L:\hdrive.3.16.20>tc tile.tc
+
+***  TINY-C VERSION 1.0,  COPYRIGHT 1977, T A GIBSON  ***
+        This C version copyright 2017, T A Gibson
+
+tile.tc - tct - 4/13/20
+
+n1=10 n2=1 n3=6 n4=5 n5=8 n6=3 n7=9 n8=2 n9=7 n10=4
+
+n1=10 n2=1 n3=9 n4=2 n5=8 n6=3 n7=6 n8=5 n9=7 n10=4
+
+n1=10 n2=3 n3=7 n4=6 n5=4 n6=9 n7=8 n8=5 n9=1 n10=2
+
+n1=10 n2=3 n3=8 n4=5 n5=4 n6=9 n7=7 n8=6 n9=1 n10=2
+</pre>
+
+<font color=red size=+1>
+
+Here's a link to the source code:
+
+<a href=http://primepuzzle.com/tc/tile.tc>http://primepuzzle.com/tc/tile.tc</a> 
+
+</font>
+
+<font color=#000000 size=+1>
+
+<p>
+
+The program tiles a square with 5 rectangles.
+
+<p>
+
+It contains a nested series of loops which exhaust all combinations of
+the numbers 1 thru 10 which contain each number exactly once and satisfy
+inequalities implied by geometry.
+
+<p>
+
+For example:  n9 < minimum n5,n1
+
+<p>
+
+The innermost loop uses a nested if which uses a function which returns
+true when its arguments satisfy a certain equality. The equalities are
+implied by geometry.
+
+<p>
+
+For example: n5 = n9+n2
+
+<p>
+
+When all requirements are met, the 10 numbers are displayed.
+
+</b>
+
+</tr></td></table>
+
+<p>
+
+</body>
+
+</html>

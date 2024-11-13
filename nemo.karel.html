@@ -1,0 +1,69 @@
+
+<table align=center width=79%><tr><td>
+
+<title>Storm Nemo (Karel the Robot)</title>
+
+<pre><font size=+2>
+
+<a name=4></a>Problem 4
+
+Do a Storm Nemo snow shovel simulation.
+
+During Storm Nemo, Karel the Robot was watching Lee solve the problem of
+where to put the snow. The only way to get rid of it was to shovel a
+swath and pile it up. Then shovel another swath and pile it in another
+pile. These piles would then be moved onto Lee's lawn. The piles could
+only be four feet high. Here's what the piles looked like after one day
+of shoveling.
+
+<img border=3 src=http://primepuzzle.com/tc/nemo-karel-bw.33.jpg>
+
+S A
+      *********************************
+T 9   *                               *
+      *                               *
+R 8   *         p                   l *
+      *                             a *
+E 7   *         q                   w *
+      *                             n *
+E 6   *                               *
+      *                               *
+T 5   *         v       r             *
+      *                               *
+S 4   *     @   @   @   @             *
+      *                               *
+  3   *     @   @   @   @             *
+      *                               *
+  2   *                               *
+      *********************************
+  1
+
+    1   2   3   4   5   6   7   8   9   A
+    A   V   E   N   U   E   S
+
+Put the 4 beepers that are nearest Karel in a pile at location
+(avenue,street) = (4,8).  Put the remaining beepers in a pile at
+location (4,7). Move the pile you 1st built to some place on the lawn
+and move the 2nd pile to another place on the lawn.  The p, q, r and
+lawn are just there to help you locate key places.
+
+k 4 5 S
+w 1 1 9 1
+w 1 9 9 9
+w 1 1 1 9
+w 9 1 9 9
+b 3 4 1
+b 4 4 1
+b 5 4 1
+b 6 4 1
+b 3 3 1
+b 4 3 1
+b 5 3 1
+b 6 3 1
+g 0
+
+<a href=http://primepuzzle.com/lee-bradley/SamplePrograms/nemo.tc>nemo.tc</a>
+
+</pre></font>
+
+</td></tr></table>

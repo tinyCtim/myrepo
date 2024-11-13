@@ -1,0 +1,15 @@
+
+* Program .... : MENU4-1A.FMT
+* Notes ...    : Format file for adding publisher information.
+
+@  3,28 SAY "Lee's Books"
+@  6,1  SAY 'PUBLISHER..... ' GET NAME PICTURE;
+'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+@  8,1  SAY 'STREET ADDRESS ' GET ADDRESS PICTURE;
+'!!!!!!!!!!!!!!!!!!!!!!!!!'
+@ 10,1  SAY 'CITY.......... ' GET CITY PICTURE '!!!!!!!!!!!!!!!!!!!!'
+@ 10,50 SAY 'STATE ' GET STATE PICTURE '!!'
+@ 12,1  SAY 'ZIP CODE...... ' GET ZIP PICTURE '99999'
+@ 14,1  SAY 'TELEPHONE..... ' GET PHONE PICTURE '(999)-999-9999'
+@ 16,1  SAY 'CONTACT....... ' GET ATTN PICTURE;
+'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'

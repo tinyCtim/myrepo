@@ -1,0 +1,71 @@
+:"NIM.TIN, by Les Hancock"
+:""
+:"This program appeared in Dr. Dobb's issue (#41)"
+:"along with its tiny interpreter written in BDS C."
+:""
+:"http://primepuzzle.com/mouse/hancock.html"
+`lrb - changed the computer move logic. The program lets the'
+`opponent determine the starting match count.'
+:""
+:"Please enter the number of matches you want to start with."
+:""
+S x=?
+{x>0}->O
+:"Please enter a positive number!"
+->S
+O :"OK. "
+;x
+;" it is."
+:""
+:"Taking from 1 to 3 matches, leave your opponent (i.e. me, the computer)"
+:"the last one to pick up. P.S. I am pretty smart, but with the right"
+:"choices, I can be beat! Good Luck!"
+:""
+f=0 `This flag controls the opening move(s) of the computer.'
+z=1 `When this field is 0, computer takes turn.'
+`Print x matches.'
+A :"! "
+y=x
+B y=y-1
+{y==0}->C
+;"! "
+->B
+C {z==0}->E `Whose turn?'
+:""
+:"your move"
+u=?
+{u<= 3}{u>0}->D `not error'
+:"take 1, 2 or 3 only" `error'
+->C `try again'
+D x=x-u
+{x<1}->G `computer wins'
+z=0 `computer gets next turn'
+->A
+E {x<=4}->X
+{f==0}->Q
+i=4-u
+->Y
+Q i=x-1   `If possible, leave the poor fellow with an'
+i=x-4*i/4 `unbeatable number, like 5, 9, 13, 17, 21, etc.'
+i=i-1     `e.g. if there are 18, 18-1 = 17, 17/4 = 4'
+f=i       `4*4 = 16, 18-16=2 and 2-1 = 1, so take 1, leaving'
+{f}->Y    `17. If the match count is already an unbeatable'
+i=1       `number, just take 1, and see if the user make an'
+->Y       `error.'
+X i=x-1
+{x==1}i=1
+Y :""
+:"I take "
+;i
+:""
+x=x-i
+{x<1}->F `user wins'
+z=1
+->A
+F :"YOU WIN"
+:""
+!
+G :"I WIN"
+:""
+!
+

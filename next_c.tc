@@ -1,0 +1,58 @@
+#include pps/library.tc
+#include pps/lrblib.tc
+
+// find the next date that contains the same day number on the same day of
+// week as the input date
+
+// ref: http://primepuzzle.com/tc/next_c_doc.html
+
+// a useful calendar site is http://5ko.free.fr/en/year.php?y=1776
+
+leap int year [
+ if (year%400==0) return 1
+ else if (year%100==0) return 0
+ else if (year%4==0) return 1
+ else return 0
+ ]
+
+next int dow,month,day,year [
+ int i,month_n(12),day_of_week_n(7),db(12),da(36),index,work_day,verbose
+ char foo(100),bar(100)
+ strcpy foo,"Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,"
+ strcpy bar,"Sun,Mon,Tue,Wed,Thu,Fri,Sat,"
+ split month_n,foo,",";split day_of_week_n,bar,","
+ printf "%c%s %s %d",10,day_of_week_n(dow),month_n(month),day,year
+ db(0)=31;db(1)=28;db(2)=31;db(3)=30;db(4)=31;db(5)=30
+ db(6)=31;db(7)=31;db(8)=30;db(9)=31;db(10)=30;db(11)=31
+// load up 3 years of data. adjust for leap years
+ while i<36 [
+  da(i)=db(i%12)
+  i=i+1
+  ]
+ i=0
+ while i<3 [
+  if (leap(year+i)) da(1+12*i)=29
+  i=i+1
+  ]
+ index=month+1;work_day=dow;verbose=1
+ if verbose printf "%c%d %d",10,month,work_day
+ while 1 [ // main loop
+  work_day=(work_day+da(index-1))%7
+  if verbose printf "%c%d %d",10,index,work_day
+  if work_day==dow // needs to be right day of week
+   if (da(index)>=day) break // needs to be a legal month
+  index=index+1
+  ] // end main loop
+ printf "%c%s %d%c",10,month_n(index%12),(year+index/12),10
+ ]
+
+main [
+ int dow,month,day,year
+ printf "%cnext_c.tc - 7/6/19 - lrb%c",10,10
+ printf "%cdow (0=Sunday, 1=Monday, etc.) : ",10;dow=gn
+ printf "month (0=January, 1=February, etc.) : ";month=gn
+ printf "day (1..31) : ";day=gn
+ printf "year (e.g. 2019) : ";year=gn
+ next dow,month,day,year
+ ]
+

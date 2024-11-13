@@ -1,0 +1,375 @@
+#!/usr/bin/python
+"""
+9/16/18 tlg
+
+added ()s for print function (req'd by Python 3.7)
+changed defaults
+
+Three car strategies. All new cars are placed in cell 0:
+	init_cars are loaded at the very beginning.
+	rand_cars are loaded at random lane random second
+	sched_cars are loaded at specified time and lane.
+	Examples:
+		init_cars = ['N','S','W']
+		rand_cars = False
+		sched_cars = [2,'S', 4,'W', 5,'S']
+	rand_cars needs at least one seed car in init_cars.
+"""
+init_cars = ['E','S','W']
+rand_cars = True
+sched_cars = [2,'S', 4,'W']
+"""
+A few colors for the cars. Add more using pygame color names:
+https://www.webucator.com/blog/2015/03/python-color-constants-module/
+"""
+car_colors = [ "red", "blue", "green", "maroon", "yellow", "lightgrey" ]
+
+"""
+Color controls: How colors are selected from car_colors, or one color 
+for all.
+"""
+color_rotation = True
+color_random = False
+otherwise_use_this_color = "black"
+
+"""
+Debug controls:
+	show_roads: prints the cells for each lane each second
+	show_cars: prints schedule for creation, actual creation of each, 
+	  lists of active and gone cars each second.
+	car_detail: prints details about car motion
+	snap_delay: prints clock seconds and SNAP THIS, then delays two 
+	  seconds so you can hit keyboard's Print Screen key.
+"""
+show_roads = False
+show_cars = False
+car_detail = []
+snap_delay = False
+show_tick = False
+stop_after = 0
+show_ixn = False
+
+"""
+Infrastruction, import and init stuff and define colors, 
+screen, and some shorthand names
+"""
+import pygame, time, sys, random, datetime
+from pygame.color import THECOLORS
+pygame.init()
+pd = pygame.draw
+col = THECOLORS
+screen = pygame.display.set_mode([500,500])
+screen.fill( col["white"] )
+
+directions = ['N','S','E','W']
+carNumber = 0
+cars = {}
+gone_cars = []
+snap_this = False
+
+"""
+curbs define the lines bordering each lane. 2 lines, 2 endpts 
+per line. problem space is 0 to 12. 
+"""
+curbs = {}
+curbs['N'] = [ [ 5,  0],  [5,  5], [ 7,  0],  [7,  5] ]
+curbs['W'] = [ [12,  5],  [7,  5], [12,  7],  [7,  7] ]
+curbs['S'] = [ [ 7, 12],  [7,  7], [ 5, 12],  [5,  7] ]
+curbs['E'] = [ [ 0,  7],  [5,  7], [ 0,  5],  [5,  5] ]
+"""
+entry is the initial rectangle placement of a car
+"""
+entry = {}
+entry['N'] = [ 6.7, 11.5, .4, .8]
+entry['E'] = [ 0.5,  6.7, .8, .4]
+entry['S'] = [ 5.5,  0.5, .4, .8]
+entry['W'] = [11.3,  5.5, .8, .4]
+"""
+delta is data to increment the draw position.
+"""
+delta = {}
+delta['N'] = [1, -1]
+delta['W'] = [0, -1]
+delta['S'] = [1, 1]
+delta['E'] = [0, 1]
+"""
+Neighbor lane to the right
+"""
+neighbor = {}
+neighbor['N'] = 'W'
+neighbor['W'] = 'S'
+neighbor['S'] = 'E'
+neighbor['E'] = 'N'
+
+"""
+dumps the intersection when a car is at or in it. Note the xne etc
+use direction of travel, not compass location of the 4 intersection
+cells. This drawing helped me get it right...
+        S              .
+        |              .
+        v              .
+       xsw   xnw   <-W .
+       5,6   6,5       .
+                       .
+E->    xse   xne       .
+       6,5   5,6       .
+              ^        .
+              |        .
+              N        .
+example: xsw is the intersection of the south/west bound lanes. For
+south it is cell 5, for west 6. 
+"""
+def dump_ixn():
+	ln = {}
+	for d in directions:
+		ln[d] = roads[d].cell
+	xsw = ln['S'][5] + ln['W'][6]; xnw = ln['N'][6] + ln['W'][5]
+	xse = ln['S'][6] + ln['E'][5]; xne = ln['N'][5] + ln['E'][6]
+	print (" ", ln['S'][4], ln['N'][7])
+	print (ln['W'][7], xsw, xnw, ln['W'][4])
+	print (ln['E'][4], xse, xne, ln['E'][7])
+	print (" ", ln['S'][7], ln['N'][4])
+
+"""
+Defines a brief notation to make drawing easier. Scaling to pixels,
+a bit of offset, and other constant details are done here.
+"""
+class MyDraw:
+	def __init__(self, scale):
+		self.s=scale
+	def line(self,frm,to):
+		f = [x*self.s+10 for x in frm]
+		t = [x*self.s+10 for x in to]
+		pygame.draw.line(screen, col["black"], f, t, 2)
+	def car(self,pos,color):
+		#print pos
+		# good for N only. Need to generalize this
+		rect = [x*self.s for x in pos]
+		#print rect, self.s
+		pygame.draw.ellipse(screen, color, rect)
+
+
+"""
+A lane goes from the space edge to the intersection. 
+Four objects created from this class, named by their direction.
+Cells 0..4 are the approach lane, 5..6 the intersection, and 
+7..11 are the exiting lane. 
+"""
+class Lane:
+	def __init__(self, direction):
+		self.dir = direction
+		self.cell = [0]*12
+# returns the roads name, aka its direction.
+	def name(self):
+		return self.dir
+# draws 2 curbs
+	def render(self):
+		for i in [0,2]:
+			md.line(curbs[self.dir][i], curbs[self.dir][i+1])
+	def get_cell(self,cl):
+		return self.cell[cl]
+	def set_cell(self,cl,carid):
+		#print "~74",cl,carid
+		if cl<12 : self.cell[cl] = carid
+	def pr_cells(self):
+		print(self.__str__()),
+		print (self.cell)
+	def rt_nbr(self,dir):
+		cells = roads[neighbor[self.dir]].cell
+		return cells
+	def lf_nbr(self,dir):
+		cells = roads[neighbor[neighbor[neighbor[self.dir]]]].cell
+		return cells
+	def __str__(self):
+		string = 'lane %s ' % self.dir
+		return string
+
+
+"""
+A Car has a lane and a cell on that lane. Their id is a serial 
+number from 1 up. Their id is put into the cell where they reside.
+Additionally the "still alive" cars are in a dictionary. 
+Creates a car even if cell[0] is occupied, giving
+it cell -1 for waiting and putting it in the waiting queue.
+"""
+class Car:
+	def __init__(self, direction):
+		global carNumber
+		self.dir = direction
+		carNumber = carNumber+1
+		self.id = carNumber
+		if(color_rotation): 
+			c = (self.id-1) % len(car_colors)
+			self.color_name = car_colors[c]
+		elif(color_random): self.color_name = random.choice(car_colors)
+		else: self.color_name = otherwise_use_this_color
+		self.color = col[self.color_name]
+		self.lane=roads[self.dir]
+		if(self.lane.cell[0] == 0):
+			self.lane.set_cell(0,self.id)
+			self.pos_cell = 0
+			self.draw_pos = list(entry[self.dir])  # copy of entry
+
+			cars[self.id]=self
+			if(self.id in car_detail):
+				print ("car created:", self.dir, self.id, 
+				self.color_name, self.draw_pos)
+			self.render(self.draw_pos,self.color)
+		else:
+			self.pos_cell = -1
+			if(car_detail):
+				print( "phantom car", self.id)
+
+	def render(self,pos_cell,color):
+		if(self.id in car_detail):
+			print( "  car", self.id, "at", self.dir, self.pos_cell,
+			"  color,pos = ", self.color_name, pos_cell)
+		md.car(self.draw_pos,color)
+	def safe(self):
+		if(self.pos_cell<11):
+			if(self.lane.cell[self.pos_cell+1]): 
+				return False
+		if(self.pos_cell == 4):
+			if(show_ixn):
+				dump_ixn()
+			#print "~231 test rnbr[4] by car", self.id, 
+			#print "cell==", self.lane.rt_nbr(self.dir)[4]
+			if(self.lane.rt_nbr(self.dir)[4]): 
+				return False
+			#print "~235 test lnbr[5] by car", self.id,
+			#print "cell==", self.lane.lf_nbr(self.dir)[5]
+			if(self.lane.lf_nbr(self.dir)[5]): 
+				return False
+			#print "~239 lnbr[6] by car", self.id,
+			#print "cell==", self.lane.rt_nbr(self.dir)[6]
+			if(self.lane.lf_nbr(self.dir)[6]): 
+				return False
+		elif(self.pos_cell == 5):
+			if(show_ixn):
+				dump_ixn()
+			#print "~242 lnbr[4] by car", self.id,
+			#print "cell==", self.lane.rt_nbr(self.dir)[4]
+			if(self.lane.lf_nbr(self.dir)[4]): 
+				return False
+		return True
+	def move(self):
+		if(self.id in car_detail):
+			print( "car", self.id, "being moved:")
+		global snap_this
+		if self.safe():
+			self.lane.set_cell(self.pos_cell,0)
+			self.render(self.draw_pos,col["white"])
+			if(self.id in car_detail): 
+				print ("  ", self.id, "  erased")
+			self.pos_cell += 1
+			self.draw_pos[delta[self.dir][0]] += delta[self.dir][1]
+			if(self.id in car_detail): 
+				print ("  ", self.id, "  redrawn")
+			snap_this = True
+			if(self.pos_cell < 12):
+				self.lane.set_cell(self.pos_cell,self.id)
+				self.render(self.draw_pos,self.color)
+			else:
+				gone_cars.append(self.id)
+		else:
+			if(self.id in car_detail): print (self.id, "waiting")
+	def __str__(self):
+		return 'car %i: %c %i' % (self.id,self.dir,self.pos_cell)
+		
+#----------- global functions -------------#
+def move_all():
+	for c in cars:
+		car = cars[c]
+		car.move()
+
+def remove_cars():
+	for c in gone_cars:
+		cars.pop(c,None)
+	if(show_cars): print ("TICK", tick, "active:", cars.keys(), "gone:", gone_cars)
+	gone_cars[:] = []
+
+
+"""
+Real action begins here. 
+	Define four roads, one for each direction. Renders them.
+"""
+md = MyDraw(40)    #scale from problem to pixels
+roads = {}
+for dir in directions:
+	lane = Lane(dir)   #create a lane
+	roads[dir] = lane
+	lane.render()
+
+"""
+Initial add cars. A car has a serial number, a location==lane and cell. 
+A lane has 12 cells. Cell zero is the entry cell. 
+"""
+for d in init_cars:
+	car = Car(d)
+
+"""
+car_4 = Car('W')
+print car_2
+"""
+
+tick = 0
+when = 99999   # flag value, undefined until popped
+where = "X"    # nowhere until popped
+if(len(sched_cars)>1):
+	if(show_cars): print( "schedule:", sched_cars)
+	sched_cars.reverse()   # pop works from the end of a list
+
+def loop_code():
+	global tick,when,where,running
+	if(show_tick): print ("TICK",tick)
+	if(show_roads):
+		for d in directions:
+			lane = roads[d]
+			lane.pr_cells()
+	move_all()
+	if len(cars) == 0:
+		running = False
+	else: 
+		remove_cars()
+	tick += 1
+	if(stop_after): 
+		if(tick>stop_after): 
+			print ("stopping after tick ", tick-1)
+			running = False
+			time.sleep(30)
+			return
+	if(rand_cars):
+		if(random.randint(0,2)==0):
+			car = Car(random.choice(directions))
+	if(len(sched_cars)>0 or when < 99999):
+		if(when >= 99999):
+			when = sched_cars.pop()
+			where = sched_cars.pop()
+			if(car_detail): 
+				print ("scheduled car: tick,when,where = ",tick,when,where)
+		if(tick>=when):
+			car=Car(where)
+			if(show_cars): print ("new car", where)
+			when = 99999
+	time.sleep(1)
+"""
+game loop: show the drawing, execute loop_code() repeatedly,
+quit on click Frame's X, or the ESC key.
+"""
+running = True
+while running:
+	pygame.display.flip()
+	if(snap_delay):
+		print (datetime.datetime.now().strftime("%S"))
+		print ("SNAP THIS")
+		time.sleep(2)
+		snap_this = False
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			running = False
+		elif event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_ESCAPE:
+				running = False
+	loop_code()
+pygame.quit()
+

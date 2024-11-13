@@ -1,0 +1,12 @@
+`MULT.TIN - 8/27/2010 - lrb'
+`print multiplication table for x from x*0'
+`up to x*12 where x is entered by the user'
+:"enter a number"
+x=?
+y=13
+X y=y-1
+:x*12-y
+{y}->X
+:""
+!
+

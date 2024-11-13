@@ -1,0 +1,112 @@
+
+<html>
+
+<!-- compressor.html - lrb - 3/15/2010 -->
+
+<head><title>Compressor / Decompressor</title></head>
+
+<body>
+
+<table align=center width=89%><tr><td>
+
+<pre><b><font size=+1>
+
+<a href=http://www.facebook.com/group.php?gid=299317782048>tiny-c Programming Group</a> exercise for March 12, 2010
+
+<a href=http://primepuzzle.com/tc/compressor.html>Write a file compressor / decompressor in tiny-c.</a>
+
+<img title= "Baldaccini, Ceasar (1921-1998) - Compressed Ferrari (lithograph)" src=http://primepuzzle.com/tc/cesar-compression-de-ferrari-4704789.jpg>
+
+Files handled by your program are "<a href=http://primepuzzle.com/tc/SP.LEX>dictionary files</a>" consisting
+of single words that use only the 26 capital letters followed by
+carriage return linefeed delimiters. The compression algorithm should be
+based on the following scheme:
+
+Letters are divided into two classes, "common" and "rare." Here are the
+15 "common" characters (the \n stands for the newline character):
+
+EISNATROLDCUGP\n
+
+And here are the twelve "rare" characters:
+
+MHBYFVWKZXQJ
+
+The first byte of a compressed file is a "signature byte" of FF. If the
+file to be compressed contains the following
+
+A
+ABLE
+ABORT
+...
+
+the compressed file should look like so:
+
+Rec     0  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
+    0000: FF 4E 4F 28 0E 4F 27 65 E4 F2 76 50 9E 4F 27 65 .NO(.O'e..vP.O'e
+    0010: 13 CE 4F 27 65 2E 4F 27 B5 E4 F2 7F 50 E4 F2 27 ..O'e.O'....P..'
+    0020: 8B 50 8F 3E 4F 22 56 4A 5E 4A A0 80 64 57 6E 4A .P.>O"VJ^J..dWnJ
+    0030: A0 D5 E4 AA 0D 54 F2 80 E4 AA 02 2E 4A A0 22 09 .....T......J.".
+    0040: E4 AA 02 21 F2 80 E4 AA 7F 0F 07 94 50 E4 AA 76 ...!........P..v
+    0050: 91 3C E4 AA BF 0B 84 50 E4 AA B6 45 0E 4A F1 10 .<.....P...E.J..
+    0060: F5 09 E4 AF 73 7F 68 09 C0 E4 A6 72 2E 4A 51 F5 ....s.h....r.JQ.
+    0070: 45 09 E4 A5 B4 8E 4A 5B 48 8F 3E 49 4D 5E 49 9E E.....J[H.>IM^I.
+
+Explanation:
+
+Byte 0 is the signature byte.
+
+Byte 1 has two hexadecimal nibbles (a "nibble" is 4 "bits.") The 4 is
+because A is the 4th character in the "common" characters (we index
+using a base of 0). The E is because there's a newline after the
+"leading word" "A" in our input file and E is hexadecimal for decimal 14
+and newline is the 14th character in the "common" characters (again, we
+index using a base of 0).
+
+Byte 2 has two hexadecimal nibbles. The 4 is because A is the 4th
+character in the "common" characters. The F signals that we are have a
+"rare" character.
+
+Byte 3 has two hexadecimal nibbles. The 2 is because B is the 2nd
+character in the "rare" characters. The 8 is because the L is the 8th
+"common character."
+
+This compression method thus requires only one nibble for "common," two
+nibbles (i.e. one byte) for "rare" characters. File size is cut roughly
+in half by this relatively simple method. Since input files have
+"common" and "rare" characters at random spots, the signal you are
+entering "rare" mode might occur as a leading nibble or a trailing
+nibble.
+
+End of file details:
+
+If you find you have an unwritten nibble at the end of the compression,
+construct a full byte to write by using an F for the right nibble. Put
+this byte. Then put a hexadecimal CF as the last byte. If you don't have
+an unwritten nibble at the end, just put a hexadecimal FC as the last
+byte in your compressed file.
+
+Test your decompressor on the file: <a
+href=http://primepuzzle.com/tc/SPTINY.LCX>SPTINY.LCX</a>
+
+This file looks like so if "dumped" in hexadecimal and ASCII.
+
+Rec     0  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
+    0000: FF 51 3F 3E AE D6 7C 64 F0 F0 06 2E 67 AF 7E FC .Q?>..|d....g.~.
+    0010: 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A ................
+    0020: 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A ................
+    0030: 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A ................
+    0040: 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A ................
+    0050: 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A ................
+    0060: 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A ................
+    0070: 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A 1A ................
+
+Test your compressor on the file: <a href=http://primepuzzle.com/tc/SP.LEX>SP.LEX</a>
+
+</b></font></pre>
+
+</td></tr></table>
+
+</body>
+
+</html>
+

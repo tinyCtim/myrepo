@@ -1,0 +1,43 @@
+
+// amoeba.linux.tc - tct - 7/10/19
+
+int gseed
+
+randint [
+ int k1,ix;ix=gseed
+ k1=ix/127773
+ ix=16807*(ix-k1*127773)-k1*2836
+ if (ix<0) ix=ix+2147483647
+ gseed=ix
+ ]
+
+main [
+ pl "amoeba.linux.tc - tct - 7/10/19";pl ""
+ pl "An amoeba either dies, lives, splits into two or splits into three,"
+ pl "each with probability 1/4. It can be proved that out of 10"
+ pl "simulations, about 10*(sqrt(2)-1), which equals about 4,"
+ pl "populations will die out. It can also be proved that 1.5^n"
+ pl "is the expected number of amoebas after n generations. If n=10,"
+ pl "58 amoebas are expected.";pl ""
+ int c,p,pp,psp,s,gens,n,ptot
+ pl "seed? ";gseed=gn
+ gens=10
+ s=1
+ while s<=10 [
+  p=1;n=gens
+  while n*p [
+   n=n-1;psp=0
+   pp=1
+   while pp<=p [
+    randint;psp=psp+gseed%4
+    pp=pp+1
+    ]
+   p=psp;if p==0 c=c+1
+   ]
+  ptot=ptot+p;ps "simulation ";pn s;ps ": population";pn p;pl ""
+  s=s+1
+  ]
+ pl "";pn ptot/10;ps " amoebas, on average, were living after"
+ pn gens;ps " generations.";pl ""
+ pn c;ps " population(s) died out.";pl ""
+ ]

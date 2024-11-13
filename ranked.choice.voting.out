@@ -1,0 +1,61 @@
+E:\>ranked.choice.voting.exe -c choices.txt -s subjects.txt
+
+ranked.choice.voting.c - lrb - 10/21/22
+
+236 bytes read
+
+0 chemistry
+1 computer science
+2 art
+3 music
+4 english
+5 history
+6 quantum mechanics
+7 ethics
+8 anthropology
+9 psychiatry
+10 mathematics
+11 nursing
+12 golf
+13 football
+14 politics
+15 government
+16 latin
+17 greek
+18 religion
+19 teaching
+
+26 bytes read
+
+1,10,19,4,5,
+2,3,18,10,4,
+
+number of voters = 2 number of subjects = 19
+
+How many subjects do you want to select? 4
+
+loser = 0 min_votes = 0
+loser = 6 min_votes = 0
+loser = 7 min_votes = 0
+loser = 8 min_votes = 0
+loser = 9 min_votes = 0
+loser = 11 min_votes = 0
+loser = 12 min_votes = 0
+loser = 13 min_votes = 0
+loser = 14 min_votes = 0
+loser = 15 min_votes = 0
+loser = 16 min_votes = 0
+loser = 17 min_votes = 0
+loser = 5 min_votes = 1
+loser = 4 min_votes = 3
+loser = 18 min_votes = 3
+
+And the winners are ...
+
+1 computer science got 5 vote(s)
+2 art got 5 vote(s)
+3 music got 4 vote(s)
+10 mathematics got 6 vote(s)
+
+E:\>
+

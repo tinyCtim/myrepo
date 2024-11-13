@@ -1,0 +1,272 @@
+
+<!--
+ lrb - 8/4/21 - minor changes ... spelling fixes ... some German to English ... changed sample program
+ ref: http://waduzitdo.org/
+-->
+
+<html>
+ <head>
+  <title>Waduzitdo</title>
+<script type="text/javascript">
+
+// Original Implementation by Larry Kheriarty in 1978
+// JavaScript and DHTML in 2006 by Hans Franke
+
+// Verschiedene Variablen
+var Screen;  // Unser Ausgabe'fenster'
+var Source;  // Der Quelltext
+var NLda;    // Leerzeichenhandling am Ausgabeende
+
+function init()
+{
+ Screen = document.getElementById("Display").firstChild;
+ Editor = document.getElementById("Edit")
+
+ Screen.nodeValue = "\n\r\xA0"; // \n\r is just to confuse MSIE enough to get it workin'
+ NLda=1
+}
+
+// System Ein/Ausgabe
+
+function Cls ()
+{
+ Screen.nodeValue = "";
+}
+
+function PrChar ( c )
+{
+ if (NLda == 1)
+ {
+  NLda = 0;
+  var Puf = Screen.nodeValue;
+  Screen.nodeValue = Puf.substring(0,Puf.length - 1) + c;
+ }
+ else
+ Screen.nodeValue = Screen.nodeValue + c;
+}
+
+function PrNL ()
+{
+ var Inhalt = Screen.nodeValue +"\n\r\xA0";
+ var Zeilen = Inhalt.split("\n\r");
+ if(Zeilen.length > 20)
+  Screen.nodeValue = Zeilen.slice(1).join("\n\r");
+ else
+  Screen.nodeValue = Inhalt;
+ NLda = 1;
+}
+
+function GetChar ()
+{
+ PrChar("?"); // Should Blink :(
+ var Eingabe = window.prompt("Please enter a character", "");
+ if (!Eingabe) return "\r";
+ PrChar(Eingabe.charAt(0));
+ return Eingabe.charAt(0).toUpperCase();
+}
+
+// Der Interpreter anundfuersich
+// Es werden 3 Systemfunktionen benoetigt PrCHar(); PrNL() und GetChar()
+
+function Waduzitdo ()
+{
+
+var Source = Editor.value;
+var Loc  = 0;
+var End  = Source.length - 1;
+var CBUF = " ";
+
+var Acc  = " ";
+var Flg  = " ";
+var Last = 0;
+
+ while (Loc < End)
+ {
+  CBUF = Source.charAt(Loc);
+  if(CBUF > "*") // Labelmarker, Steuerzeichen (z.B. das \r oder \n) (und noch ein paar) ueberlesen
+  {
+   switch (CBUF)
+   {
+   // Prefixverarbeitung
+    case "Y": // Bedingung
+    case "N": 
+              if (CBUF != Flg) // Ungleich -> Rest der Zeile ueberlesen
+                while( Loc < End && (CBUF = Source.charAt(++Loc)) != "\r" && CBUF != "\n" );
+              break;
+
+   // Befehle
+    case "A": // Eingabe (Accept)
+              Acc  = GetChar();
+              PrNL();
+              Last = Loc;
+              Loc++;
+              break;
+    case "M": // Vergleich (Match)
+              Loc += 2;
+              Flg = (Source.charAt(Loc) == Acc) ? "Y" : "N";
+              break;
+    case "J": // Sprung (Jump)
+              { Loc += 2;
+               var i = Source.charCodeAt(Loc) & 0x0F;
+               if ( i==0 )
+                Loc = Last-1;
+               else
+                while( Loc < End && i >0 )
+                 if ( Source.charAt(++Loc) == "*") i--;
+              }
+              break;
+    case "S": // Stop
+              Loc = End;
+              break;
+    case "T": // Textausgabe
+              Loc += 2;
+              for(;Loc < End && (CBUF = Source.charAt(Loc)) != "\r" && CBUF != "\n";Loc++ )
+               PrChar(Source.charAt(Loc));
+              PrNL();
+              break;
+   // Fehler
+    default:  // EInfach die Zeile ausgeben
+              for(;Loc < End && (CBUF = Source.charAt(Loc)) != "\r" && CBUF != "\n";Loc++ )
+               PrChar(Source.charAt(Loc));
+              Loc--;
+              PrNL();
+              break;
+   }
+  }
+  Loc++;
+ }
+
+}
+
+// Der Editor
+function Loeschen ()
+{
+ Editor.value = "";
+}
+
+</script>
+
+</head>
+<body bgcolor="#DCDCDC" onload="init()">
+
+ <form name="Computer" action="" >
+  <table bgcolor="#DCDCDC" border="5" cellpadding="10" cellspacing="0">
+   <TR>
+    <TD COLSPAN=4 ALIGN=CENTER><H1>Waduzitdo</H1>
+     A Complete Programming Environment on a Single Web Page in Less Than 8k</TD>
+   </TR>
+   <TR height="1" >
+    <TD bgcolor="#E3E3E3" COLSPAN=3>
+     <TABLE BORDER="0" cellpadding="0" cellspacing="0" WIDTH="100%">
+      <TR>
+       <TD>Terminal Screen</TD>
+       <TD ALIGN=RIGHT><input type="button" value="Clear Screen" onclick="Cls()"></TD>
+      </TR>
+     </TABLE>
+    </TD>
+    <TD ROWSPAN=2 VALIGN=TOP WIDTH="35%"><H3>What is it about?</H3>
+<P><EM>'WADUZITDO: How To Write a Language in 256 Words or Less'</EM>
+was the title of an article from BYTE magazine, September&nbsp;1978
+issue (pp. 166-175), by Larry Kheriarty, describing a very minimalistic
+language to show off <EM>'what a computer can do'</EM>, intended to catch
+attention from even a complete computer illiterate.</P>
+
+<P><a href=http://primepuzzle.com/not.just.tiny.c/waduzitdo.html>WADUZITDO</a> is a rough PILOT descendant, following a very simple
+<CODE>[&lt;Modifier&gt;*] &lt;Operation&gt; ":" &lt;Data&gt;</CODE>
+structure, where every line is a single instruction to the computer.</P>
+
+<P>This implementation is rather straight forward, modelled after the
+6800 Assembly language version as authoritative source, thus honoring
+all embedded quirks</P>
+    </TD>
+   </TR>
+   <tr height="320" >
+   <TD bgcolor="LIGHTGREEN" COLSPAN=3 VALIGN=BOTTOM><PRE ID="Display"> X </PRE></TD>
+   </TR>
+   <TR>
+    <TD bgcolor="#E3E3E3" COLSPAN=3>
+     <TABLE BORDER="0" cellpadding="0" cellspacing="0" WIDTH="100%">
+      <TR>
+       <TD>Program Editor</TD>
+       <TD ALIGN=RIGHT><input type="button" value="Clear Editor" onclick="Loeschen()"></TD>
+      </TR>
+     </TABLE>
+    </TD>
+    <TD ROWSPAN=3 VALIGN=TOP><H3>How does it do what it does?</H3>
+      Every line is an operation made up from the following.
+      <TABLE BORDER="0" cellpadding="0" cellspacing="5" WIDTH="100%">
+       <TR ALIGN=LEFT>
+        <TH COLSPAN=2>Operations:</TH>
+       </TR>
+       <TR VALIGN=TOP>
+        <TD><B>T:text</B></TD>
+        <TD>Display <U>t</U>ext on the terminal.</TD>
+       </TR>
+       <TR VALIGN=TOP>
+        <TD><B>A:</B></TD>
+        <TD><U>A</U>ccept (input) one character from the terminal keyboard.</TD>
+       </TR>
+       <TR VALIGN=TOP>
+        <TD><B>M:x</B></TD>
+        <TD><U>M</U>atch (compare) x to last input character and set match flag to Y if equal, set to N if not equal.</TD>
+       </TR>
+       <TR VALIGN=TOP>
+        <TD><B>J:n</B></TD>
+        <TD>If n=0 <U>j</U>ump to last accept.<BR />
+            If n=1 thru 9 <U>j</U>ump to nth program marker forward from the J.</TD>
+       </TR>
+       <TR VALIGN=TOP>
+        <TD><B>S:</B></TD>
+        <TD><U>S</U>top program execution.</TD>
+       </TR>
+       <TR ALIGN=LEFT>
+        <TH COLSPAN=2>Modifiers: (Preceding Operations)</TH>
+       </TR>
+       <TR VALIGN=TOP>
+        <TD><B>Y</B></TD>
+        <TD>Execute operation only if match flag is '<U>Y</U>'.</TD>
+       </TR>
+       <TR VALIGN=TOP>
+        <TD><B>N</B></TD>
+        <TD>Execute operation only if match flag is '<U>N</U>'.</TD>
+       </TR>
+       <TR VALIGN=TOP>
+        <TD><B>*</B></TD>
+        <TD>Serves as a jump destination.</TD>
+       </TR>
+      </TABLE>
+     </TD>
+    </TR>
+    <TR>
+     <TD bgcolor="#E3E3E3" height="40%" COLSPAN=3> 
+      <textarea id="Edit" width="100%" cols="80" rows="20">T:.-------------.
+T:|    Hello!   |
+T:.-------------.
+T:
+T:Please type a character
+A:
+M:2
+YT:Awesome!
+YJ:2
+M:7
+YT:Awesome!
+YJ:1
+T:Awful. Type another character.
+J:0
+*T:You entered a 7
+S:
+*T:You entered a 2
+S:
+      
+      </textarea>
+     </TD>
+    </TR>
+    <TR>
+     <TD bgcolor="#E3E3E3" COLSPAN=3 ALIGN=RIGHT><input type="button" value="Run my Program" onclick="Waduzitdo()"></TD>
+    </TR>
+   </table>
+  </form>
+
+ </body>
+</html>
+

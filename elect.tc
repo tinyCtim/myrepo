@@ -1,0 +1,96 @@
+
+[
+
+elect.tc - 11/5-7/20 - lrb
+
+https://www.facebook.com/groups/299317782048/permalink/10159078468932049/
+
+Biden has 253 electoral votes and Trump has 213
+electoral votes and Biden or Trump needs 270
+electoral votes and they can get what they need by
+winning
+
+PA which has 20 AL which has 3 AR which has 11
+GA which has 16 NC which has 15 NV which has 6
+
+Write a computer program that displays all
+possible ways Biden can win and all possible ways
+Trump can win. Assume Biden or Trump can win all
+of the votes (or none of the votes) in a given
+state.
+
+Pennsylvania, Alaska, Arizona, Georgia, North
+Carolina, Nevada
+
+]
+
+[
+
+Explanation of the functions loadba and main:
+
+load binary array - the idea here is, for example,
+if p is say 43, the array gets loaded with
+
+1 1 0 1 0 1
+
+(which, BTW, is actually the binary value of
+the decimal number 43, written "backward")
+
+This would mean Biden gets state 0, 1, 3, and 5
+
+Since
+ 
+-> state(0) = 20
+-> state(1) = 3
+state(2) = 11
+-> state(3) = 16
+state(4) = 15
+-> state(5) = 6
+
+the inner loop in the main function will give 20 +
+3 + 16 + 6 which = 45. Since 45 is greater than
+what Biden needs (which is 270 - 253 = 17), Biden
+wins for this possibility.
+
+]
+
+loadba int ba(0), p [
+ int i
+ while i <= 5 [
+  ba(i) = p % 2
+  p = p / 2
+  i = i + 1
+  ]
+ ]
+ 
+main [
+
+ printf "%celect.tc - lrb - 11/7/20%c", 10, 10
+ printf "%cPA has 20 AL has 3 AR has 11 GA has 16 NC has 15 NV has 6%c", 10, 10
+ printf "%c0 means Trump got the state%c", 10, 10
+ printf "1 means Biden got the state%c", 10
+
+ int ba(5), state(5), i, bn, totb, j
+
+ state(0) = 20; state(1) = 3; state(2) = 11
+ state(3) = 16; state(4) = 15; state(5) = 6
+
+ bn = 270 - 253 // Biden needs
+
+ while i <= 63 [
+  pl ""
+  loadba ba, i
+  totb = j = 0
+  while j <= 5 [
+   totb = totb + state(j) * (ba(j) == 1) // total Biden
+   pn ba(j)
+   j = j + 1
+   ]
+  printf " possibility #%d Biden gets %d additional electoral votes", i, totb
+  if totb >= bn ps " Biden wins"
+  else ps " Trump wins"
+  i = i + 1
+  ]
+  pl ""
+
+ ]

@@ -1,0 +1,79 @@
+#loadMC spiralpi
+#include pps/pyGraphicsLib.tc
+#include pps/library.tc
+#include pps/mathLib.tc
+
+fn int t, s1, s2, r(0), a, n [
+	MC t, s1, s2, r, a, n
+	]
+
+// these functions do the cosine and sine calc's via the plugin
+foo int r(0) [
+	fn t, scale1, scale2, r, a, 1001
+	x = 450 + 3 * r(0)
+	fn t, scale1, scale2, r, a, 1002
+	y = 450 + 3 * r(0)
+	]
+
+bar [
+	strcpy text, "logarithmic~spiral~a="
+	showtext text
+	shownum as
+	strcpy text, "~date/time="
+	cdate buffer; buffer(10) = '~'
+	strcat text, buffer
+	showtext text
+	]
+
+int t, x, y, scale1, scale2, a, as
+char buffer(100), text(100)
+
+// this program draws a logarithmic spiral. it does this via a "plugin"
+// which supports trig and exponential functions. a .draw file is
+// generated, a sequence of commands that are fed to a python program that
+// understands cairo graphics.
+
+main [
+	pl "spirala.tc - lrb - 6/11/19"
+	int upper, r(0)
+	start "spirala", 900, 900
+	setfontsize 24
+	rectangle 0, 0, 900, 900
+	printf "%c%cEnter a number between 0 and 100.", 10, 10
+	printf "%cSmaller numbers give more interesting spirals. ", 10
+	as = a = gn
+	a = -a
+	setrgb 204, 204, 255 // periwinkle blue
+	moveto 150,50
+	bar
+	strcpy text, "900x900"
+	moveto 400, 150
+	setrgb 255, 0 ,0 // red
+	showtext text
+	scale1 = 20000; scale2 = 100; upper = 200000000
+	foo r
+	moveto x, y
+	int delta,len,xs,ys;xs=x;ys=y
+	pl ""
+	while t<upper [ // main loop
+		t = t + upper / 10000
+		foo r
+		delta = alen x, y, xs, ys
+		if delta > 3 len = len + delta
+		lineto x, y
+		xs = x; ys = y
+		if delta <= 3 break
+		]
+	setrgb 255, 0, 0 // red
+	moveto 330, 800
+	strcpy text, "length~of~spiral="
+	showtext text
+	shownum len
+	setrgb 0, 0 , 0 // black
+	moveto 150, 850
+	bar
+	showapp "mspaint"
+	setrgb 0, 0, 255 // blue
+	show
+	putchar 10; putchar 7 // bell
+	]

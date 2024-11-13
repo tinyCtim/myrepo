@@ -1,0 +1,128 @@
+
+<html>
+
+<!-- karel.html - tct -->
+
+<head><title>"Karel the Robot"</title></head>
+
+<table align=center width=89%><tr><td>
+
+<pre><b><font size=+2>
+
+Richard Pattis wrote "Karel the Robot" in 1981. Karel the Robot
+interpreters have been written in Pascal, C, C++, Java, Scratch and
+Python. Since I couldn't get the version written in C for CP/M to work,
+I started from scratch and wrote it in tiny-c. It was quite a challenge.
+
+Karel lives in a grid of avenues and streets. Here's an example. Walls
+are represented by asterisks, Karel by the caret (he's facing north
+here) and beepers by the commercial at.
+
+S A
+
+T 9
+
+R 8
+                  *
+E 7               *
+              *   *
+E 6           *   *
+      *********************
+T 5     @   @       ^
+
+S 4
+
+  3
+
+  2
+
+  1
+
+    1   2   3   4   5   6   7   8   9   A   B   C   D   E   F   G   H   I
+    A   V   E   N   U   E   S
+
+He can move forward a single unit. He can turn left 90. He can pick up
+beepers that he runs into and he can put down beepers if he has any
+beepers in his beeper bag. He can see walls immediately in front of him,
+immediately to his left or to his right. He can detect what direction he
+is facing in (N, S, E or W). Finally, he can tell if he's at a beeper
+location.
+
+His world is established via a file that has lines like this:
+
+k 5 5 N
+b 3 5 1
+b 2 5 1
+w 1 5 6 5
+w 3 5 3 6
+w 4 5 4 7
+g 1
+
+The first line gives the avenue and street Karel starts at and the
+direction he is facing. The b lines are beeper locations and the number
+of them at that location. The w lines are the start and end addresses of
+walls. The g line has how many beepers are in his bag. The starting and
+ending addresses of the horizontal or vertical walls are given by the
+addresses of the lower left corners of the cells the wall starts and
+ends at.
+
+Say your objective is to write a program to harvest all the beepers,
+place them on top of and at the end of the long horizontal wall and then
+return to where you started, facing in your initial direction. You
+should have the same number of beepers in your bag that you started
+with.
+
+A solution to this problem follows:
+
+/* sample program */
+
+hurdle [ /* over, up, down */
+ while (front_is_clear) move
+ turnleft
+ while (right_is_blocked) move
+ turnright
+ move
+ turnright
+ while (front_is_clear) move
+ turnleft
+ ]
+
+turnright [turnleft;turnleft;turnleft]
+
+turnaround [turnleft;turnleft]
+
+main [
+ putbeeper /* leave marker */
+ turnleft
+ while (right_is_blocked) [
+  move
+  if (next_to_a_beeper) pickbeeper
+  ]
+ turnright
+ move
+ turnright
+ i=1
+ while (i<=2) [hurdle; i=i+1] 
+ while (right_is_blocked) move
+ turnaround;move
+ while (any_beepers_in_bag) putbeeper
+ turnaround
+ move
+ turnright
+ move
+ turnright
+ while (not_next_to_a_beeper) move
+ pickbeeper
+ turnright
+ ]
+
+Code which supports the Karel interpreter has been omitted.
+
+</pre>
+
+</td></tr></table>
+
+</body>
+
+</html>
+

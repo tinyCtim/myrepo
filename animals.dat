@@ -1,0 +1,87 @@
+0 Q (4,12): Is it a domestic animal?
+4 Q (2,6): Does it give bacon?
+6 Q (5,18): Does it give eggs?
+12 Q (24,14): Does it live in sea?
+14 Q (16,22): Does it have four legs?
+16 Q (15,8): Does it have stripes?
+8 Q (10,34): Does it have a trunk?
+10 Q (9,7): Is it extinct?
+18 Q (3,20): Does it give milk?
+20 Q (19,30): Does it chase mice?
+22 Q (40,26): Is it insect?
+24 Q (23,32): Does it eat human flesh?
+26 Q (1,28): Is it serpent?
+28 Q (50,38): Does it have a shell?
+30 Q (29,36): Is it a bird?
+32 Q (31,64): Does it look like a snake?
+34 Q (33,44): Does it jump a lot?
+36 Q (54,68): Does it eat meat?
+38 Q (37,42): Do you have 8 legs?
+40 Q (39,52): Do you have a shell?
+42 Q (82,48): Do you sometimes internalize a shell?
+44 Q (46,58): Is it small?
+46 Q (43,45): Is it found in Japan?
+48 Q (56,74): Does it swim?
+50 Q (49,78): Does it sometimes have a pearl inside?
+52 Q (51,60): Is it pretty?
+54 Q (84,17): Is is 2-legged?
+56 Q (55,47): Does it have fur?
+58 Q (57,62): Are you feared?
+60 Q (59,21): Are you known to build hills?
+62 Q (61,70): Are you extinct?
+64 Q (63,66): Can you smile?
+66 Q (11,72): Are you very heavy?
+68 Q (35,67): Are you popular at Easter?
+70 Q (69,13): Do you wallow in the mud?
+72 Q (80,65): Do you turn red when cooked?
+74 Q (73,76): Are you extinct?
+76 Q (75,86): Can you fly?
+78 Q (77,25): Do you have a shell?
+80 Q (71,79): Do you have claws?
+82 Q (41,81): Are there 4 letters in your name?
+84 Q (83,53): Can you bear children?
+86 Q (85,27): Are you long and loved by fishermen and robins?
+2 A: pig
+1 A: snake
+3 A: cow
+5 A: chicken
+7 A: elephant
+9 A: mammoth
+11 A: whale
+13 A: giraffe
+15 A: zebra
+17 A: dog
+19 A: cat
+21 A: fly
+23 A: shark
+25 A: snail
+27 A: snail
+29 A: turkey
+31 A: electric eel
+33 A: kangaroo
+35 A: rabbit
+37 A: spider
+39 A: ladybug
+41 A: slug
+43 A: yamane
+45 A: mouse
+47 A: salmon
+49 A: oyster
+51 A: butterfly
+53 A: man
+55 A: weasel
+57 A: wolf
+59 A: ant
+61 A: dinosaur
+63 A: dolphin
+65 A: flying fish
+67 A: hamster
+69 A: hippo
+71 A: lobster
+73 A: pterodactyl
+75 A: robin
+77 A: shelled snail
+79 A: shrimp
+81 A: unshelled snail
+83 A: woman
+85 A: worm

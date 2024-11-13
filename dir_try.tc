@@ -1,0 +1,14 @@
+// dir.tc - lrb - 5/2/24
+
+main [
+	char tcbuff(40)
+	getproperty "pps/version.prop","os =",tcbuff,10,"..."
+	if index tcbuff,3,"Win",3 [
+		system "dir *.* /od > dir.out"
+		system "type dir.out"
+		]
+	else [
+		system "ls *.* > dir.out"
+		system "cat dir.out"
+		]
+	]

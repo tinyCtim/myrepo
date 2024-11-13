@@ -1,0 +1,305 @@
+#loadMC pospi
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// tc maze.tc -r "karel\"maze.kw\",0"
+
+// position cursor at column c row r and display a message
+
+pos int c,r;char msg(0) [
+ MC c,r,msg,1001
+ ]
+
+setup [
+ cls
+ pos 20,10,"maze.tc - lrb - 4/6/21"
+ sleep 3
+ cls
+ ]
+
+turnright [turnleft;turnleft;turnleft]
+
+// Tom Mitchell wrote this. I converted it to tiny-c.
+
+main [
+ move
+ while (not_next_to_a_beeper()==1) [
+  if (right_is_clear()==1) turnright
+  else while (front_is_blocked()==1) turnleft
+  move
+  wait 0
+  ]
+ pickbeeper
+ ]
+
+int cnt,bag,ka,ks,q
+char iwa(24*80),kc
+
+loadcol int k;char str(0) [
+ int r;char wrk(24)
+ strcpy wrk,str
+ while r<24 [
+  iwa(r+24*k)=wrk(r)
+  r=r+1
+  ]
+ ]
+
+loadrow int k;char str(0) [
+ int c;char wrk(80)
+ strcpy wrk,str
+ while c<73 [
+  iwa(23-k+24*c)=wrk(c)
+  c=c+1
+  ]
+ ]
+
+loadobj char str(0) [
+ char wrk(180),bc
+ int rl(4),rla(0),rlb(0),rls(0),rlt(0),rlbeep(0),wa,ws,wb,wt,ba,bs
+ strcpy wrk,str
+ strcat wrk," "
+ split rl,wrk," "
+// karel
+ if (ceqn(rl(0),"k",1)) [
+  atoi rl(1),rla;atoi rl(2),rls
+  if (ceqn(rl(3),"N",1)) kc='^'
+  else if (ceqn(rl(3),"S",1)) kc='v'
+  else if (ceqn(rl(3),"E",1)) kc='>'
+  else kc='<'
+  ka=4*rla(0)
+  ks=21-2*rls(0)
+  ]
+// walls
+ if (ceqn(rl(0),"w",1)) [
+  atoi rl(1),rla;atoi rl(2),rls;atoi rl(3),rlb;atoi rl(4),rlt
+  wa=4*rla(0)+2
+  ws=20-2*rls(0)
+  wb=4*rlb(0)+2
+  wt=20-2*rlt(0)
+  int wwa,wwb
+  if ws==wt [
+   wwa=wa
+   while wwa<=wb [
+    iwa(ws+24*wwa)='*'
+    wwa=wwa+1
+    ]
+   ]
+  if wa==wb [
+   wwb=ws
+   while wwb>=wt [
+    iwa(wwb+24*wa)='*'
+    wwb=wwb-1
+    ]
+   ]
+  ]
+// beepers
+ if (ceqn(rl(0),"b",1)) [
+  atoi rl(1),rla;atoi rl(2),rls;atoi rl(3),rlbeep
+  ba=4*rla(0)
+  bs=21-2*rls(0)
+  if (rlbeep(0)==1) bc='@'
+  else bc=rlbeep(0)+'0'
+  if (rlbeep(0)==0) bc='!'
+  iwa(24*ba+bs)=bc
+  ]
+// bag
+ if (ceqn(rl(0),"g",1)) [
+  atoi rl(1),rla
+  bag=rla(0)
+  ]
+ ]
+
+readworld char iw(0) [
+ int r,c,s,br,wl(200);char w(2600),lf(1),lits(100)
+ lf(0)=10
+ br=readfile iw,w,2600-1
+ s=split wl,w,lf
+ while s [loadobj wl(s-1);s=s-1]
+ strcpy lits," S T R E E T S          ";loadcol 0,lits
+ strcpy lits," A 9 8 7 6 5 4 3 2 1    ";loadcol 2,lits
+ strcpy lits,"    1   2   3   4   5   6"
+ strcat lits,"   7   8   9   A   B   C   D   E   F   G   H   I"
+ loadrow 2,lits
+ strcpy lits,"    A   V   E   N   U   E   S"
+ strcat lits,"                                             "
+ loadrow 1,lits
+ printworld
+ ]
+
+printworld [
+ int r,c;char bar(1)
+ while r<24 [
+  c=0
+  while c<80 [
+   pos c+1,r+1," " // space out any previously displayed character first!
+   bar(0)=iwa(r+24*c)
+   pos c+1,r+1,bar
+   c=c+1
+   ]
+  r=r+1
+  ]
+ bar(0)=kc // print karel
+ pos ka+1,ks+1,bar
+ wait 0
+ ]
+
+right_is_blocked [
+ int ta
+ if (kc=='^') ta=24*(ka+2)+ks
+ else if (kc=='<') ta=24*ka+ks-1
+ else if (kc=='v') [
+  if (ka-2==0) return 1
+  else ta=24*(ka-2)+ks
+  ]
+ else if (ks+1==20) return 1
+ else ta=24*ka+ks+1
+ return iwa(ta)=='*'
+ ]
+
+right_is_clear [return right_is_blocked()==0]
+
+left [
+ char ks(4),kcw(1)
+ strcpy ks,"v>^<v"
+ kcw(0)=kc
+ kc=ks(index(ks,4,kcw,1))
+ ]
+
+front_is_blocked [
+ int bool
+ left
+ bool=right_is_blocked
+ left;left;left;return bool
+ ]
+
+front_is_clear [return front_is_blocked()==0]
+
+left_is_blocked [
+ int bool
+ left;left
+ bool=right_is_blocked
+ left;left;return bool
+ ]
+
+left_is_clear [return left_is_blocked()==0]
+
+next_to_a_beeper [
+ int t
+ t=(iwa(24*ka+ks)=='!')+(iwa(24*ka+ks)=='@')
+ t=t+(iwa(24*ka+ks)>='2')*(iwa(24*ka+ks)<='9')
+ return t
+ ]
+
+not_next_to_a_beeper [return next_to_a_beeper()==0]
+
+facing_n [return kc=='^']
+
+not_facing_n [return facing_n()==0]
+
+facing_s [return kc=='v']
+
+not_facing_s [return facing_s()==0]
+
+facing_e [return kc=='>']
+
+not_facing_e [return facing_e()==0]
+
+facing_w [return kc=='<']
+
+not_facing_w [return facing_w()==0]
+
+any_beepers_in_beeper_bag [return bag!=0]
+
+no_beepers_in_beeper_bag [return any_beepers_in_beeper_bag()==0]
+
+move [
+ if front_is_blocked() turnoff(1)
+ if (kc=='^') ks=ks-2
+ else if (kc=='v') ks=ks+2
+ else if (kc=='>') ka=ka+4
+ else ka=ka-4
+ if ((ka/4<1)+((22-ks)/2<1)) turnoff(3)
+ else if ((ka/4>18)+((22-ks)/2>10)) turnoff(5)
+ if q!=1 printworld
+ wait 0
+ ]
+
+turnleft [
+ left
+ wait 0
+ if q!=1 printworld
+ ]
+
+pickbeeper [
+ char wbc,bc
+ if not_next_to_a_beeper() turnoff(2)
+ wbc=iwa(24*ka+ks)
+ if (wbc=='@') bc=' '
+ else if (wbc=='2') bc='@'
+ else if (wbc=='!') bc='9'
+ else bc=wbc-1
+ iwa(24*ka+ks)=bc
+ bag=bag+1
+ if q!=1 printworld
+ wait 0
+ ]
+
+putbeeper [
+ char wbc,bc
+ if no_beepers_in_beeper_bag() turnoff(4)
+ wbc=iwa(24*ka+ks)
+ if ((wbc=='9')+(wbc=='!')) bc='!'
+ else if (wbc==' ') bc='@'
+ else if (wbc=='@') bc='2'
+ else bc=wbc+1
+ iwa(24*ka+ks)=bc
+ bag=bag-1
+ if q!=1 printworld
+ wait 0
+ ]
+
+turnoff int err [
+ int msg(10);char foo(150)
+ printworld
+ wait 0
+ strcpy foo,"Mission complete!,Front is blocked,Not next to beeper,"
+ strcat foo,"Boundary detected,No beepers in bag,Went out of bounds,"
+ strcat foo,"Too many beepers,"
+ split msg,foo,","
+ pos 33,24,msg(err)
+ if err [pl "";exit]
+ ]
+
+wait int p [
+ sleep p
+ cnt=cnt+1
+ char blah(100),wrkc(10),wrkb(10)
+ strcpy blah,"count = "
+ itoa cnt,wrkc;strcat blah,wrkc
+ pos 65,24,blah
+ strcpy blah,"bag = "
+ itoa bag,wrkb;strcat blah,wrkb;strcat blah,"  "
+ pos 53,24,blah
+ sleep p
+ ]
+
+cls [
+ int c,r
+ while r<30 [
+  c=-1
+  while c<90 [
+   pos c,r," "
+   c=c+1
+   ]
+  r=r+1
+  ]
+ ]
+
+karel char world(0);int qp [
+ setup
+ q=qp
+ readworld world
+ main
+ cnt=cnt-1;wait 3
+ turnoff(0)
+ ]

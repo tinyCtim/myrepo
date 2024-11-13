@@ -1,0 +1,142 @@
+.po 8
+                 --- PILOT/80 DOCUMENTATION ---
+
+    Program and text from Remark magazine, issue 39, page 28.
+ Article by Kurt Albrecht.  This file edited by Aaron Contorer.
+
+PILOT/80  (Programmed  Inquiry,  Learning,  Or Teaching) was  the 
+first  computer language dedicated to Computer-Aided  Instruction 
+(CAI).  Developed  in  1969 by John  Starkweather,  it  has  been 
+implemented  on  mainframes  down  to  micros.  This  interactive 
+language  enables  a  person with very little  previous  computer 
+experience to construct and run simple structure and  syntax, 
+it has proven to be an excellent starter language for the 
+novice programmer.  The average person can be writing functional 
+programs in about an hour after learning the language.
+
+Using  PILOT,  a  teacher  can present a student with  a  reading 
+passage,  give  him time to study it,  and then ask him  multiple 
+choice,  fill-in-the-blank,  or true-false questions. The program 
+can include responses keyed to the student's answer,  and thus it 
+can  give comment or advice to the student.  It can  introduce  a 
+mathematical  problem  and offer the solution on  a  step-by-step 
+basis  or give the student an opportunity to discover as many  of 
+the  steps  as he can,  with hints from the computer  if  needed. 
+However,  PILOT  is  a word and letter  language,  not  a  number 
+cruncher.
+
+PILOT/80 is a full implementation of the PILOT language. PILOT/80 
+uses line numbers to identify individual program lines.  Not  all 
+versions  of PILOT do however.  Line numbers are used for editing 
+purposes only and are never used to branch within a program. They 
+also  painlessly  prepare the novice the  novice  programmer  for 
+languages such as BASIC.
+
+Some  versions  of PILOT require the programmer to write  his/her 
+program with a text editor. But PILOT/80 contains its own editor, 
+as  well  as disk handling functions,  and full  error  reporting 
+capabilities  that  explain  in plain English what the  user  did 
+wrong.
+
+A text editor may be used to write PILOT programs.  But remember, 
+the PILOT/80 editor will catch most errors as the program  is 
+being typed in. If you use a text editor, do not use line numbers 
+(PILOT/80 automatically numbers a program upon loading), type all 
+program  lines in uppercase except those with the command  T:  or 
+R:, and use the filename extension .PIL.
+
+                     --- DIRECT COMMANDS ---
+When   PILOT/80.BAS   is   loaded   and   run   a   prompt   will 
+appear,  (Request?).  This  prompt tells you that you are at  the 
+command   level   and  that  the  computer   is   awaiting   your 
+instructions.
+.pa
+NEW--Erases any program memory and prints the line number 1.  The 
+computer then waits for the programmer to input.  Upon receipt of 
+a  carriage return,  the computer will jump to the next line  and 
+print  the  next line number.  This process continues  until  the 
+programmer types the word 'DONE' following a line number.
+
+LIST--Displays the program memory,  line by line.  If there is no 
+program  in  the  memory,  the  computer  ignores  this  command. 
+Sections  of the program memory may be listed,  as may individual 
+lines. To list from one line number to another, type the two line 
+numbers after the command 'LIST',  separating them with a hyphen. 
+To list from one line line number to the end of the program, type 
+the  line  number after the command 'LIST' and follow it  with  a 
+hyphen.   To  list  an  individual line,  type  the  line  number 
+following the command 'LIST'.  Examples:
+LIST      --List the entire program LIST 1-5
+LIST 1-5  --List  from line one to line five LIST 5-
+LIST 5    --List from line five to the end of the program
+LIST 5    --List just line five
+
+EDIT--Gives  the  programmer the ability to re-write  a  program 
+line  that  is  already in the program  memory.   A  line  number 
+follows the command 'EDIT'.  The computer prints this line,  then 
+jumps to the next line where it prints the line number and  waits 
+for the programmer to type in the new program line.  Upon receipt 
+of  a  carriage return,  the computer will jump to the next  line 
+where it prints the next line number.This process continues until 
+the programmer types the word 'DONE' following a line number.
+
+INSERT--Inserts a new program line into the program  memory.  The 
+new  line  number should follow the command 'INSERT'.  All  lines 
+after  the inserted line are moved down one line in  the  program 
+memory.
+
+DELETE--Deletes a program line from the program memory.  The line 
+number  to  be deleted should follow the  command  'DELETE'.  All 
+lines  following  the deleted line are moved up one line  in  the 
+program memory.
+
+RUN--Executes a program if there is one in the program memory. If 
+there  is not a program in the memory,  the computer will  ignore 
+the command. The program may be executed from any program line by 
+typing the desired starting line number after the command 'RUN'.
+
+SAVE--Saves  the  program  presently in the program  memory  onto 
+disk.  A file name must follow the command 'SAVE'. This file name 
+is  in  the format [d:]<filename>[.ext].   The extension  of  all 
+PILOT files is .PIL. The extension is optional; if you don't type 
+it the computer will.
+.pa
+LOAD--Loads  a program from disk into memory.  This command  will 
+erase  whatever was in the program memory,  so make sure this  is 
+what  you  want  to do before you  do  something  you'll  regret! 
+Filenames are specified as with the 'SAVE' command.
+
+BYE--Exits PILOT/80 and returns to the operating system.
+
+.po 4
+                         PILOT/80 Command Syntax
+
+PILOT/80 Command	Function		MBASIC Equivalent
+-------------------------------------------------------------------------
+NEW			Enter a new program		NEW
+EDIT			Edit a program line		EDIT
+INSERT			Insert a line(s) into the	Line numbers
+			    program
+DELETE			Delete a line(s) from the	DELETE
+			    program
+LIST			Display program			LIST
+LLIST			Make a hardcopy listing		SAVE "LP:",A
+SAVE			Store program on diskette	SAVE
+LOAD			Retrieve program from diskette	LOAD
+BYE			Return to (Disk operating Syst)	SYSTEM
+T:			Type				PRINT
+A:<Variable>		Ask for keyboard input		LINE INPUT
+I:<Variable>		Input a single character	INPUT$(1)
+M:<List>		Match (Set Y/N logic flag)	IF-THEN-ELSE
+J:<Label>		Jump				GOTO
+U:<Label>		Jump to a User subroutine	GOSUB
+E:			End user subroutine / program	RETURN / END
+R:			Remark				REM
+S:			Screen functions		Graphic codes
+
+<Op>Y:			Do operation if logic flag is Yes
+<Op>N:			Do operation if logic flag is No
+:			Repeat last operation
+
+$<1-10 letters>		String variable (10 max.)	<Variable>$
+*<1-10 characters>	Label for J: and U:		Line numbers

@@ -1,0 +1,68 @@
+
+// ref: https://en.wikipedia.org/wiki/100_prisoners_problem
+
+color char c [MC '\'-'A',1;MC '\'-1,1;MC '3',1;MC c,1;MC 'm',1]
+
+dump int ar(0) [
+ pl""
+ int i; while i<100 [pn ar(i); i = i + 1]
+ pl""
+ ]
+
+load int ar(0) [
+ int i, v(0)
+ if linux system "./scramble"
+ else system "scramble.exe"
+ char buff(200)
+ readfile "scramble.txt", buff, 200
+ char tb(2); tb(2) = 0
+ while i < 200 [
+  tb(0) = buff(i)
+  tb(1) = buff(i+1)
+  atoi tb, v; ar(i/2) = v(0); i = i + 2
+  ]
+ ]
+
+int linux, debug
+
+mainl [linux = 1; main]
+
+mainld [linux = debug = 1; main]
+
+maind [debug=1; main]
+
+main [
+ printf"%csecondchance.tc - lrb - 2/11/23%c", 10, 10
+ int array(100)
+ int n; n = 100
+ int i, j, tried_count, fail, tfail
+ int sims
+ printf "%c%cHow many simulations do you want (e.g. 100) : ", 10, 10
+ sims = gn
+ int icontents
+ while j < sims [
+  sleep 1
+  load array; if debug dump(array)
+  i = 0; fail = 0
+  while i < n [
+   tried_count = 0
+   icontents = array(i) // get bucket labeled i's contents
+   // while contents is not = inmate # and tried_count < n/2
+   while ((icontents != i) * (tried_count < n/2)) [
+    icontents = array(icontents)
+    tried_count = tried_count + 1
+    ]
+   if tried_count == n/2 [
+    fail = 1; tfail = tfail + 1
+    pn j + 1; putchar '.'; break
+    ]
+   i = i + 1 // bump inmate #
+   ] // i
+  if fail == 0 [pn j + 1; putchar '*']
+  j = j + 1
+  ] // j
+ if linux color('4')
+ printf "%cinmates saved : %d inmates died : %d ", 10, sims - tfail, tfail
+ if linux color('7')
+ ]
+

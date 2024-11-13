@@ -1,0 +1,141 @@
+<table align=center width=79%><tr><td>
+
+<!-- 7/3/21 -->
+
+<pre><b>
+
+The number of unique n-point stars that can be drawn is related to
+phi(n), the totient of n<a style=text-decoration:none href=http://primepuzzle.com/not.just.tiny.c/totient.html>.</a>
+
+The totient of n is the number of numbers that are "coprimes" of n. This
+means they have no common factors with n. The number 60 has the
+following coprimes:
+
+1 7 11 13 17 19 23 29 31 37 41 43 47 49 53 59
+
+It can be shown that
+
+phi(n) = n * (p1-1)/p1 * (p2-1)/p2 ...
+
+where the p's range over the unique prime factors of n.
+
+The number of n-point stars = (phi(n)-2)/2
+
+Since 60 = 2 * 2 * 3 * 5, we have
+
+phi(60) = 60 * 1/2 * 2/3 * 4/5 = 16
+
+The number of unique 60-point stars = (16-2)/2 = 7
+
+<img src=http://primepuzzle.com/not.just.tiny.c/7-point-stars.jpg>
+
+<a href=http://primepuzzle.com/not.just.tiny.c/totient.tc>totient.tc</a>
+
+D:\my-git-repo>tc totient.tc
+***  TINY-C VERSION 1.0,  COPYRIGHT 1977, T A GIBSON  ***
+        This C version copyright 2017, T A Gibson
+
+totient of 5 is 4 number of 5 point stars is 1
+totient of 6 is 2 number of 6 point stars is 0
+totient of 7 is 6 number of 7 point stars is 2
+totient of 8 is 4 number of 8 point stars is 1
+totient of 9 is 6 number of 9 point stars is 2
+totient of 10 is 4 number of 10 point stars is 1
+totient of 11 is 10 number of 11 point stars is 4
+totient of 12 is 4 number of 12 point stars is 1
+totient of 13 is 12 number of 13 point stars is 5
+totient of 14 is 6 number of 14 point stars is 2
+totient of 15 is 8 number of 15 point stars is 3
+totient of 16 is 8 number of 16 point stars is 3
+totient of 17 is 16 number of 17 point stars is 7
+totient of 18 is 6 number of 18 point stars is 2
+totient of 19 is 18 number of 19 point stars is 8
+totient of 20 is 8 number of 20 point stars is 3
+totient of 21 is 12 number of 21 point stars is 5
+totient of 22 is 10 number of 22 point stars is 4
+totient of 23 is 22 number of 23 point stars is 10
+totient of 24 is 8 number of 24 point stars is 3
+totient of 25 is 20 number of 25 point stars is 9
+totient of 26 is 12 number of 26 point stars is 5
+totient of 27 is 18 number of 27 point stars is 8
+totient of 28 is 12 number of 28 point stars is 5
+totient of 29 is 28 number of 29 point stars is 13
+totient of 30 is 8 number of 30 point stars is 3
+totient of 31 is 30 number of 31 point stars is 14
+totient of 32 is 16 number of 32 point stars is 7
+totient of 33 is 20 number of 33 point stars is 9
+totient of 34 is 16 number of 34 point stars is 7
+totient of 35 is 24 number of 35 point stars is 11
+totient of 36 is 12 number of 36 point stars is 5
+totient of 37 is 36 number of 37 point stars is 17
+totient of 38 is 18 number of 38 point stars is 8
+totient of 39 is 24 number of 39 point stars is 11
+totient of 40 is 16 number of 40 point stars is 7
+totient of 41 is 40 number of 41 point stars is 19
+totient of 42 is 12 number of 42 point stars is 5
+totient of 43 is 42 number of 43 point stars is 20
+totient of 44 is 20 number of 44 point stars is 9
+totient of 45 is 24 number of 45 point stars is 11
+totient of 46 is 22 number of 46 point stars is 10
+totient of 47 is 46 number of 47 point stars is 22
+totient of 48 is 16 number of 48 point stars is 7
+totient of 49 is 42 number of 49 point stars is 20
+totient of 50 is 20 number of 50 point stars is 9
+totient of 51 is 32 number of 51 point stars is 15
+totient of 52 is 24 number of 52 point stars is 11
+totient of 53 is 52 number of 53 point stars is 25
+totient of 54 is 18 number of 54 point stars is 8
+totient of 55 is 40 number of 55 point stars is 19
+totient of 56 is 24 number of 56 point stars is 11
+totient of 57 is 36 number of 57 point stars is 17
+totient of 58 is 28 number of 58 point stars is 13
+totient of 59 is 58 number of 59 point stars is 28
+totient of 60 is 16 number of 60 point stars is 7
+totient of 61 is 60 number of 61 point stars is 29
+totient of 62 is 30 number of 62 point stars is 14
+totient of 63 is 36 number of 63 point stars is 17
+totient of 64 is 32 number of 64 point stars is 15
+totient of 65 is 48 number of 65 point stars is 23
+totient of 66 is 20 number of 66 point stars is 9
+totient of 67 is 66 number of 67 point stars is 32
+totient of 68 is 32 number of 68 point stars is 15
+totient of 69 is 44 number of 69 point stars is 21
+totient of 70 is 24 number of 70 point stars is 11
+totient of 71 is 70 number of 71 point stars is 34
+totient of 72 is 24 number of 72 point stars is 11
+totient of 73 is 72 number of 73 point stars is 35
+totient of 74 is 36 number of 74 point stars is 17
+totient of 75 is 40 number of 75 point stars is 19
+totient of 76 is 36 number of 76 point stars is 17
+totient of 77 is 60 number of 77 point stars is 29
+totient of 78 is 24 number of 78 point stars is 11
+totient of 79 is 78 number of 79 point stars is 38
+totient of 80 is 32 number of 80 point stars is 15
+totient of 81 is 54 number of 81 point stars is 26
+totient of 82 is 40 number of 82 point stars is 19
+totient of 83 is 82 number of 83 point stars is 40
+totient of 84 is 24 number of 84 point stars is 11
+totient of 85 is 64 number of 85 point stars is 31
+totient of 86 is 42 number of 86 point stars is 20
+totient of 87 is 56 number of 87 point stars is 27
+totient of 88 is 40 number of 88 point stars is 19
+totient of 89 is 88 number of 89 point stars is 43
+totient of 90 is 24 number of 90 point stars is 11
+totient of 91 is 72 number of 91 point stars is 35
+totient of 92 is 44 number of 92 point stars is 21
+totient of 93 is 60 number of 93 point stars is 29
+totient of 94 is 46 number of 94 point stars is 22
+totient of 95 is 72 number of 95 point stars is 35
+totient of 96 is 32 number of 96 point stars is 15
+totient of 97 is 96 number of 97 point stars is 47
+totient of 98 is 42 number of 98 point stars is 20
+totient of 99 is 60 number of 99 point stars is 29
+totient of 100 is 40 number of 100 point stars is 19
+totient of 101 is 100 number of 101 point stars is 49
+
+done
+
+</font></b></pre>
+
+</td></tr></table>
+

@@ -1,0 +1,38 @@
+;"RANDINT.TIN - lrb - 7/27/11"
+:"This program generates 10000 pseudorandom numbers"
+:"in [0,9] and reports how many of each it got. A good"
+:"generator should produce roughly 1000 of each. Use different"
+:"seeds to see if you get this distribution."
+l=99
+:"seed (1-32767)"
+s=?
+{s==2*s/2}s=s+1
+A l=l*s
+{l<0}l=0-l
+w=l/8
+v=w/10
+w=w-v*10
+{w==0}a=a+1
+{w==1}b=b+1
+{w==2}c=c+1
+{w==3}d=d+1
+{w==4}e=e+1
+{w==5}f=f+1
+{w==6}g=g+1
+{w==7}h=h+1
+{w==8}i=i+1
+{w==9}j=j+1
+z=z+1
+{z<>10000}->A
+;a
+:b
+:c
+:d
+:e
+:f
+:g
+:h
+:i
+:j
+:""
+!

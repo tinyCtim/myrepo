@@ -1,0 +1,1037 @@
+<html>
+
+<head><title>A Programmer's Guide to the Meaning of Life</title></head>
+
+<body>
+
+<table align=center width=79%><tr><td>
+
+<pre>
+
+<font size=+4><b>A Programmer's Guide to the Meaning of Life</b></font>
+
+<font size=+2><b>Lee Bradley</b></<font><font size=+2>
+
+<h1 id="toc">Table of Contents</h1>
+<b>1. Things take time. <i>Why most endeavors need to go thru many
+revisions before they are complete.</i>
+
+2. Know your limitations. <i>Why it's important to know the environment
+you're in.</i>
+
+3. Add something. <i>Contribute something new.</i>
+
+4. Recycle, Reuse, Reduce. <i>It's not just true for plastic and
+paper any more.</i>
+
+5. If you can't find it, build it. <i>When you can't locate something
+you thought was interesting, roll your own!</i>
+
+6. Give yourself a call. <i>The pervasive nature of recursion.</i>
+
+7. Work together. Mix 'n' Match. <i>Teamwork is key.</i>
+
+8. Fake it! <i>Simulate when you can't solve.</i>
+
+9. Don't Shade Your Eyes, Analogize! <i>Understanding comes from seeing
+relationships between things.</i>
+
+10. Write to the Top! <i>Try to contact the people you've read and love
+with questions and kudos.</i>
+
+11. What's with that cover?! <i>Changes since the first publication.</i></b>
+
+"Everyone should learn how to program a computer because it teaches you
+how to think."  Steve Jobs
+
+Amby Burfoot's book, "The Runner's Guide to the Meaning of Life," has
+motivated me to write "A Programmer's Guide to the Meaning of Life."<sup><a href=#a0><font color=red>0</font></a></sup>
+
+<a name="a0"></a><font color=red><b>0.</b> </font> <a href=http://primepuzzle.com/tc/programmer's_guide.html>http://primepuzzle.com/tc/programmer's_guide.html</a>
+
+<h1 id="1">Lesson 1: Things take time.</h1>
+
+It is now March 16, 2020. This "Lesson" used to start with a discussion
+of a program I wrote that factors numbers. It is written in tiny-c.
+The source code may be found at <a href=http://primepuzzle.com/jslinux/factor.6.2.tc>http://primepuzzle.com/jslinux/factor.6.2.tc</a>
+
+Factoring numbers (writing them as the product of their prime factors)
+is complicated. It's difficult to explain how this program does it.
+Instead of doing this I will summarize by saying that it went through
+countless changes until I was satisfied with it.
+
+I tutor at a local community college. Here's a paper I wrote a few years
+back that compares writing a computer program to writing an English
+paper.
+
+<b>Writing a good English essay is a bit like writing a good computer
+program. This article will highlight what they have in common and, by
+doing so, help writers produce better papers. As it is likely the reader
+is not a programmer, she will learn something about this skill along the
+way! To accomplish this comparison, we will talk about how programs and
+essays are organized, what basic elements are used in their construction
+and how they evolve.
+
+A classic tool for essay writing is a "Graphic Organizer." This is a
+diagram with, typically, five boxes, one up top, three below in a
+horizontal row and, at the bottom, a final box. You fill the top box
+with your paper's topic (subject) and thesis (position or argument
+you'll be taking). An introductory remark that tells the reader what you
+intend to expand on belongs here as well. (As I write this, I am
+actually doing what I am describing; we are currently turning the first
+of the three boxes that fall below the top box into English!)
+
+The elements of a paper include a title, paragraphs and, of course,
+words, punctuation and, often, footnotes and references. The words
+(built from upper and lowercase letters and special characters, like
+hyphens) are governed by a variety of rules (spelling, grammar, etc.)
+The words possess "attributes," which we call parts of speech (noun,
+verb, etc.) (What box are we filling in now?!)
+
+Who thinks I wrote the above three paragraphs straight "off the top of
+my head?" I did not. Papers evolve. (We are in the third box of that
+horizontal row of three now, in case you missed it!) Writing is a
+dynamic endeavor and good papers usually go through several draft stages
+before they are ready for publication. Words get crossed out, changed.
+Sentences get moved around. Overly complicated explanations get
+simplified.
+
+Computer programs ("I was wondering when he was going to tie this in!")
+exhibit features similar to the three discussed above for English
+papers.
+
+The graphic organizer of programming is the "Flowchart." Although
+less used today than in the past, a flowchart is a tool for sequencing
+the major steps, decision points and loops a program will use to
+accomplish its task. Often, a box representing a major task will be
+"refined" into a sequence of sub-tasks, not unlike what we are doing
+here as we turn the concept of a graphic organizer into sentences
+illustrating their use.
+
+The elements of a computer program have their English paper
+counterparts. A paper's title is like a program's name. A series of
+individual instructions can be blocked together using brackets or braces
+to form a paragraph-like element. The "nouns" of computer programs are
+called "variables." You name these variables. "counter" might be what
+you call a variable that keeps track of how often something happens.
+They end up as places in computer "memory" which hold data (a number, a
+character string etc.) The "verbs," as in English, cause some sort of
+action or change. They are called "functions" or "methods" or
+"procedures." For example, you could define a function called "plot" and
+use it in a program statement like plot("*",3,12) which would put an
+asterisk on the screen at row 3, column 12.
+
+Computer programs seldom "work" on the first shot, just as English
+papers never are perfect after an initial draft. Both have syntactic and
+semantic problems. Both can be made more efficient, simpler, easier to
+understand. Instead of a tutor or a teacher or a peer review to help you
+improve your paper, you have the computer itself to help you by
+providing error messages, unexpected output, etc.
+
+We have finally reached that promised bottom box of our paper. It's time
+to wrap up what we've said with a conclusion or two. We have (hopefully)
+made good on our claim that English papers and computer programs share
+many fundamental similarities. It follows that if you learn something
+about one skill you will get better at the other! Did it ever occur to
+you that learning how to program in C would make you a better
+communicator in English?</b>
+
+<h1 id="2">Lesson 2: Know your limitations.</h1>
+
+This sounds like a negative thought. Quite the opposite. The environment
+we live in is both an opportunity and a challenge. You need to become
+familiar with it if you want to be productive. In the case of tiny-c,
+you can't use numbers that are larger than 32767. You also are limited
+in the number of variables you may declare. Fortunately, I found that I
+did not exceed the variable restriction when I determined I needed to
+declare the array that holds the prime numbers in our current sample
+program to be 3513 elements. Also, <b>all</b> primes less than 32767
+could be held in this array which meant that I no longer needed to check
+for the index variable s going out of bounds.
+
+There are many other examples of why it's important to know your
+limitations. Variable names must start with a letter, can't contain
+certain characters and only the first 7 and the last character of a name
+matter. Violating these rules results in errors. It's not unlike what
+happens when you speak to someone using words that are not known to the
+person who hears them. They don't understand what you are talking about!
+
+Limitations are an opportunity. tiny-c is a fairly old language and is
+incapable of carrying out all sorts of things more modern languages have
+no trouble with. However, if you take advantage of key features it does
+support, you can solve very complex problems. An upside to the fact that
+it is a limited language is that it is easier to learn than more modern
+languages. In fairness, it is not a total breeze to learn and its
+limitations will often bite you with errors that take time to resolve.
+Perhaps a corollary to Lesson 2 is <b>You Have to Work at it!</b> Remember, this
+little book is called "A Programmer's Guide to the Meaning of Life!"
+
+<h1 id="3">Lesson 3: Add something.</h1>
+
+Garelick Farms (a local dairy) has this motto: "The key to life is what
+you add to it. Add something."
+
+I have added things to the tiny-c language. I implemented it when it was
+created by typing in many pages of code and debugging it. I reached out
+for help during this period and hooked up with another programmer who
+saw features the language was missing and added them. Much later, I
+created a social media group dedicated to the language. The author of
+tiny-c, Tom Gibson, discovered this group and offered to write a memoir of sorts
+giving us a detailed account of how it all started and eventually became
+a product. Later yet, he wrote about his work in Java, another
+programming language. He used a game he wrote in tiny-c as a base for
+what eventually became a tutorial in object-oriented thinking.
+
+My role seems often to be that of an editor. I fixed his spelling and
+sentence structure. I am a good tester and documenter. I add by
+promoting and by creating applications. <b>Add something.</b>
+
+<h1 id="4">Lesson 4: Recycle, Reuse, Reduce.</h1>
+
+I keep a bunch of 3-ring binders which contain many of the programs I've
+written. It's like a dictionary (because it's tab-indexed
+alphabetically) but it has listings, not words. When I get an idea for a
+computer program I search my memory for something I've written that
+might be similar and if I'm lucky I can remember the name and quickly go
+to the binder and turn to the code. For example, one of the things I
+have difficulty remembering is how to write web pages that contain input
+forms. When you browse these pages, you enter stuff and then click a
+button and some sort of processing takes place. The results are fed back
+to the page. The language that is often used to support this kind of
+thing is Javascript.
+
+"There is nothing new under the sun." In a way, all such pages are the
+same. "Don't reinvent the wheel." <b>Reuse</b>. Copy the code and then
+modify it.
+
+I learned Javascript when I was asked to develop a website for somebody.
+They showed me a site they liked and said "Make my site look like that."
+When you are browsing a website you can ask the browser to show you the
+source code that is driving it. You grab the code, save it and then
+change it to fit your needs. <b>Recycle</b>.
+
+The idea of reusing things is fundamental in life. We build and buy
+tools, store them in boxes, garages, basements, pockets etc. When we
+need to do something (repair the deck) we remember "my hammer and my saw
+will take care of it." So we fetch them and use them. In computer
+programming, the analog is fetching applications you wrote or learned about
+and reusing them, usually after changing them. Perhaps the most elementary
+example of reuse is the <b>function</b>. Many programming languages
+allow you to collect together little modules of code that often expect
+some input, do some processing and return some output. These vary from
+very low-level operations to very complex routines. The job they must do is
+identified during program development. Frequently, the program will need
+to call for their services multiple times.
+
+Using this approach, the size of the program is <b>reduced</b>. Further
+reduction in program size results when you discover you don't need a
+variable you declared after all because you can reuse one that has
+served one purpose and can be used for another.
+
+When programs run, there is a constant recycling of computer memory as
+functions get invoked and finish their job. Variables local to the
+function grab memory, use it, and then release it. The activity behind
+the scenes of a running program is mind-boggling and goes completely
+unnoticed. The term "garbage collection" is actually used to describe
+this memory recycling.
+
+<h1 id="5">Lesson 5: If you can't find it, build it.</h1>
+
+I came across an old book in my basement some time ago. "Karel the
+Robot." I don't think I ever read it after I bought it. I could not even
+remember where or why I bought it. While running a few days later a
+light went off in my head and I vaguely remembered some software that
+implemented what the book discussed. I searched every dusty disc I could
+find and only came up with about half of what I needed. I even tried to
+contact the author of the software but she had long since moved on to
+other things. (I've had this experience several other times.) It annoyed
+me no end. Karel the Robot fascinated me and I couldn't get him to do
+his thing. I'll tell you what "his thing" was in a few moments. Then it
+occurred to me ... this might be a huge project but why not write an
+emulator for Karel in tiny-c? I will never forget the day when I got a
+piece of paper out and sketched a simple rectangle, labeled the left
+edge with "street" names 1, 2, 3 etc. and the lower edge with "avenue"
+names 1, 2, 3 etc, and, voil&agrave;, Karel's grid world was born. It would be
+<b>months</b> later that I'd figured out how to encode these addresses and
+write routines that captured Karel's primitive instructions ... turn
+left, pick beeper, put beeper, move forward etc. <b>If you can't find
+it, build it.</b>
+
+Karel simulators that are way more modern and graphical and powerful are
+easy to find. One thing I like to do is try and contact authors who've
+written things I learn from and love. Every so often I get lucky and
+they get back. I tell them why I like what they did and, when it
+applies, what I've done that complements their work. On real lucky days
+they praise me for my work. Sometimes I think a large fraction of what
+people do is what I call "Look Ma." How many of us when we were young
+boys/girls made sure we made our parents who were nearby become aware
+of the dive we were about to make off the diving board? Many of us never
+grow up and like to show off what we make and hope we get an attaboy. To
+solidify my stature as a legitimate Karel developer I actually added a
+line item to a Wikipedia page. I was both amazed and a little concerned
+that the Wiki police found my entry possibly self-promoting but I stuck
+to my guns and didn't remove it because I was not about to hide
+something I'd spent so much time working on. I don't know if anybody's
+ever looked at my code but I like to think it is a minor masterpiece and
+hope at least a few visitors learn something from it.
+
+Note: A closely related lesson is <b>If you can't understand how someone
+else did it, try to figure it out yourself.</b> An example of this: I
+learned that someone had written a Bulls and Cows solver which used the
+concept of entropy. I couldn't quite follow the Python code and, after
+much effort, produced a working solution. The game and my solution are
+documented in
+
+<a href=http://primepuzzle.com/tc/cliffsnotes.html>http://primepuzzle.com/tc/cliffsnotes.html</a>
+
+<h1 id="6">Lesson 6: Give yourself a call.</h1>
+
+Here's a picture of Karel in action ...
+
+<script>for (i=1;i<=6;++i) {document.write('<p><img src=http://primepuzzle.com/tc/sampler'+i+'.png>')}</script>
+
+The code that supports Karel's trip over the "hurdles" follows.
+
+<b>* recursive sample program */
+
+seek_next [
+ if (front_is_clear) [
+  if (right_is_blocked) [move;seek_next] /* recurse */
+  ]
+ ]
+
+hurdle [
+ while (right_is_blocked) move
+ turnright;move;turnright
+ while (front_is_clear) move
+ turnleft
+ seek_next
+ if (front_is_blocked) [turnleft;hurdle] /* recurse */
+ ]
+
+turnright [turnleft;turnleft;turnleft]
+
+turnaround [turnleft;turnleft]
+
+main [
+ putbeeper /* leave marker */
+ turnleft
+ while (right_is_blocked) [
+  move
+  while (next_to_a_beeper) pickbeeper /* 2/13/2013 */
+  ]
+ turnright
+ move
+ turnright
+ while (front_is_clear) move
+ turnleft /* heading north */
+ hurdle
+ turnaround;move
+ while (any_beepers_in_bag) putbeeper
+ turnaround
+ move
+ turnright
+ move
+ turnright
+ while (not_next_to_a_beeper) move
+ pickbeeper
+ turnright
+ ]</b>
+ 
+Showing you just 6 frames of his trip doesn't do it justice but may
+suffice.<sup><a href=#a2><font color=red>2</font></a></sup> The hurdle function <b>calls itself</b>! There's something about
+hurdling that's repetitive. And ... hurdle itself calls the function
+seek_next which <b>also</b> calls itself.
+
+We are emphasizing the importance of recursion (calling yourself) here
+but here's another big idea: problems we encounter in life are best
+attacked by what is called "step-wise refinement." Here, main plays the
+role of the complete task. After some preliminary "beeper picking," our
+cute little robot (the yellow figure) will be heading north and have the
+first hurdle on his right. We tell him to hurdle. Eventually, he'll have
+gotten over all of them and will do other stuff to finish his task.
+
+We refine the hurdle task in a separate function called hurdle. Again,
+we're not trying to teach you programming here but this Karel language
+is fairly readable and you can probably guess what's going on.
+
+<b>Give yourself a call.</b> That's crazy! You can't call yourself! If
+you pick up the phone and call yourself (I really need to try this!)
+you'd probably find the line would be busy. But in programming and in
+many natural phenomenon, things follow rules that are self-referencing.
+
+Here's what's called a syntax diagram. Notice how a mathematical
+expression, deep down, includes itself in its definition.
+
+<img src=http://primepuzzle.com/tc/Syntax_Diagrams.png>
+
+My experience has been that routines I find I need and have named (like
+hurdle and dpf, see below) almost miraculously beg self-reference. I
+wrote something that mimicked long division, a fundamentally repetitive
+algorithm. The task was to convince my language, tiny-c, which does not
+do decimals, to display the decimal representation of fractions like
+17/239.
+
+<b>/* display proper fraction */
+
+dpfx int n,d,p [
+ if p [MC 10*n/d,14;dpfx 10*n%d,d,p-1]
+ ]
+
+dpf int n,d,p [
+ putchar '.'
+ dpfx n,d,p
+ ]</b>
+
+When you run this function you get:
+
+<b>tc>.dpf 17,239,21
+.071129707112970711297</b>
+
+Notice how dpfx calls itself. There are many things in the code above
+that need explaining but we'll skip doing that. Try manually dividing
+239 into 17 sometime. You will be reminded of the good ol' days when you
+first learned long division. Just kidding.
+
+Determine the first number of the quotient after the decimal point.
+Multiply it and the divisor and subtract the product from the dividend.
+Repeat.
+
+That's what dpfx does!
+
+<a name=a2></a><font color=red><b>2.</b> </font>Full video at <a href=http://youtu.be/imQBhNPc_ic>http://youtu.be/imQBhNPc_ic</a>
+
+<h1 id="7">Lesson 7: Work together. Mix 'n' Match.</h1>
+
+<img border=3 src=http://primepuzzle.com/blog/tobeellama.jpg> <img border=3 src=http://primepuzzle.com/blog/libstik.jpg>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Tobeellama</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Libstik</b>
+
+Summ tyme ago a frend ov mye brother's notissed er kat wuz tawkun
+lyke a baby and aboot ten month's lader a full-blown application dat
+helped udda kat owners teach their katz tah dew da saym wuz
+world-famous.
+
+Translation by <a href=http://primepuzzle.com/blog/jspeek.html>http://primepuzzle.com/blog/jspeek.html</a>
+
+using a 1543 word dictionary.
+ 
+Let's try that again, in English, lol.
+
+Some time ago a friend of my brother's noticed her cat was talking
+like a baby and about ten month's later a full-blown application that
+helped other cat owners teach their cats to do the same was
+world-famous.
+
+Her cat's name was Toby. He has since left us but while he was with us
+he provided us with many opportunities to create funny stories and
+challenging puzzles. Her artistic skills and my programming skills were
+a perfect match. We worked together, created a blog and amused ourselves
+for a couple of <b>years</b>, creating words that were close to real words but
+silly enough to make you smile.
+
+Translation from English to Toby Speak ended up being a fairly
+non-trivial undertaking. Toby's "Mom" and I debugged and developed
+together. My original ideas for what the translator would do were too
+ambitious and it simplified to merely looking up English words and, if
+found, turning them into Toby words. Real languages aren't so
+straightforward. For example, in French
+
+I love you. -> Je t'aime.
+
+But in Toby Speak
+
+I love you. -> Ize luv u. 
+
+Notice how the word order changes in French and the need for a contraction.
+
+We had a ball. Toby's "Mom" would send me messages in Toby Speak and I
+would spot the new made-up words, realize what the English word was and
+add it to the dictionary. She and my brother would soon tire of the
+daily updates to my translator (think <a
+href=http://primepuzzle.com/tc/programmer's_guide.html#1>Lesson 1</a>).
+
+One of the most important aspects of why this project was successful was
+that both developers love fantasy and also have an interest in things
+like Quantum Mechanics, weather, ancient history, Eastern religion etc.
+We matched these fields and our fantasy, and had Toby becoming a "Roman
+Emperor, an expert in Quantum Mechanics, a Zen Master etc.".
+
+Excuse me ...
+
+"Roman Empurroar, an expuht in Kwantum Mekaniks, a Zen Mastah etc."
+
+I will never forget how amazed I was when I decided to implement my
+translator in Javascript and knocked it out in a day or so! What had
+taken me <b>months</b> to build in one language took me only a couple of
+<b>days</b> in another. <b>Mix 'n' Match!</b>. I was translating a translator, so
+I already had a working process. It's easier when you've already done it.
+
+I think I have written a "file dumper" in at least four languages. I
+first saw how this could be done in 6502 assembly language. Then I saw
+how someone else did it in a C-like language called SIL. A Z-System
+developer figured out how to turn this version into a Z-System utility.
+I won't go into details on this but I do want to say I learned a lot
+from what he did and was also very pleased he found what I had done
+interesting enough to improve it.
+
+Here's what my tiny-c file dumper does to this paragraph.
+
+rdump.tc - tct - 3/21/10
+
+Rec  0
+
+49 20 74 68 69 6E 6B 20 49 20 68 61 76 65 20 77  I think I have w
+72 69 74 74 65 6E 20 61 20 22 66 69 6C 65 20 64  ritten a "file d
+75 6D 70 65 72 22 20 69 6E 20 61 74 20 6C 65 61  umper" in at lea
+73 74 20 66 6F 75 72 20 6C 61 6E 67 75 61 67 65  st four language
+73 2E 20 49 0A 66 69 72 73 74 20 73 61 77 20 68  s. I.first saw h
+6F 77 20 74 68 69 73 20 63 6F 75 6C 64 20 62 65  ow this could be
+20 64 6F 6E 65 20 69 6E 20 36 35 30 32 20 61 73   done in 6502 as
+73 65 6D 62 6C 79 20 6C 61 6E 67 75 61 67 65 2E  sembly language.
+
+Rec  1
+
+20 54 68 65 6E 20 49 20 73 61 77 0A 68 6F 77 20   Then I saw.how
+73 6F 6D 65 6F 6E 65 20 65 6C 73 65 20 64 69 64  someone else did
+20 69 74 20 69 6E 20 61 20 43 2D 6C 69 6B 65 20   it in a C-like
+6C 61 6E 67 75 61 67 65 20 63 61 6C 6C 65 64 20  language called
+53 49 4C 2E 20 41 20 5A 2D 53 79 73 74 65 6D 0A  SIL. A Z-System.
+64 65 76 65 6C 6F 70 65 72 20 66 69 67 75 72 65  developer figure
+64 20 6F 75 74 20 68 6F 77 20 74 6F 20 74 75 72  d out how to tur
+6E 20 74 68 69 73 20 76 65 72 73 69 6F 6E 20 69  n this version i
+
+Strike Any Key (space to quit)
+
+Rec  2
+
+6E 74 6F 20 61 20 5A 2D 53 79 73 74 65 6D 20 75  nto a Z-System u
+74 69 6C 69 74 79 2E 0A 49 20 77 6F 6E 27 74 20  tility..I won't
+67 6F 20 69 6E 74 6F 20 64 65 74 61 69 6C 73 20  go into details
+6F 6E 20 74 68 69 73 20 62 75 74 20 49 20 64 6F  on this but I do
+20 77 61 6E 74 20 74 6F 20 73 61 79 20 49 20 6C   want to say I l
+65 61 72 6E 65 64 20 61 20 6C 6F 74 0A 66 72 6F  earned a lot.fro
+6D 20 77 68 61 74 20 68 65 20 64 69 64 20 61 6E  m what he did an
+64 20 77 61 73 20 61 6C 73 6F 20 76 65 72 79 20  d was also very
+
+Rec  3
+
+70 6C 65 61 73 65 64 20 68 65 20 66 6F 75 6E 64  pleased he found
+20 77 68 61 74 20 49 20 68 61 64 20 64 6F 6E 65   what I had done
+0A 69 6E 74 65 72 65 73 74 69 6E 67 20 65 6E 6F  .interesting eno
+75 67 68 20 74 6F 20 69 6D 70 72 6F 76 65 20 69  ugh to improve i
+74 2E 0A 0A                                      t...
+
+tc>
+
+As a programmer at Travelers Insurance Company the <b>Work together</b>
+mantra was everywhere. We worked on huge projects involving many teams,
+extensive testing and thousands of lines of code. Specifications were
+given in spreadsheet form. Very high level languages were used by the
+programmers. What they produced was translated into lower-level
+languages and finally ultimately compiled into executable code.
+
+<h1 id="8">Lesson 8: "Fake it!"</h1>
+
+<img src=http://primepuzzle.com/tc/snake_eyes.png>
+
+Not sure the Lesson title is good but let's roll with it. Speaking of
+rolls, the idea of rolling dice in games to determine next steps is
+common. In the game of Craps, "snake eyes" (both die show one pip) is a
+bad thing. The probability of snake eyes is 1 in 36, i.e. very unlikely.
+
+Some problems we encounter are so hard we often resort to using random
+number generators to approximate solutions.  We create <b>fake</b>
+reality by rolling software dice.
+
+Here's an example. Enter Andy the Amoeba!
+
+Note: "Andy" was dreamed up after "Toby" posed the problem. A
+handwritten exposition of the mathematics behind this problem may be
+found at <a href=http://primepuzzle.com/tc/amoeba.html>http://primepuzzle.com/tc/amoeba.html</a>.
+
+<img src="http://primepuzzle.com/tc/amoeba problem.jpg">
+
+<b>Graphic by Chip Bradley</b>
+
+Tobee mayd a nu poozle. He haz a jar wid wun amoeba in id. Eweree minit,
+eweree amoeba turns into 0, 1, 2, or 3 amoebae wid a probubbillitee ov
+25% foah each case (dies, duz nuddin, splits into 2, or splits into 3).
+Wat iz da probubbillitee dat da amoeba population eventually dies owd?
+
+For those of you who can't read Toby Speak ...
+
+Toby made a new puzzle. He has a jar with one amoeba in it. Every minute,
+every amoeba turns into 0, 1, 2, or 3 amoebae with a probability of
+25% for each case (dies, does nothing, splits into two, or splits into 3).
+What is the probability that the amoeba population eventually dies out?
+
+It turns out this probability can be solved for analytically and is
+equal to &radic;2-1 or roughly .41. This means that if you investigate
+10 situations that start off with a single amoeba about 4 would die
+out.
+
+// amoeba.linux.tc - tct - 7/10/19
+
+int gseed
+
+randint [
+ int k1,ix;ix=gseed
+ k1=ix/127773
+ ix=16807*(ix-k1*127773)-k1*2836
+ if (ix<0) ix=ix+2147483647
+ gseed=ix
+ ]
+
+main [
+ pl "amoeba.linux.tc - tct - 7/10/19";pl ""
+ pl "An amoeba either dies, lives, splits into two or splits into three,"
+ pl "each with probability 1/4. It can be proved that out of 10"
+ pl "simulations, about 10*(sqrt(2)-1), which equals about 4,"
+ pl "populations will die out. It can also be proved that 1.5^n"
+ pl "is the expected number of amoebas after n generations. If n=10,"
+ pl "58 amoebas are expected.";pl ""
+ int c,p,pp,psp,s,gens,n,ptot
+ pl "seed? ";gseed=gn
+ gens=10
+ s=1
+ while s<=10 [
+  p=1;n=gens
+  while n*p [
+   n=n-1;psp=0
+   pp=1
+   while pp<=p [
+    randint;psp=psp+gseed%4
+    pp=pp+1
+    ]
+   p=psp;if p==0 c=c+1
+   ]
+  ptot=ptot+p;ps "simulation ";pn s;ps ": population";pn p;pl ""
+  s=s+1
+  ]
+ pl "";pn ptot/10;ps " amoebas, on average, were living after"
+ pn gens;ps " generations.";pl ""
+ pn c;ps " population(s) died out.";pl ""
+ ]
+
+<img src=http://primepuzzle.com/tc/amoeba_simulation.png>
+
+The reader may be aware that, according to Quantum Mechanics, reality
+itself is driven by random events and what we experience is in the
+deepest sense driven by probabilities. The field of Statistics is based
+on "probability distributions" and is used to test hypotheses about such
+things as the expected value of some measurement like the height or
+weight of individuals from a certain population.
+
+<a name=meaning.of.life></a>One of the most amusing games I've ever seen is Piranha Fish. I won't
+show you any of the code but I will show you the rules. The various
+strengths of players and the probabilities of certain events is shown
+below. This game is pre-Pac Man, pre-Mario Brothers, pre-Graphics so
+don't get too excited about the interface if you ever run it.
+
+<img src=http://primepuzzle.com/tc/The-Meaning-of-Life-According-to-Pacman.jpg>
+
+But the <b>realism</b> of what happens in a given game is pretty good. And it's
+all because a random number generator is used to simulate reality.
+
+<img border=1 src=http://primepuzzle.com/tc/pf.doc.1.jpg>
+<img border=1 src=http://primepuzzle.com/tc/pf.doc.2.jpg>
+<img border=1 src=http://primepuzzle.com/tc/pf.doc.3.jpg>
+<img border=1 src=http://primepuzzle.com/tc/pf.doc.4.jpg>
+
+I can't resist. Here's one of the functions used in Piranha Fish.
+
+<b>/* A fish jumped in the boat. This is what happens. */
+
+onefish [
+  char p
+  pl"A piranha fish has jumped into the boat.  He is swimming"
+  pl"around.  He is looking at the toe of the "
+  pname(p=move(random(1,ngoing)))
+  ps"."
+  if(health(p)>4) pl"Oh, well.  He's dead anyway ..."
+  else if(p>6) [
+    pl"The missionary is calm.  He is staring back at the"
+    pl"fish.  The fish just jumped back into the river."
+  ]
+  else if(p<3) [
+    pl"The cannibal has speared the fish."
+    if(random(0,1)) [
+      pl"Unfortunately he made a hole in the"
+      pl"boat, increasing its sink rate 10%."
+      sinkrate=sinkrate+sinkrate/10
+    ]
+  ]
+  else if(p<5) [
+    pl"The hunter has panicked.  He is rocking tbe boat ..."
+    capsize
+  ]
+  else if(p==5) [
+    if(random(0,1)) [
+      pl"The doctor is quick.  He shoots the fish full of"
+      pl"a drug."
+    ]
+    else [
+      pl"The doctor has panicked.  He is rocking the boooooat!"
+      capsize
+    ] 
+  ]
+  else [
+    pl"The nurse has panicked.  She is rocking the boat."
+    pl"Everybody is yelling at her.  Yell - yell - yell."
+    if(random(0,1)) pl"She is calm now, and sits down."
+    else [
+      pl"She falls out of the boat.  She is swimming."
+      swim 6
+    ]
+  ]
+]</b>
+
+
+Note: As mentioned earlier, Tom Gibson wrote Piranha Fish. Much later he
+used it as the starting point for illustrating Object Oriented
+Programming in Java. Here's the graphics version! (This will appear
+if you are browsing this file with Firefox *and* you have the Java 6
+plugin installed.)
+
+<applet code="PFishApplet" codebase="http://primepuzzle.com/tc" archive="pfish.jar" height="575" width="500"></applet>
+
+<h1 id="9">Lesson 9: Don't Shade Your Eyes, Analogize!</h1>
+
+Of course this is a play on the great Tom Lehrer's "Don't Shade Your
+Eyes, Plagiarize."<sup><a href=#a3><font color=red>3</font></a></a></sup>
+
+As suggested in <a href=http://primepuzzle.com/tc/programmer's_guide.html#4>Lesson 4</a>, using the work of others to create your
+own is recommended. Here, we're recommending you look for similarities
+among things in order to understand them.
+
+Parables, myths and the like are a good way to learn concepts. Another,
+very different, approach is to use fantasy and humor. For example, take
+Lebsterberg's Uncertainty Principle.
+
+<b>Lebsterberg's Uncertainty Principle
+
+The inequality 
+
+<img alt="Lebsterberg's Uncertainty Principle" src="http://primepuzzle.com/lup.jpg">
+
+Uncertainty in Knowledge * Uncertainty in Letters &gt; Rank's constant
+
+In other words, the less unsure our Knowledge of something is, the more
+Letters we need to describe it. The precise value of Rank's constant is not known
+(because there aren't enough numbers to write it). For a marginally related concept,
+please see The Law of the Conservation of Letters.</b>
+
+Now, this is of course a totally bogus Principle, but, if you've ever
+heard of Heisenberg's Uncertainty Principle, you'll both smile a bit and
+also see that in some deranged sense Lebsterberg's analog might actually
+be sort of true.
+
+I have studied the Java programming language. A co-worker asked me
+to help her with her assignment. Her class used BlueJ, a
+Java development environment. I have used many IDEs (Integrated
+Development Environments). These days, very high-level, often online, graphical
+interfaces are available to code and test. They of course differ from
+each other but they also have many things in common. Menus, mouse usage
+and even the low-level language constructs are similar. Learning
+object-oriented programming in Java makes learning object-oriented
+programming in Python easier.
+
+The job market has clearly migrated away from a command-line, procedural
+language environment to a point-and-click, GUI (Graphical User
+Interface) environment. Seeing the analogies between the concepts of these
+new environments is a requirement for survival in the field.
+
+The analogies between abstract mathematical concepts and physical
+reality are well-known. Hilbert spaces were never predicted to have any practical
+use but are now seen to model the probability waves of Quantum
+Mechanics. Steven Weinberg writes "The universe is an enormous direct product of
+representations of symmetry groups."<sup><a href=#a4><font color=red>4</font></a></sup> The brain itself has
+been compared to a highly complex programmed processor. Watson and
+Crick's double helix is a duplicating "machine." Models like these suggest
+the meaning of life is somewhat understandable if we create things with
+certain properties and "behaviours" which mimic what we observe.  
+
+<a name=a3></a><font color=red><b>3.</b> </font><a href=https://www.youtube.com/watch?v=UQHaGhC7C2E>https://www.youtube.com/watch?v=UQHaGhC7C2E</a>
+
+<a name=a4></a><font color=red><b>4.</b> </font><a href=http://www.cmth.ph.ic.ac.uk/people/d.vvedensky/groups/Chapter6.pdf>http://www.cmth.ph.ic.ac.uk/people/d.vvedensky/groups/Chapter6.pdf</a>
+
+<h1 id="10">Lesson 10: Write to the Top!</h1>
+
+Amby Burfoot has an Insight titled "A Runner's Essential Reading." Here
+we mention authors I've actually written letters to and/or admire.
+
+Often, my decision to write to someone is motivated by my being stymied
+by a problem which only the world authority on the subject can answer.
+So I <b>write to the top</b> man or woman in the field. It's a thrill to
+hear back from them. It does not always happen but when it does I learn
+more and thus give my (their) life more meaning.
+
+Everyone has her/his list of heroes. Who are yours?
+
+<b>Joe Wright</b> was a leading developer for an enhancement to Gary
+Kildall's (see below) CP/M operating system called Z-System. I phoned
+him a long time ago and asked him about something he had written in a
+journal I subscribed to. It was like "talking to God." Just kidding of
+course but having a brilliant person on the other end of the line, a
+person I had never met, was amazing. I felt I had to choose my words
+carefully, not waste his time. The end result was that I had identified
+a bug in what he'd written and later figured out how to fix it. Joe and
+Howard Goldstein were co-developers of Z-System. At a meeting attended
+much later in New Jersey Joe described Howard as the man "with a black
+thumb." By this he meant Howard could find bugs better than anybody. And
+here was little ol' me finding a bug in Joe's work!
+
+I contacted <b>Fabrice Bellard</b> and asked him for help on compiling
+the tiny-c interpreter under Linux. You've got to have guts to do this.
+Fabrice is one of the smartest men on the planet. I fell upon a piece
+some time ago that was a collection of statements various people had
+crafted comparing his brilliance with that of other luminaries. It was
+very funny. I am kicking myself for not saving it for, despite multiple
+efforts, I can't find it again. Maybe I should ask him if he's ever seen
+it! Oh well. I was shocked when I actually heard back from him. He told
+me what I needed to do.
+
+<b>tcc analyze.c lnx.c scan.c utility.c main.c stack.c custom.c mc.c
+   symbol.c enter.c -o tinyctcc -L/usr/lib/ -lc</b>
+
+tcc is <b>his</b> compiler. The uppercase L and lowercase l options at
+the end were what I needed. They both have to do with library look ups.
+Here I had a very complex collection of .c modules and I was sure all I
+needed was to know the "magic script" that was needed to build the
+executable. It worked like a charm.
+
+<b>Peter Grogono</b> has written books on Pascal and Mouse, both
+programming languages. I'll never forget the day I spotted his book
+"Mouse: A Language for microcomputers" at a local bookstore. I flipped
+thru the pages and spotted a Z80 assembly language listing of the
+interpreter for his Mouse language. There was also an interpreter written
+in Pascal. I typed it in. Compiled it with my Turbo Pascal compiler.
+I called him up just to thank him. Amazing. I actually talked to Peter
+Grogono! It's worth pointing out that these conversations are often as
+interesting to the caller as they are to the called. Peter built a blog
+dedicated to Mouse and mentioned the four or so people who had developed
+things using his language.
+
+Mouse is a tiny language. All instructions are a single character long!
+Unless you have worked with it for quite awhile, it's pretty unreadable.
+But it supports recursion, macros, local and global variables. Here's
+the nursery rhyme "Old MacDonald had a farm."<sup><a href=#a5><font color=red>5</font></a></sup>
+
+<b>~ MacDonald's Farm - pg - 7/8/84
+
+~ lrb - 9/17/14 - Added snakes. Other cosmetic mod's.
+
+("!!How many verses ? " ? n : n . 7 > [7 n :] n . 0 > ^ #S,1,n .;)
+
+$S "!" #V,0; ",!And on this farm he had some "
+ #W,1%; #R; ", !With a " #V,1%; ".!" #X;
+ 1% 2% < [#S,1% 1 +,2%;] @
+
+$V 1% 0 = ["Old MacDonald had a farm" #R; @]
+ #A,#M,1%;,#N,1%;; "!" #V,1% 1 -; @
+
+$X 10 y : (y . ^ 32767 x : (x . ^ x . 1 - x :) y . 1 - y :) @
+
+$A #C,1%,2%; "!" #B,"H",1%; #B," th",2%; #B," everywh",1% " " 2%; @
+
+$B 1% "ere a " 2% "," @
+
+$C 1% " " 2% " here and a " 1% " " 2% " there," @
+
+$R ", ee-igh, ee-igh, oh" @
+
+$M 1% 1 = ["Chick" @] 1% 2 = ["Quack" @]
+ 1% 3 = ["Gobble" @] 1% 4 = ["Oink" @]
+ 1% 5 = ["Moo" @] 1% 6 = ["Hee" @]
+ 1% 7 = ["Hiss" @]
+
+$N 1% 6 < 1% 7 = + [#M,1%; @] "Haw" @
+
+$W 1% 1 = ["chicks" @] 1% 2 = ["ducks" @]
+ 1% 3 = ["turkeys" @] 1% 4 = ["pigs" @]
+ 1% 5 = ["cows" @] 1% 6 = ["donkeys" @]
+ 1% 7 = ["snakes" @]</b>
+
+<b>Donald Knuth</b> is writing "The Art of Computer Programming," a
+multi-volume work. The title alone tells a lot. He feels programming is
+an art, no less so than painting, dance etc. Programmers are (or can
+be/should be) artists. Programs can be beautiful. He has a quote from a
+cookbook at the very beginning of Volume 1 that's both amusing and true:
+
+<b>Here is your book, the one your thousands of letters have asked us to
+publish. It has taken us years to do, checking and rechecking countless
+recipes to bring you only the best, only the interesting, only the
+perfect. Now we can say, without a shadow of a doubt, that every single
+one of them, if you follow the directions to the letter, will work for
+you exactly as well as it did for us, even if you have never cooked
+before.
+-- McCall's Cookbook (1963)</b>
+
+Knuth is a bit of a recluse I think. He doesn't do email. The computer he
+works on has no internet connection. He tells you that if you want to
+contact him write a letter to his secretary. And he indicates getting a
+response is unlikely. I wrote him a letter and did not hear back. I did
+not expect to hear back. I can't even remember now what I said in my
+letter. I think I just wanted to thank him.
+
+<b>Roger Penrose's</b> "The Road To Reality - A Complete Guide To The
+Laws Of The Universe" is ambitious to say the least. The book is very
+thick. It covers, well, everything! For example, the first thing I
+checked was to see if he mentioned Hugh Everett III's take on Quantum
+Mechanics. Everett had an interpretation that went counter to the one
+Niels Bohr promoted. I believe Everett was even encouraged by Albert
+Einstein to visit Bohr. It should be noted that Einstein himself was
+never convinced that Quantum Theory was true. Penrose did not disappoint
+and dedicated many pages to this alternate interpretation. I never
+expected Penrose to get back. He didn't. Again, I just wanted to thank
+him.
+
+<b>Ken Barbier</b> has written many books. The one that I first bought
+was "CP/M Assembly Language Programming." The book starts off by
+telling you to type a very short assembly language program in at your
+keyboard. No. I take it back. He told you to directly punch in some
+hexadecimal bytes directly into computer memory and then "run" them
+using a program called DDT (no, not the banned insecticide, the "Dynamic
+Debugging Tool" of CP/M). The program caused the character '$' I think
+to display on the console. Not your most exciting or useful program but
+it was the beginning of a journey that ended with the reader knowing how
+to write a program that copied files. The learn-by-doing approach is a
+powerful teaching tool. The book taught me hundreds of important ideas.
+A key one was to modularize a task.
+
+I either wrote or discovered a program much later that allowed you to
+transfer files between two computers using a "null modem" cable. I
+shared it with Barbier. In one of his later books he had a chapter on
+how one would do such a thing and the code looked suspiciously like
+"mine." He did not give any references to his code. I've always wondered
+if he, well, you know.
+
+<b>Tom Gibson</b> wrote tiny-c. Our correspondence was hinted at in
+<a href=http://primepuzzle.com/tc/programmer's_guide.html#3>Lesson 3</a>.
+
+I never spoke with <b>Buckminster Fuller</b> but I had the rare
+privilege of seeing him speak at the University of Massachusetts. I had
+read that people who had seen him were mesmerized by his enthusiasm and
+energy. He wrote "Synergetics: Explorations in the Geometry of
+Thinking." The book is, for me anyway, right up there with James Joyce's
+"Ulysses" in that it is essentially unreadable. This does not mean it is
+bad. I'm just not at their level. They both used vocabulary, especially
+Fuller, that they made up. They added something. See <a href=http://primepuzzle.com/tc/programmer's_guide.html#3>Lesson 3</a>.
+
+<b>Leor Zolman</b> wrote the BDS C compiler. This was an important
+product in the early days of "PCs." Actually, it predated the time
+computers were called PCs. In any case, it was a step up from tiny-c.
+Interestingly, Zolman did not use tiny-c to bootstrap his compiler.
+After selling many thousands of copies he decided to put it in the
+Public Domain. He had a website and for awhile entertained questions
+from people like me who were still wanting help and/or promoting their
+work in C language development.
+
+<b>Larry Wall</b> created Perl. "Perl officially stands for Practical
+Extraction and Report Language, except when it doesn't." This quote was
+taken from some online documentation for Perl. A sense of humor is key
+in life. His name came up (I can't remember the context) and I sent him
+a message thanking him for his work and telling him about some of mine.
+Again, this is like <b>writing to the top</b>. He got back! And had some
+kind words.
+
+Perl is a little like COBOL in that it is the backbone of the web in the
+same way that COBOL is the backbone of commercial applications. They are
+very different languages but are both important. One of the things I
+told Wall was that I found a use for something someone had written in
+Perl to drive part of a system my runner friends and I use to exchange
+information on our running. When my brother was selling his art online
+he hired a guy to write the shopping cart software for it. It was all in
+Perl.
+
+<b>Paul Erd&ouml;s</b> was a Number Theorist. He travelled the world visiting
+other mathematicians and stayed, self-invited, at their houses. He owned
+a briefcase and very little else. The book "The Man Who Loved Only
+Numbers" tells his story. He proved the Prime Number Theorem by
+elementary means (he did not use complex number theory). He is so famous
+people talk about their "Erd&ouml;s number." Erd&ouml;s himself has the Erd&ouml;s
+number 0. If you published a paper with him, your number is 1. If you
+published a paper with a person who has Erd&ouml;s number 1 your number is 2.
+
+"Erd&ouml;s, like many mathematicians, believed that mathematical truths are
+discovered, not invented. And he had an evocative way of conveying that
+notion. He spoke of a Great Book in the sky, maintained by God, that
+contained the most elegant proofs of every mathematical problem. He used
+to joke about what he might find if he could just have a glimpse of that
+book." 
+
+<b>Ward Christensen</b> created the first BBS (Bulletin Board System).
+Today, with the internet, we see Facebook chat and online forums. The
+earliest inter-computer connections were over phone lines using 300 baud
+acoustic coupler modems. XMODEM was a program he wrote to do file
+transfers. I ran a Remote Bulletin Board System for years. He was
+definitely a key player.
+
+<b>Gary Kildall</b>, mentioned earlier, wrote the first operating system for
+microprocessor-based computers, CP/M. He founded Digital Research, Inc.
+A hobbyist's dream, CP/M let you create and save programs on discs. All
+subsequent operating systems owe their existence to his seminal work.
+
+<b>Peter Schorn</b> wrote an Altair 8800 simulator. This computer was
+introduced in 1975. It was the first "personal computer." Simulators 
+allow you to run software long after the hardware it was written for no
+longer exists. I currently run Ubuntu (a Linux distribution) on my
+desktop computer and have installed his simulator. The Altair had an
+8-bit CPU (Intel 8080), no hard disc, and no operating system. His
+simulator does much much more than the Altair. CP/M programs and full-up
+Z-System run under his simulator! Peter and I have corresponded on
+several occasions.
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/R5WBbO29YYc" frameborder="0" allowfullscreen></iframe>
+
+<a name=a5></a><b><font color=red><b>5.</b> </font></b> Full video at <a href=http://youtu.be/mwWDEXFye5I>http://youtu.be/mwWDEXFye5I</a>
+
+<h1 id="11">Lesson 11: What's with that cover?!</h1>
+
+Note: I am pretty happy with the book but have added this "Lesson" just
+to cover a few changes I have made since it was first published.
+
+The cover for the book has changed. It uses an image<sup><a href=#a6><font color=red>6</font></a></sup> of a
+"random walk" of some two million steps. I tried to come up with
+something that was somewhat "mystical." I doubt anyone would guess what
+it was without this explanation. I began to wonder if I could get Karel
+to do a random walk. I had to break a few rules but here's the code.
+Visit the link<sup><a href=#a7><font color=red>7</font></a></sup> below to see a run of this walk.
+
+<b>
+
+setup [
+ system("clear")
+ pos 20,10,"randwalk.tc - tct - 11/12/21"
+ sleep 3
+ color '7'
+ pos 20,20,"seed (odd number from 1-999)? ";last=seed=gn
+ pos 20,21,"bag (1-9999)? ";bag=gn
+ sleep 3
+ system("clear")
+ off
+ ]
+
+turn [int r;r=random(0,3);while(r) [r=r-1;turnleft]]
+
+main [
+ while 1 [
+  putbeeper;wait 0
+  if front_is_clear() move
+  turn
+ ]]
+
+</b>
+
+<a name=a6></a><font color=red><b>6.</b> </font><a href=http://primepuzzle.com/tc/Random_walk_2000000.png>http://primepuzzle.com/tc/Random_walk_2000000.png</a>
+
+<a name=a7></a><font color=red><b>7.</b> </font><a href=http://primepuzzle.com/tc/karel-problem-book.html#7>Problem 7 in Karel the Robot Problem Book</a>
+
+</pre>
+
+</td></tr></table>
+
+</body>
+</table>
+

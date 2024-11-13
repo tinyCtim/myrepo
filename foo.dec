@@ -1,0 +1,25 @@
+
+Encoded files have words and numbers. These numbers stand for words that
+are defined in .def files. Encoded files are named with an extension
+of .enc. The last character in these files must be an asterisk.
+
+Definition files have numbers followed by definitions. These files are named with
+an extension of .def.
+
+The Windows executable that decodes these encoded files is sept.exe.
+It outputs a file which has an extension of .dec.
+
+When you run this program you are asked to supply three file names. For
+example
+
+foo.def
+foo.enc
+foo.dec
+
+If there is a number in an encoded file that is not defined in the .def
+file the program will fail to output a file.
+
+PS
+
+If you run the executable with a command tail of -d you'll see the
+decoding take place.

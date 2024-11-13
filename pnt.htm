@@ -1,0 +1,106 @@
+
+<html>
+
+<!-- pnt.htm - lrb - 12/16/12 -->
+
+<head>
+
+<link rel="icon" type="image/x-icon"
+href="http://primepuzzle.com/tc/225px-Georg_Friedrich_Bernhard_Riemann.jpeg">
+</link>
+
+<title>Prime Number Theorem Simulation</title>
+
+</head>
+
+<script>
+
+function isprime (number) {
+ if (number <= 1) return 0; // zero and one are not prime
+ for (i=2; i*i<=number; ++i) {
+  if (number % i == 0) return 0
+  }
+ return 1
+ }
+
+function bar(frm) {
+ frm.out.value=""
+ }
+ 
+function foo(frm) {
+ var i,tot=0;sn=frm.n.value
+  for (i=1;i<=sn;i++) {
+   w=sn*Math.random()
+   v=Math.floor(w)
+   t=isprime(v)
+   tot+=t
+   }
+  f=Math.floor(100*sn/tot)/100
+  b=Math.log(sn)
+  frm.out.value="estimate: "+f+'\n'+"analytic: "+b
+  }
+
+</script>
+
+<body>
+
+<table align=center width=89%><tr><td>
+
+<form>
+
+<br><b><a href=http://primepuzzle.com/tc/pnt.htm>Prime Number Theorem Simulation</a>
+
+<p>
+
+Enter number : <input name="n" type="text" value=100 size=9>
+
+<p>
+
+<button type="button" onClick="foo(this.form)">
+
+<p>
+
+Click Bernard Riemann
+
+<p>
+
+<img src=http://primepuzzle.com/tc/225px-Georg_Friedrich_Bernhard_Riemann.jpeg>
+
+<p>
+
+to run the simulation!
+
+</button>
+
+<p>
+
+<button type="button" onClick="bar(this.form)">
+
+Reset
+
+</button>
+
+<p>
+
+<textarea name="out" rows="2" cols="40"></textarea>
+
+</b>
+
+</form>
+
+<b>
+
+The Prime Number Theorem says that n divided by the number of primes
+less than n approaches the natural logarithm of n. The estimate number in
+the text area is n divided by the number of primes found when n numbers
+between 1 and n were randomly generated. The analytic number is the
+natural logarithm of n.
+
+</b>
+
+</td></tr></table>
+
+</body>
+
+</html>
+

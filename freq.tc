@@ -1,0 +1,60 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+
+// freq.tc - 4/8/24 - lrb
+
+[
+this program displays a horizontal bar graph made with *s of the data in
+a file that uses CR or CR+LF line enders and contains comma delimited
+integer pairs like 12,21 where the first number is an integer value, the
+second number is the frequency of the value. there is a discussion of
+this program at http://primepuzzle.com/not.just.tiny.c/freq.tc.txt
+
+you may optionally run this via
+
+tc freq.tc -r speedf
+
+when prompted, enter an integer like 3 to get 3 seconds between each
+line displayed
+]
+
+asterisk int y [ // print y/2 asterisks
+ y = y / 2
+ while y [
+  putchar '*'
+  y = y - 1
+  ]
+ ]
+
+int speed
+
+speedf [
+ pl "enter delay between lines displayed in seconds e.g. 3 " 
+ speed = gn; main
+ ]
+
+main [
+ printf "%cfreq.tc - lrb - 4/8/24%c", 10, 10
+ int foo(100), w(1), x(0), y(0)
+ char p(500), file(30), work(10)
+ int ps, wps
+ int nl(1); nl(0) = 10
+ strcpy file, "freq.txt"
+ printf "%cI will graph %s.%c", 10, file, 10
+ readfile file, p, 500
+ ps = split foo, p, nl
+ while wps < ps [
+  pl ""
+  sleep speed
+  strcpy work, foo(wps)
+  strcat work, ","
+  split w, work, ","
+  atoi w(0), x
+  atoi w(1), y
+  printf " (%d) ", x(0)
+  asterisk y(0)
+  printf " (%d)", y(0)
+  wps = wps + 1 
+  ]
+ pl ""
+ ]

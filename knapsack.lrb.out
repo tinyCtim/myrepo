@@ -1,0 +1,31 @@
+
+L:\hdrive.7.6.20>knapsack.lrb
+
+knapsack.lrb.c - 7/25/20
+
+05:58:32
+
+max weight 843
+
+cumulative dollar value 476, cumulative weight 839
+
+pick person 1 (dollar value 43 weight 106)
+pick person 2 (dollar value 26 weight 50)
+pick person 5 (dollar value 49 weight 65)
+pick person 6 (dollar value 16 weight 38)
+pick person 7 (dollar value 29 weight 44)
+pick person 8 (dollar value 44 weight 119)
+pick person 9 (dollar value 38 weight 75)
+pick person 10 (dollar value 37 weight 123)
+pick person 15 (dollar value 46 weight 46)
+pick person 16 (dollar value 42 weight 45)
+pick person 17 (dollar value 22 weight 53)
+pick person 23 (dollar value 46 weight 8)
+pick person 24 (dollar value 12 weight 21)
+pick person 27 (dollar value 26 weight 46)
+
+14 people rode the elevator.
+
+05:59:18
+
+L:\hdrive.7.6.20>

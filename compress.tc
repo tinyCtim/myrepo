@@ -1,0 +1,41 @@
+
+// compress.tc - lrb
+// sample usage: tc compress.tc -r "compress\"file.lex\",\"file.lcx\""
+
+compress char f(0),g(0) [
+ int cri,optr,cris,nib
+ // beefed up sizes of both buffers
+ char outfile(15000),infile(23000),byte(1),cm(14),ra(11)
+ int br,ptr,rare,i
+ char cr(1);cr(0)=13 // carriage return
+ printf "compress.tc - 8/5/19%c",10
+ strcpy(cm,"EISNATROLDCUGP");cm(14)=10;strcpy(ra,"MHBYFVWKZXQJ") // common and rare
+ br=readfile(f,infile,23000)
+ printf "%c%d bytes in input file",10,br
+ // get rid of any carriage returns
+ while (i=index(infile,br,cr,1)) [
+  movebl(infile+i,infile+br-1,-1)
+  br=br-1
+  ]
+ printf "%c%d bytes after carriage returns stripped out",10,br
+ outfile(optr)='ÿ';nib=1;ptr=-1 // signature byte
+ while ((ptr=ptr+1)<br) [ // main compression loop
+  byte(0)=infile(ptr);rare=0;cri=index(cm,15,byte,1)
+  if cri==0 [rare=1;cri=index(ra,12,byte,1)]
+  if nib==1 [
+   if rare outfile(optr=optr+1)=16*15+cri-1
+   else [cris=cri;nib=2]
+   ]
+  else [
+   if rare [outfile(optr=optr+1)=16*(cris-1)+15;cris=cri]
+   else [outfile(optr=optr+1)=16*(cris-1)+cri-1;nib=1]
+   ]
+  ]
+ // tack on needed nibble(s)
+ if nib==2 [
+  outfile(optr=optr+1)=16*(cris-1)+15;outfile(optr=optr+1)='Ì'
+  ]
+ else outfile(optr=optr+1)='ü'
+ writefile(g,outfile,optr+1)
+ printf "%c%s written! (",10,g;printf "%d bytes compressed to %d bytes)%c ",br,optr+1,10
+ ]

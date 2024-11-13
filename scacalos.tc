@@ -1,0 +1,60 @@
+#include pps/lrblib.tc
+#include pps/library.tc
+#include pps/mathLib.tc
+
+[
+
+scacalos.tc - 1/22/11, 3/6/2011 - tct
+decode / encode binary / readable files 
+motivated by a Facebook post by Frank Scacalossi
+
+4/4/20 4/25,27/21 6/30/21 5/10/22
+
+]
+
+main [
+ char scac(4000),scaco(4000),mf(30),mfo(30),de
+ pl "enter file be decoded / encoded : "
+ gs mf
+ ps "enter output file : "
+ gs mfo
+ int fl
+ fl = readfile mf,scac,4000
+ if fl == 4000 [pl "can't handle files that big"; abort]
+ ps "decoding binary or encoding readable (d/e) : "
+ de = getchar
+ if de == 'd' decode scac,scaco
+ if de == 'e' encode scac,scaco
+ writefile mfo,scaco,strlen(scaco)
+ printf "%c%s written%c",10,mfo,10
+ ]
+
+decode char scac(0),scaco(0) [
+ int i,j,t(3500),u
+ char w(1)
+ int len
+ len = strlen scac
+ // get rid of non space char
+ while scac(len) != ' ' len = len - 1
+ scac(len + 1) = 0
+ u = split t,scac," "
+ while i < u [
+  w(0) = btoc t(i)
+  strcat scaco,w
+  i = i+1
+  ]
+ ]
+
+encode char scac(0),scaco(0) [
+ int i
+ char d(8)
+ char nl(1);nl(0)=10
+ while i < strlen(scac) [
+  ctob scac(i),d
+  strcat scaco,d
+  strcat scaco," "
+  i = i+1
+  ]
+ strcat scaco,nl
+ ]
+

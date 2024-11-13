@@ -1,0 +1,80 @@
+
+// slr.tc - lrb - 8/7/18, 6/13/19, 8/16,17/22 (simple life random)
+
+char cell(50*50),dell(50*50),asterisk,space;int pop
+
+birth_death int rp,cp [
+ int rw,cw,counter
+ rw=rp-1
+// no change is default
+ dell(dim*rp+cp)=cell(dim*rp+cp)
+ while rw<=rp+1 [
+  cw=cp-1
+  while cw<=cp+1 [
+// legal?
+   if ((rw>-1)*(rw<dim)*(cw>-1)*(cw<dim)) [
+    if (cell(dim*rw+cw)==asterisk) counter=counter+1
+    ]
+   cw=cw+1
+   ]
+  rw=rw+1
+  ]
+// birth?
+ if ((cell(dim*rp+cp)==space)) [
+  if (counter==3) [dell(dim*rp+cp)=asterisk;pop=pop+1]
+  ]
+// death?
+ else [
+  if ((counter<3)+(counter>4)) [dell(dim*rp+cp)=space;pop=pop-1]
+  ]
+ ]
+
+cycle int foo [
+ int i,r,c
+ while r<dim [
+  if foo==1 printf "%c             ",10
+  c=0
+  while c<dim [
+   if foo==0 [
+    i=random(0,5)
+    if i==0 [cell(dim*r+c)='*';pop=pop+1]
+    else cell(dim*r+c)=' '
+    ]
+   else [
+    putchar cell(dim*r+c)
+    birth_death r,c
+    ]
+   c=c+1
+   ]
+  r=r+1
+  ]
+ ]
+
+int dim
+
+main [
+ int c,rs,cs,delta,gen,gens
+ char datebuff(20)
+ dim=15
+ pl "slr.tc - lrb - 8/17/22"
+ asterisk='*';space=' '
+ cdate datebuff
+ // yyyy-mm-dd hh:mm:ss
+ // 0123456789abcdefghi
+ int r1,r2 // hash the seconds to seed the random number generator
+ r1=datebuff(17)-'0';r2=datebuff(18)-'0'
+ r1=10*r1+r2
+ if r1%2==0 r1=r1+1
+ seed=last=r1
+ cycle 0 // clear the board
+ printf "%cgenerations? ",10;gens=gen=gn
+ while gen [
+  cdate datebuff
+  printf "%c%cpopulation: %d generation: %d time: %s%c%c",10,10,pop,gens-gen+1,datebuff,10,10
+  gen=gen-1
+  sleep 2
+// display and update the array
+  cycle 1;strcpy cell,dell
+  ]
+ ]
+

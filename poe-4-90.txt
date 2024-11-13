@@ -1,0 +1,905 @@
+               Pieces Of Eight
+           The Newsletter of CCP/M
+
+                 April 1990
+
+    Meeting Notes, February 1990 ..........  2
+
+    Making Basic Programs "Z3 Utilities"
+    By Biff Bueffel .......................  4
+
+    BUZZ, A Random Report Generator
+    By Al Hathway  ........................  8
+
+    File Compression Techniques For CP/M
+    Users, By Benjamin Cohen .............. 10
+
+    Proposed Changes To The CCP/M Bylaws .. 14
+
+    End User Challenge, By Brian Nalewajek  17
+
+    The Day Elvis Trashed My PC
+    By James F. Taylor .................... 20
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+How To Join CCP/M: Dues are $15/year and may
+be sent to: Tom Veile, 26 Slater Avenue,
+Norwich, CT  06360
+
+March 13, 1990 --  Regular Meeting.
+
+The Connecticut CP/M Users' Group meets the
+second Tuesday of every month at the
+Farmington Public Library, Farmington, CT.
+6:30-9:00pm
+
+
+             CCP/M Meeting Notes
+               13 February 90
+
+The following folks made the February
+meeting: Gary Stagliano, Diane Thome, Al
+Hathway, Brian Nalewajek, Thomas Griffin,
+John Kennedy, Bill Connolly, Bob Emerson, Lee
+Bradley
+
+There was no planned presentation (this is
+getting to be the default). Several business
+matters were discussed:
+
+1. Proposed amendments to the Bylaws were
+read and debated. Brian Nalewajek reminded us
+that changes should be published in the
+newsletter (as per the Bylaws themselves).
+See elsewhere for these changes. We will
+vote each change up or down next meeting.
+They are mostly minor changes. Take a look at
+the sections involving "quorum" definition
+and absentee voting.
+
+2. A letter to Karlynn Carrington submitted
+by Secretary Reno Franconi, edited a bit by
+Lee Bradley, was read. A final edit has now
+been made and was sent to her on Tuesday
+February 22. This letter contains current
+information about our group. Thanks Reno for
+getting this one going.
+
+3. The new Z-System Software-Update-Service
+was discussed and CCP/M voted unanimously to
+support it by subscribing. I sent a check for
+$78 on February 26 to Sage Microsystems East.
+We will be getting the following
+
+         Z-SUS Catalog Disk (1/5/90)
+           Z-SUS Disk #1 (1/5/90)
+           Z-SUS Disk #2 (2/1/90)
+           Z3COM package (1/5/90)
+       Z-SUS Subscription (12 issues)
+                Z3HELP system
+
+This Service, for which we will be getting a
+50% discount due to the Z-Node status of our
+BBS, will keep us current with the latest
+releases of Z-System software. I am
+personally very excited about this program
+and would like to publicly thank Bill Tishey,
+Jay Sage and Chris McEwen for their past and
+future efforts on SUS. We are very lucky to
+be able to participate in this. I doubt there
+is anything like it for any other system.
+
+The usual disk copying, story telling and
+idea swapping took place after these business
+matters. Al Hathway is working on a serial
+Mouse, has written a Buzz Phrase Generator
+and has a couple of IOPs in development. Lee
+Bradley mentioned that he has formed his own
+company, Small Computer Support, and welcomes
+your business, be it hardware sales, software
+development, computer accessories or training.
+
+Rick Swenton and Biff Bueffel won't leave the
+X10 program alone and are talking about a
+zfiler-like front end now. Rick has sent
+version 3 release 5 to our BBS and it is Z3
+aware now if it is running on a Z-System
+computer.
+
+We've received several new memberships
+recently. Hal Williams of Colorado Springs,
+CO is one of us now. I made him a cable for
+his Royal printer (which he has needed now
+for over a year!). John Galvin of Farmington,
+NH owns a Royal and has asked for a Typing
+Tutor program that will run on it.  RR
+Salvage in Groton may have some left, which I
+will be looking into. Our PD library has
+something that looks promising as well.
+We'll take care of you, John! Peter Vournazos
+of Berlin, CT owns a Rainbow and is in the
+process of adding CP/M 80, extra ram and a
+large hard disk to it. Welcome all!
+
+Finally, it seems that a Z-Festival for the
+Spring of '90 will not be. The Trinity site
+did not materialize, perhaps due to a
+conflict with graduation. Ian Cottrell, among
+others, noted in a message on the BBS that
+May 19 was awfully close to the Trenton Faire
+(which Howard Goldstein reports will be held
+this year on the April 21, 22 weekend and
+will not be at the same place as it was last
+year!). Gary Stagliano has mentioned
+Manchester Community College as a potential
+site and has given us the name of the person
+to contact.
+
+Reno was not able to make the meeting and
+asked me to do these notes.
+
+                   --<8>--
+
+    Making Basic Programs "Z3 Utilities"
+               By Biff Bueffel
+
+(Editor's Note: This is a follow-up article
+on the issues raised in last month's article,
+"The Z-ification of YesMan". Between that
+article and this one, Howard Goldstein must
+be credited with an improvement on the alias
+approach to getting the environment data into
+a Basic program. Instead of poking the needed
+data into an agreed upon location in high
+memory via a 2-part alias, here's his single
+alias which puts the environment address
+bytes into hex A000 and A001.
+
+POKE A000 $@H+E001B $@H+E001C
+
+Biff uses a different approach which takes
+advantage of the ability of the linker.)
+
+Here is how to get Basic programs to read the
+Z3ENV address and then be able to use the
+TCAP or other Z3ENV data. The following Basic
+lines will get the Z3ENV address. Note: This
+will work only if the program is compiled and
+run; don't try this in interpreted Basic!
+
+10 Z3ENV%=PEEK(&H109)+256*PEEK(&H10A)
+
+(Note by Lee Bradley: Multiplication has
+"precedence" over addition so the low order
+byte of the Z3ENV address gets added after
+the high order byte gets multiplied by 256.
+Remember also that addresses get stored
+"backward" on "our" machines, low- followed
+by high-order byte. This editorial rambling
+is my way of defending an original formula
+which was altered by Biff to read
+
+10 Z3ENV%=((PEEK(266)*256)+PEEK(265))
+
+which also works. We had fun trying to
+figure out how to code environment address
+calculation code!)
+
+This will look at 109h and 10ah to get the
+address of Z3ENV.
+
+Next is an example which will find the clear
+screen routine in the TCAP and then print it
+along with a test to see that it worked
+correctly. (Another note by Lee Bradley: This
+should work provided your clear screen takes
+1 or 2 bytes. For longer strings, add an
+appropriate number of +CHR$(Z3ENV%+ etc. or
+rewrite as a loop which ends when a null byte
+is detected by the PEEK (preferred method
+because approach is more generally useful;
+see below).)
+
+20 CS$=CHR$(PEEK(Z3ENV%+&H97))
+      +CHR$(PEEK(Z3ENV%+&H98))
+30 PRINT CS$
+40 PRINT "This should be on line 1 or 2."
+
+How to get this to work in your program? Use
+line 10 as a subroutine somewhere in the
+program to find the Z3ENV value. Then add
+line 20 as a subroutine to get the clear
+screen stuff. You can get other TCAP stuff in
+this fashion, including reverse (or dim)
+video as long as you use the correct offset
+in line 20. (Note by Lee Bradley: Since these
+escape sequences are variable in length, the
+offsets are not at fixed places.  Code which
+knows the structure of the TCAP and which
+uses the null termination scheme to detect
+when one string stops and another starts is
+needed.)
+
+Now for the important stuff: Compile the
+Basic program as usual. You must change
+slightly how you invoke the linker however.
+
+L80 Z3HDR,FILENAME,FILENAME/N/E
+
+Z3HDR is "Z3HDR.REL" which is derived from a
+Z80 file containing only the instruction
+"DEFS 16".
+
+You must now use ZPATCH or some similar file
+patcher to edit the "filename.com". Do not
+disturb the bytes at 100h to 102h as these
+contain the jump to the program! Starting at
+byte 103h, enter "Z3ENV" (this must be in
+caps).  (Last note by Lee Bradley (I
+think!): It was later discovered by both
+revisors (Biff and I) that use of ZPATCH may
+be avoid by coding Z3HDR.Z80 as
+
+     CSEG
+     DEFB 'Z3ENV'
+     DEFB 1
+     DEFW 0
+
+The linker will put in a three byte jump at
+the beginning of the COM file. Note that
+Z3HDR.Z80 is a bit shorter in length than the
+DEFS 16 approach above.)
+
+If you are using Z33 or Z34 (NZCOM), 109h and
+10ah will automatically be loaded with the
+Z3ENV value. If you are using a version below
+Z33 you must use Z3INS.COM to install the
+correct address.
+
+To sum up: After coding the Basic program,
+compile it and link the program including
+Z3HDR.REL.
+
+                   --<8>--
+
+       BUZZ, A Random Report Generator
+             By Alan W. Hathway
+
+BUZZ is a report generation program for the
+(not necessarily upwardly) mobile executive.
+It is adapted from an example of FORTH
+programming presented in the book "Starting
+FORTH" by Leo Brodie.
+
+Brodie's code was translated into a
+structured Basic and then preprocessed into
+MBasic. The CLEAR SCREEN subroutine was made
+generic (24 line feeds).
+
+BUZZ.BAS is the MBasic source, BUZZ.NOT is
+this note and BUZZ.COM is the (BASCOM/L80)
+compiled program.  A library containing these
+files is available on Z-Node #12 (203) 665-
+1100.  Look for BUZZ.LBR.
+
+Here's what BUZZ generated last time I ran
+it ...
+
+In this paper we will demonstrate that by
+using synchronized policy mobility supported
+by total logistical outflow it is necessary
+for all partial third generation congruence
+to avoid random reciprocal capability.
+
+On the one hand, studies have shown that with
+structured deployment of partial transitional
+capability to offset partial policy criteria
+it is necessary for all systematized context
+sensitive criteria to avoid integrated
+monitored interaction.
+
+On the other hand, however, practical
+experience indicates that by applying
+available resources towards synchronized
+incremental time phasing to offset integrated
+monitored outflow it becomes not unfeasable
+for all but the least stand-alone fail-safe
+time phasing to avoid parallel reciprocal
+programming.
+
+An intensive search of applicable literature
+suggests that with structured deployment of
+optimal management criteria balanced by
+systematized context sensitive programming it
+becomes not unfeasable for all but the least
+compatible decision through-put to digress
+from total logistical interaction.
+
+However, leading experts propose evidence
+claiming that with structured deployment of
+compatible omnirange superstructures balanced
+by total logistical superstructures it
+becomes not unfeasable for all but the least
+systematized fail-safe hardware to avoid
+random reciprocal criteria.
+
+The total body of secondary knowledge implies
+that by using integrated management
+programming balanced by optimal management
+mobility it becomes not unfeasable for all
+but the least systematized context sensitive
+flexibility to avoid qualified monitored
+engineering.
+
+On a divergent course, current organizational
+policy directs that by applying available
+resources towards responsive undocumented
+engineering coordinated with qualified
+management capability it is appropriate for
+the minimum partial third generation
+superstructures to digress from functional
+logistical engineering.
+
+In summary, then, we propose that with
+structured deployment of integrated
+reciprocal capability balanced by random
+monitored congruence it becomes not
+unfeasable for all but the least random
+management flexibility to digress from
+responsive decision through-put.
+
+                   --<8>--
+
+ File Compression Techniques for CP/M Users
+    Copyright (c) Benjamin H. Cohen 1989
+
+(Originally appeared in CFOG's PIP, Chicago's
+Finest User Group's newsletter, which, BTW,
+has recently published two things from our
+very own "Pieces"!)
+
+When I first started out with my Osborne 1
+the file compression method in use was
+squeeze. Once a file was squeezed, a library
+utility (LU) would be put in a library file
+(.LBR) so that files would be grouped
+together and additional space could be saved.
+Squeeze has been supplanted (at least in some
+circles) by Crunch. LU has been largely
+supplanted by NULU (New Library Utility), and
+for some folks by VLU (Visual Library
+Utility) and a few others. In the MS-DOS
+world, ARC, ZIP, and other compression
+techniques have been developed, most of which
+use multiple algorithms (selecting the most
+efficient one for each target file) and
+gather multiple files together in a single
+ARC or ZIP or whatever. As these MS-DOS
+creations appear they are usually followed by
+CP/M utilities to open them up, so we have
+UNARC, ZIPDIR, and UNZIP.
+
+Recently two new contenders have appeared on
+the CP/M scene: ARK (the CP/M equivalent of
+ARC) and LZH compression.
+
+ARK compression is essentially similar to the
+ARC compression used by MS-DOS systems. By
+convention, ".ARC" files are for MS-DOS files
+and ".ARK" files are for CP/M files. ARK,
+like its MS-DOS counterparts, allows you to
+compress several files at one time while
+placing them in a single ".ARK", but unlike
+the LBR utilities the CP/M ARK utility has no
+ability to do any ARK maintenance: if you
+want to replace one file in an ARK you must
+get the group of files together and compress
+them all over again.
+
+LZH is a new compression algorithm that is
+more efficient than the CRUNCH algorithm.
+LZH compression has been grafted onto Steven
+Greenberg's CRUNCH and UNCRUNCH Version 2.4,
+with the distribution file being called
+CRLZH11.LBR, and onto C.B. Falconer's Library
+Typer, in LT29.LBR. These work essentially
+the same way as CRUNCH 2.4 and LT 2.8, but
+the LZH algorithm has been added (or in the
+case of CRUNCH, it's a replacement).
+
+The new ZIP algorithm still seems more
+efficient, but there isn't a CP/M utility to
+make ZIP files, yet. On the other hand, UNZIP
+version 1.0 does seem to work well.
+
+I performed a comparison to see how long it
+would take to squeeze (using NSWP 2.07 --it's
+the only program I have around that
+squeezes), crunch, crunch with LZH, and ARK a
+109 record (about 14K) text file, and how
+efficiently these programs would compress the
+text file. Table Three shows the relative
+efficiency in compressing the files, with a
+"Squeeze Rating" showing the compressed file
+size ratio to that achieved by LZH, the most
+efficient compressor.
+
+Table One shows the timing results when done
+on a Kaypro 1 with a RAM disk and my "Overall
+Rating", which is the "Time Rating" (relative
+time compared to CRUNCH, the fastest
+compressor) times the "Squeeze Rating". Table
+Two shows the results when done on the same
+system on floppy disk.
+
+The "Overall Rating" gives equal weight to
+elapsed time and file size saving. CRUNCH
+comes out on top because it is a lot faster
+than any of the other CP/M alternatives. The
+LZH algorithm saves about 7% more space, but
+takes more than twice as long. LZH comes out
+better on floppy disk because it makes the
+smallest file and the time to write the file
+is more significant on floppy disk than on
+the RAM disk.
+
+Time saved for single files may be lost if
+you have to deal with multiple files,
+crunching them and then assembling them in a
+LBR file. ARK gains here, because it not only
+compresses the files but puts them in an ARK
+file at the same time. VLU (Visual Library
+Utility) will allow you to tag a series of
+files which VLU will then crunch and put in a
+LBR file all in one step. There are versions
+for vanilla CP/M systems and Z-System. For
+LBR file maintenance, however, NULU is still
+the king.
+
+The compatibility factor may, however,
+indicate that ARK should be used. Files that
+may be transferred to MS-DOS computers can
+readily be UNARCed, but MS-DOS users may have
+problems with CRUNCHed files. My tests of the
+UNCR232 (for MS-DOS) indicate that it is
+unreliable. I don't know yet whether CRLZH
+files can be un-LZHed by any MS-DOS programs.
+
+For personal use of single files, CRUNCH may
+be best: the files are only 12% larger than
+LZH files with a time saving that is
+considerable. But only the second half of the
+old saying, 'ya pays yer money and ya takes
+yer choice', applies here: all programs are PD.
+
+TABLE ONE: In RAM disk
+          Raw  Time   Squeeze Overall
+Method    Time Rating Rating  Rating
+======================================
+SQ        52.8 1.70   1.76    2.98
+CR        31.1 1.00   1.12    1.12
+LZH      105.0 3.38   1.00    3.38
+ARC       64.3 2.07   1.21    2.51
+
+TABLE TWO: On floppy disk
+          Raw  Time   Squeeze Overall
+Method    Time Rating Rating  Rating
+======================================
+SQ        81.7 1.76   1.76    3.09
+CR        46.4 1.00   1.12    1.12
+LZH      124.6 2.69   1.00    2.69
+ARC       99.8 2.15   1.21    2.61
+
+TABLE THREE: Space Saved
+          Size in  Percent   Squeeze
+Method    Records  Original  Rating
+=====================================
+ORIGINAL  429      --.--     -.--
+SQ        297      69.23%    1.76
+CR        189      44.06%    1.12
+LZH       169      39.39%    1.00
+ARC       205      47.79%    1.21
+
+                   --<8>--
+
+    Proposed Changes to the CCP/M Bylaws
+
+The following proposed changes and additions
+will be voted on during the March 13th
+meeting.  Brackets ([ ]) surround the
+proposed addition/change to the current
+section (which precedes it).
+
+Article I - Name
+
+The name of this organization shall be The
+Connecticut CP/M Users' Group, hereinafter
+referred to as CCP/M.
+
+[ The name of this organization is CCP/M, The
+Connecticut CP/M Users' Group. ]
+
+Article II - Purposes and Limitations
+
+Section A)  The purposes of CCP/M are:
+
+ ...
+
+3. to provide support and encouragement to
+all owners of CP/M-based machines and to
+support the uses and implementation of
+extensions to CP/M (Z-System and the like).
+
+[ 3. to provide support and encouragement to
+all owners of CP/M-based machines and to
+support the uses and implementation of
+extensions to CP/M (Z-System). ]
+
+ ...
+
+Article III - Membership Rights and
+Responsibilities
+
+ ...
+
+[ Section C1) A vote is considered binding if
+cast by at least a quorum defined as two
+officers plus five members. ]
+
+[ Section C2) Votes on matters published in
+the newsletter may be entered in absentia in
+the following way:  A letter may be sent by a
+member to the Secretary which states which
+way the member wishes to vote.  The Secretary
+will include any such votes when the vote
+takes place at the meeting. ]
+
+ ...
+
+Article VI - Duties of Officers
+
+ ...
+
+Section C1) The Secretary shall have primary
+responsibility for keeping records important
+to CCP/M. Unless otherwise noted, the copies
+of records maintained by the Secretary will
+be considered official. [ He or she shall 1)
+take notes of monthly meetings and submit
+them for publication in the newsletter  2)
+preserve all documents, records papers etc.
+of this organization. ]
+
+Section D)  The Newsletter Editor shall 1)
+take notes of monthly meetings and submit
+them for publication in the newsletter  2)
+preserve all documents, records papers etc.
+of this organization.  3) solicit, write and
+edit articles for publication in the
+newsletter and 4) ensure that the newsletter
+is published.
+
+[ Section D)  The Newsletter Editor shall 1)
+solicit, write and edit articles for
+publication in the newsletter and 2) ensure
+that the newsletter is published. ]
+
+ ...
+
+Article X - Dedication of assets and
+dissolution
+
+Section A) Upon the dissolution of CCP/M, the
+officers shall select charitable, scientific
+or educational organization(s) and donate to
+them the funds that remain after all debts
+are paid.
+
+[ Section A) Upon dissolution of CCP/M, the
+officers shall select charitable, scientific
+or educational organization(s) and donate to
+them the funds that remain after all debts
+are paid. ]
+
+                   --<8>--
+
+             An End User Challenge
+          Brian Nalewajek for CCP/M
+
+I've presented a few programmer challenges in
+other issues of this newsletter and we've had
+some interesting responses. This time,
+however, it's going to be a bit different.
+The challenge is not to the programmers, but
+rather to the end users. In the programmer
+challenges, we put forward a problem in
+explicit terms, looking for imaginative
+programming solutions. For the end user
+challenge, we're looking for problems that
+would serve as a challenge to the
+programmers. As you might imagine, such an
+open invitation could prompt all kinds of
+hypothetical or impractical entries. To give
+the challenge focus and relevance, I will be
+setting up certain criteria for entries.
+
+                  Get Real!
+
+While calculating the number of angels that
+can sit on the head of a pin might challenge
+programmers (to say nothing of philosophers),
+we're looking for real life problems for
+which you'd like a real life solution.
+
+
+               Non-Recursive!
+
+A recursive procedure is one where the answer
+becomes part of the question, which becomes
+part of the answer ... What I mean by non-
+recursive in this case is non-computer
+related. Don't ask for a way to get Z-System
+to load WordStar style overlays, and don't
+ask for a BASIC program to format MS-DOS
+disks on a Kaypro II. Lift your eyes and
+imaginations from your computer keyboards and
+give us a problem from your non-computer
+related problem stack. Of course, we'd like
+to put our computers to use in solving the
+problem, but we don't want to solve problems
+for computers (not this time, at any rate).
+
+                 Objective!
+
+If your problem is one where the central
+issue is subjective (opinion or preference),
+I doubt if the answers the programmers can
+provide would be of much value. There are
+programs that help shoppers select gifts, for
+example, a problem that is subjective at its
+core; such programs do, in fact, require a
+lot of hard data, such as a data base of
+gifts with assigned qualities. If your
+problem contains subjective elements, you
+must provide all the supporting objective
+data and other criteria that would make a
+programmed solution practical.
+
+                (/) Big Four!
+
+The (/) is as close as I can get to showing a
+"Do Not Enter" sign in ASCII. The "Big Four"
+are what I call the very popular off-the-
+shelf programs that come under the headings
+of spreadsheets, database managers,
+wordprocessors, and graphics programs. If the
+solution to your problem requires no more
+than a routine application of one of these or
+similar packages, it won't excite our
+programmers a whole lot. If you need help
+using a spreadsheet to prepare your tax
+return, or a database to keep track of your
+business clients, we can probably help you -
+but not as part of this challenge. Our
+programmers may use some or all of these
+packages in finding a solution, but let's
+hope it's in a novel application.
+
+                  Clarity!
+
+State your problem as clearly as you can.
+Give us all the relevant parameters and data.
+The old adage is "garbage in, garbage out";
+we want to give you real solutions to your
+real problems, but we can only work with what
+you give us.
+
+All the entries we receive will be evaluated
+with the above considerations. We'll then
+place as many of your problems as possible as
+challenges for the programmers. Then we'll
+see if POE's reader-programmers are as sharp
+as they think they are. At best, we'll have
+helped someone find a real solution to a
+problem; at least, we'll have tried.
+
+BRN..90
+
+Submit your entry to: POE End User Challenge
+            24 East Cedar Street
+             Newington, CT 06111
+
+                   --<8>--
+
+         The Day Elvis Trashed My PC
+                By Jim Taylor
+
+Elvis stopped by for a visit yesterday. I
+found this quite surprising especially since
+I've never been that big a fan of his music.
+But I've always admired his style.
+
+Not wanting to pass up the chance to question
+a true American Icon, I asked him how he
+liked my PC clone.
+
+Elvis didn't say a word. Slowly he curled his
+lip into his trademark sneer, drew a pistol
+and shot out my monitor.
+
+Normally, I'd never tolerate this sort of
+behavior in a house guest. But since I was
+dealing with the King of Rock & Roll and
+because he immediately gave me a brand new
+Cadillac, I decided to let it slide.
+
+"Um, Elvis," I said, "I know you're in the
+habit of terminating televisions that show
+things you don't agree with. But why my
+monitor? Did my paint program offend you?"
+
+"PCs are the instrument of the Devil. They've
+caused the ruin of America."
+
+"Oh," I said, never at a loss for a snappy
+comeback, "could you expand on that a little
+for me? I don't quite make the connection."
+
+"Thank you very much," he replied. "Once upon
+a time..."
+
+Oh goody, I thought, I love a good story, but
+I somehow sensed there would be no happy
+ending to this one.
+
+"Once upon a time," he continued, "America
+was a better place.  Real cars poured out of
+Detroit breathing the leadened vapors of a
+high octane reality. Safe sex meant her
+parents didn't find out and young boys from
+the hills who played only three chords could
+make a record and turn into superstars over
+night. It was place where a star could make a
+videotape of himself and a few under-aged
+friends and feel good about himself."
+
+I sat, crossed legged on the floor, in rapt
+awe, "Tell me more, Elvis."
+
+"It was a good time. A time when Real Men
+programed in BASIC and Assembler and didn't
+use menus."
+
+He spun around and partitioned my hard drive
+with a karate chop.
+
+"You know," he said, quickly turning to face
+me, "contrary to popular myth, I gave away a
+lot more than fancy cars. I also gave away a
+heck of a lot of Kaypros, too."
+
+Master of the snappy repartee that I am, I
+replied, "I didn't know that."
+
+He continued, "In between writing my hits and
+studying the underwear sections of the Sears
+catalog, I used to spend late hours with my
+old drinking buddy, J. Edgar Hoover, de-
+bugging source code into the wee hours of the
+Graceland mornings. Those were the days.
+
+"The music business was very good to me but I
+never did realize my dream of programming for
+a major supermarket chain."
+
+Elvis looked depressed so I gave him a box of
+Twinkies. He smiled and then plunged his
+fingers through my motherboard.
+
+"That's all very interesting," I said, "but
+what does it have to do with the ruining of
+America?"
+
+"In those days, CP/M was the King, just like
+me. The perfect reflection of America. No two
+brands of computer ran exactly the same
+operating system. Every one was different,
+individual, like the folks that made America
+great.
+
+"But then I kicked Bill Gates out of the band
+and the rest is history."
+
+"Bill Gates, the developer of MS-DOS was in
+your band?" I asked.
+
+"Yeah. He didn't play an instrument but he
+was a good programmer so I thought I'd help
+him out. But he had all these newfangled
+ideas about computers and music and it just
+didn't work out. You know, don't you, that
+Bill is the man responsible for creating
+disco? You look close enough at the source
+code for Microsoft Windows and you'll find
+the score for Saturday Night Fever. If I'm
+lyin', I'm dyin'." He took another bite of
+his Twinkie and washed it down with a big
+gulp of Yoo-Hoo.
+
+"Then what happened?" I asked.
+
+"He was so darned mad at me that he went off
+and wrote that MS-DOS crap just to get back
+at me. Then all the computers could run the
+same software and America just came apart.
+Suddenly, everything was the same. Japan
+started making clones. An actor was elected
+to the White House. Even Cadillacs started
+getting smaller."
+
+Elvis looked tired. His tale of woe must have
+spoiled his appetite because he jammed the
+remains of his last Twinkie into my disk
+drive. He quietly stood, the sequins on his
+jumpsuit sparkling in the light streaming
+through my office window.
+
+Gently, he stroked the keyboard of my Kaypro
+II, murmuring as if to a small child. Slowly
+he turned to face me. A small tear appeared
+in the corner of his eye. He patted the
+screen and said to me, "Don't be cruel to one
+who's true."
+
+Smiling again, he then put his finger on the
+side of his nose and nodded. The sparkling of
+the sequins intensified to blinding
+proportions until I had to shut my eyes.
+
+When I opened them again he was gone.
+
+I sat motionless for a moment or two. Then I
+took a sip of my coffee, long since grown
+cold, and lit a cigarette to calm my nerves.
+I pondered to what good use I could put this
+history lesson from the King. I had to spread
+the truth.
+
+So I wrote this story. And every word is true.
+
+Because if I'm lyin', I'm dyin'.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+JIM TAYLOR is a deranged, paranoid essayist
+who writes about computers, photography,
+money and whatever suits him.
+
+Attention Publishers: reprint rights
+available at reasonable rates, easy credit
+terms. Contact: Jim Taylor, PO Box 642,
+Newington, CT 06111.
+
+Copyright 1990 James F. Taylor
+All rights reserved
+
+From:  Pieces Of Eight
+       c/o Lee Bradley
+       24 East Cedar Street
+       Newington, CT 06111
+
+
+
+
+
+
+
+                                               To:
+
+
+
+
+                                               ------------------
+                                               First Class Mail
+

@@ -1,0 +1,3 @@
+ 10     CALL GOTCHA(A$)
+ 20     PRINT CHR$(34) A$ CHR$(34)
+ 30     END

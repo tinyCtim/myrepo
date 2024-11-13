@@ -1,0 +1,49 @@
+
+[
+
+This program produces a pace chart for a marathon given two paces
+provided by the user.
+
+ref : http://primepuzzle.com/charles/njtc.html
+
+]
+
+convert int total [
+ int min,sec,hr,min1,sec1,hr1
+ int start;start = 40500 // 11:15 start time, in seconds
+ int tod;tod=total+start
+ min = total/60;sec = total%60
+ if total>3600 [hr = min/60;min = min%60]
+ else hr = 0
+ min1 = tod/60;sec1 = tod%60
+ if tod>3600 [hr1 = min1/60;min1 = min1%60]
+ else hr1 = 0
+ putchar 9;pn hr;ps" :";pn min;ps" :";pn sec
+ if hr1>12 hr1=hr1-12
+ putchar 9;pn hr1;ps" :";pn min1;ps" :";pn sec1
+ ]
+
+main [
+ int mile,m1,s1,m2,s2,sec1,sec2,total
+ pl "chas.tc - 4/14/18";pl ""
+ pl "Pace for the first 10 miles (for example 9:39)?"
+ pl "Minutes first, then seconds.";pl ""
+ pl "minutes ";m1 = gn;ps "seconds ";s1 = gn
+ pl "Pace for last 16.2 miles (for example 9:28)?"
+ pl "Minutes first, then seconds.";pl ""
+ pl "minutes ";m2 = gn;ps "seconds ";s2 = gn
+ pl ""
+ sec1 = 60*m1+s1;sec2 = 60*m2+s2
+ mile = 1
+ while mile<=26 [
+  if mile<=10 total = total+sec1;else total = total+sec2
+  ps " ";pn mile
+  convert total
+  mile = mile+1
+  pl ""
+  ]
+ ps "  26.2"
+ total = total+sec2*2/10
+ convert total
+ pl ""
+ ]

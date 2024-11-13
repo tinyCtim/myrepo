@@ -1,0 +1,27 @@
+#include pps/mathLib.tc
+#include pps/library.tc
+
+// totient.tc - lrb - 1/17/9, 7/1/21
+
+// this program displays the number of different n-point stars you can draw
+
+stars int n [
+	printf "%cthere are %d %d-point stars", 10, (totient(n) - 2) / 2, n, 10	
+	]
+
+main [
+	allstars
+	]
+
+allstars [
+	int i, t
+	i = 5
+	printf "%cpoints%cstars%c", 10, 9, 10
+	while i <= 23 [
+		t = totient i
+		printf "%c%d%c%d", 10, i, 9, (t - 2) / 2
+		i = i + 1
+		]
+	pl ""
+	]
+

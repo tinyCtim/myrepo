@@ -1,0 +1,37 @@
+
+// dompress.tc
+// sample usage: tc dompress.tc -r "dompress\"file.lcx\",\"file.lex\""
+
+ctoh int c;char a(0) [
+ int i
+ i=c/16;if (i<10) a(0)=i+'0';else a(0)=(i-10)+'A'
+ i=c%16;if (i<10) a(1)=i+'0';else a(1)=(i-10)+'A'
+ ]
+
+dompress char f(0),g(0) [
+ char infile(15000),byte(1),cm(14),ra(12),outfile(23000)
+ int bite,br,ptr,sptr,w,optr
+ printf "%cdompress.tc - 8/6/19%c",10,10
+ strcpy(cm,"EISNATROLDCUGP");cm(14)=10;strcpy(ra,"MHBYFVWKZXQJ") // common, rare
+ br=readfile(f,infile,15000);optr=-1
+ if infile(0)!='ÿ' [printf "not a valid compressed file%c",10;abort]
+ while ((ptr=ptr+1)<br) [
+  if ((bite=infile(ptr))<0) bite=bite+256
+  ctoh bite,byte;outfile(optr=optr+1)=byte(0);outfile(optr=optr+1)=byte(1)
+  ]
+ optr=optr-2;ptr=0;sptr=-1
+ while (ptr<optr) [
+  while (outfile(ptr)!='F') [
+   w=outfile(ptr)-'0';if (w>9) w=w-7
+   outfile(sptr=sptr+1)=cm(w);ptr=ptr+1
+   ]
+  while (outfile(ptr)=='F') [
+   w=outfile(ptr=ptr+1)-'0';if (w>9) w=w-7
+   outfile(sptr=sptr+1)=ra(w);ptr=ptr+1
+   ]
+  ]
+ printf "%c%s",10,outfile
+ writefile(g,outfile,sptr)
+ printf "%c%c%s written! (%d bytes decompressed to %d bytes)%c",10,10,g,br,sptr,10
+ ]
+

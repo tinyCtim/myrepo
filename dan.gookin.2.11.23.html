@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+<table align=center width=79%><tr><td>
+
+<font size=+1>
+
+<p>
+
+This is a review of Dan Gookin's book <i>Tiny C Projects</i><a
+style=text-decoration:none href=http://primepuzzle.com/not.just.tiny.c/dan.gookin.2.11.23.html>.</a> I was made aware of the
+book by a fellow who is active in a Facebook group I run called not just
+Tiny C Programming Group. My friend noted the similarity between the
+book's name and the group's name but eventually realized Gookin's Tiny C and
+my Tiny C were different. His Tiny C is describing the size of the
+projects covered in the book, my Tiny C describes the size of a dialect
+of a C-like language.
+
+<p>
+
+C has spawned hundreds of languages which are often written in C. The
+Tiny C programming language was written in 8080 assembler in
+1977 by Tom Gibson because he wanted to have a C-like language on his
+microprocessor-based computer. I bought it and typed in the source
+code from the users manual. Tiny C is a learning language, is simpler
+than C, and is a stepping stone to C. Later, Gibson implemented his
+language in C. Tiny C programs can be fairly easily translated into C.
+They can "call" C programs. I will talk about an example of this
+shortly.
+
+<p>
+
+<i>Tiny C Projects</i> is published by Manning Publications, Co. They
+have something they call MEAP (Manning Early Access Program). They
+also support an online "liveBook." It was through these two things that
+I got involved. In addition, Gookin maintains a GitHub repository for
+his book and proposed solutions to the projects may be downloaded from
+it.
+
+<p>
+
+The book was developed incrementally under MEAP and when I bought it,
+only the first five chapters or so were finished. Waiting for the
+next ones to come out was exciting.
+
+<p>
+
+The author tells you up front that you need to know the basics of C to
+follow the projects. I have been learning C for quite a while and have
+learned a lot more while doing his projects.
+
+<p>
+
+His book and my group are learn-by-doing undertakings. The first few
+chapters teach you how you can get your computer to run a program at
+startup and how you can cipher text by shifting the letters up or down
+the alphabet.
+
+<pre>
+~$ echo "Can you read this?" | ./caesar01
+Pna lbh ernq guvf?
+</pre>
+
+Woops. I gave it away :-(
+
+<p>
+
+The early chapters taught me how to modify a file called .bash_profile
+on my Dell desktop running Window Subsystem for Linux. I use a server to
+publish the solutions to exercises discussed in my Facebook group and
+the .bash_profile for my account on it currently contains:
+
+<pre>
+./greet05 $LOGNAME
+./pithy05
+alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
+cd public_html/not.just.tiny.c/
+</pre>
+
+<p>
+
+Gookin has been publishing computer books for a long time. He was weaned
+on the old PCs and fondly remembers the days of command line
+programming. He is comfortable with Linux and Windows and explains just
+enough to help you navigate if you are at a DOS terminal or a Linux
+terminal. He also has an incredible sense of humor. How many computer
+books have you read that make you laugh out loud?
+
+<p>
+
+His projects are fun, interesting and unlike anything you have seen
+before. The above is the Linux counterpart to a DOS AUTOEXEC.BAT.
+Commands here start with ./ (find the executable by looking in the
+current directory). pithy05 is the fifth version of a "fortune" program
+he develops. Here's what it might display:
+
+<pre>
+Do I take a break from work to play a video game, or take a break from a
+video game to get work done?
+</pre>
+
+By the time he gets his greet program to version 05 you get something
+like:
+
+<pre>
+Greetings!
+Today is Friday, February 03, 2023
+It is 07:15:06 PM
+The moon is full
+</pre>
+
+You learn how to determine the phase of the moon, announce the time
+of day and more. He writes "Here's how I'm going to explain
+how the algorithm works: I'm not. Seriously, I have no clue what's going
+on. I just copied down the formula from somewhere and &mdash;by
+golly&mdash;it works. Mostly."
+
+<p>
+
+Chapters 5 and 6 involve encoding and decoding text and password
+generation. One of the key things the author encourages you to do is
+take his example programs and extend them to support a new feature.
+
+<p>
+
+For example, after showing you how to encode the string
+
+<pre>
+Hello, World!
+</pre>
+
+<p>
+
+into hex pairs
+
+<pre>
+48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 21
+</pre>
+
+he talks about creating what is called a checksum byte which would be
+tacked on to the end of the encoded string. (This idea was used in
+the early days to reduce errors in data transmission.) 
+
+<p>
+
+In his password chapter a function called scramble is discussed and you are
+asked to incorporate its use to make better passwords. I made a
+program I was working on better by modifying his scramble function to
+fit my needs.
+
+<p>
+
+<a href=http://primepuzzle.com/not.just.tiny.c/scramble.2.10.23.c>scramble.2.10.23.c</a>
+
+<p>
+
+<a href=http://primepuzzle.com/not.just.tiny.c/secondchance.2.11.23.2.tc>secondchance.2.11.23.2.tc</a>
+
+<pre>
+leeunix@Lee:~$ ./tc secondchance.2.11.23.2.tc -r mainl
+***  TINY-C VERSION 1.0,  COPYRIGHT 1977, T A GIBSON  ***
+        This C version copyright 2017, T A Gibson
+
+secondchance.tc - lrb - 2/11/23
+
+How many simulations do you want (e.g. 100) : 20
+
+ 1* 2. 3. 4. 5* 6* 7. 8. 9. 10. 11. 12. 13* 14. 15. 16. 17. 18* 19. 20*
+
+inmates saved : 6 inmates died : 14
+</pre>
+
+(What this program does is solve a so-called 100 prisoner problem, which
+is interesting in its own right, but I digress.)
+
+<p>
+
+If you're reading this review on a computer and clicked the link above to the C
+program, don't feel bad if you are lost trying to understand
+the code. Dan explains in his book and on his blog what's going on.
+Those "dreaded" pointer variables are at the heart of the scramble function.
+It's taken years for me to be able to "see" how they work. Keep studying
+C and you'll eventually be fluent. (The link above to the Tiny C program
+(file type .tc) shows how you "call" executables via C's system
+function.)
+
+<p>
+
+Throughout the book there are examples of things I've never seen before
+and also things that I have seen but which are done in a way I didn't know
+about. You've probably seen #define macros before but usually they are
+just defining constants like PI or MAXIN. Here's a fancier one:
+
+<pre>
+#define repeat(a) for (int x = 0; x < a; x++)
+</pre>
+
+<p>
+
+He uses it in the add_word() function in randwords01.c.
+
+<pre>
+const char *add_word(void)
+{
+	const char *vocabulary[] = {
+		"orange", "grape", ...
+	};
+	int r;
+	
+	r = rand() % (sizeof(vocabulary)/sizeof(char *));
+	return( vocabulary[r] );
+}
+
+int main()
+{
+	srand( (unsigned)time(NULL] );
+	
+	repeat(3)
+		print("%s ", add_word() );
+	putchar('\n');
+	
+	return(0);
+}
+</pre>
+
+<p>
+
+I'd never heard of the archive utility ar which is used to
+build libraries. In Chapter 7, String utilities, a header file
+containing prototypes for functions like 
+
+<pre>char *left(char *s, int len);</pre>
+
+is shown. You first just compile your functions via
+
+<p>
+
+<pre>clang -Wall -c first.c second.c third.c</pre>
+
+<p>
+
+Object files are created by this. You then use ar like so:
+
+<p>
+
+<pre>ar -rcs libmystring.a mystring.o</pre>
+
+Finally, to use the library
+
+<p>
+
+<pre>clang -Wall -L. libsample.c -lmystring</pre> 
+
+I have left a lot of the details out in the above. They are all
+explained in the book. I've built libraries before and knew that you
+only compiled the functions, created a .h header file and #included it
+in your main. But now I know how the pros do it.
+
+<p>
+
+There are five more chapters in the book which I'll let you learn about
+on your own. I hope this review has sparked your interest.
+
+<p>
+
+I may be reached via email : bradley_lee_r@sbcglobal.net
+
+</font>
+
+</td></tr></table>
+
+</body>
+
+</html>
+
+<!--
+https://www.facebook.com/groups/299317782048/about
+-->
+

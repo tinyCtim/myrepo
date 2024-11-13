@@ -1,0 +1,43 @@
+total 30420
+1088 -rw-r--r--   1 primepzl users 1113536 Jul  8  2016 cpm2.dsk
+1088 -r--r--r--   1 primepzl users 1113536 Jul  8  2016 bdsc160source.dsk
+   4 -rw-r--r--   1 primepzl users    1804 Jul  8  2016 linux4nubies.html
+1760 -rw-------   1 primepzl users 1799431 Jul  9  2016 Kazam_screencast_00003.mp4
+   4 -rw-r--r--   1 primepzl users    1182 Jul  9  2016 screencast.txt
+ 556 -rw-r--r--   1 primepzl users  566725 Jul 11  2016 lee_mad_half.jpg
+   8 -rw-r--r--   1 primepzl users    4558 Jul 16  2016 altairz80l64.txt
+1088 -rw-r--r--   1 primepzl users 1113536 Jul 16  2016 app.dsk
+   4 -rw-r--r--   1 primepzl users     713 Jul 16  2016 byref.tc
+   8 -rwxr-xr-x   1 primepzl users    5520 Jul 16  2016 cls
+   4 -rw-r--r--   1 primepzl users     157 Jul 16  2016 cls.c
+   4 -rw-r--r--   1 primepzl users    2352 Jul 18  2016 WID.TXT
+   4 -rw-r--r--   1 primepzl users    2337 Jul 22  2016 NTROTN.TXT
+   4 -rw-r--r--   1 primepzl users     630 Jul 22  2016 naddcr.tc
+   4 -rw-r--r--   1 primepzl users     998 Jul 22  2016 WC1.C
+   8 -rwxr-xr-x   1 primepzl users    6400 Jul 22  2016 WC1.COM
+   4 -rw-r--r--   1 primepzl users     808 Sep  4  2016 ADDCR.TC
+   4 -rw-r--r--   1 primepzl users     128 Nov 23 05:30 MY.Z3T
+   4 -rwxr-----   1 primepzl users    3712 Nov 23 05:32 TCVIEW24.COM
+   4 -rwxr-xr-x   1 primepzl users    2048 Nov 23 05:49 SAVE.COM
+ 120 drwxr-xr-x 279 primepzl users  122880 Jan 22 14:35 ..
+   4 -rwxr-xr-x   1 primepzl users     361 Feb 26 06:56 nzcom.txt
+   4 -rw-r--r--   1 primepzl users     717 Feb 27 07:44 MULTCB.TC
+8192 -rw-r--r--   1 primepzl users 8388608 Feb 27 07:53 j.dsk
+1652 -rwxr-xr-x   1 primepzl users 1689080 Feb 28 03:33 altairz80l64
+   4 -rw-r--r--   1 primepzl users    2285 Feb 28 05:39 TIMESTMP.HTM
+1088 -rwxr-xr-x   1 primepzl users 1113536 Feb 28 10:03 nzcomc.dsk
+1088 -rw-r--r--   1 primepzl users 1113536 Mar  1 03:01 bdsc160.dsk
+1088 -rwxr-xr-x   1 primepzl users 1113536 Mar  1 03:29 nzcomb.dsk
+1088 -rwxr-xr-x   1 primepzl users 1113536 Mar  1 03:30 nzcomd.dsk
+1088 -rwxr-xr-x   1 primepzl users 1113536 Mar  1 03:32 nzcoma.dsk
+8192 -rwxr-xr-x   1 primepzl users 8388608 Mar  1 03:32 i.dsk
+1088 -rw-r--r--   1 primepzl users 1113536 Mar  2 09:36 zsdos.dsk
+   8 -rw-r--r--   1 primepzl users    5991 Mar  7 08:54 tinycx.ipl
+  28 -rwxr-xr-x   1 primepzl users   28119 Mar  7 09:00 tinyctcc
+   4 -rw-r--r--   1 primepzl users     959 Mar  7 09:22 column.fix
+   4 -rw-r--r--   1 primepzl users     978 Mar  7 09:28 column.ch
+   4 -rw-r--r--   1 primepzl users     957 Mar  7 15:29 column.tc
+  12 -rw-r--r--   1 primepzl users   10833 Mar  7 15:30 history.srt
+   8 -rw-r--r--   1 primepzl users    7347 Mar  7 15:31 history.txt
+   0 -rw-r--r--   1 primepzl users       0 Mar  7 15:33 dir.txt
+   4 drwxr-xr-x   2 primepzl users    4096 Mar  7 15:33 .

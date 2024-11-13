@@ -1,0 +1,36 @@
+
+`PRIME.TIN - 9/10/2010, 10/7,8/2010 - lrb'
+
+`Determine if number entered is prime or not and print the'
+`number followed by " is prime." or " is composite."'
+`If composite, print "factors found: " followed by all the factors.'
+
+U :"Enter a number greater than 1, e.g. 107"
+:""
+x=?
+:""
+{x==1}->U
+T y=1
+{x<>2}->X
+;x
+{c<>1};" is prime."
+:""
+!
+X y=y+1
+{x>=y*y}->Y
+;x
+{c==1}->D
+;" is prime."
+D :""
+!
+Y {x<>y*x/y}->X
+{c==1}->A
+c=1 `set composite flag'
+;x
+;" is composite. factors found: "
+A ;y
+;" "
+x=x/y
+->T
+!
+

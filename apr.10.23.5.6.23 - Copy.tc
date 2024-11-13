@@ -1,0 +1,127 @@
+
+// 4/10/23 - apr.10.23.tc - lrb
+
+// ref: find max of (count of negative numbers, count of positive numbers)
+// ref: https://www.youtube.com/watch?v=U6I-Kwj-AvY
+
+// 4/14/23 - elapsed time in minutes and seconds
+
+// 6/15/23
+
+getsec char st(0) [
+ char hh(8),mm(8),ss(8)
+// yyyy-mm-dd hh:mm:ss
+ strcpy hh,st+11 // hh:mm:ss
+ hh(2)=0
+ strcpy mm,hh+3 // mm:ss
+ mm(2)=0
+ strcpy ss,mm+3 // ss
+ ss(2)=0
+ int myinthh(0),myintmm(0),myintss(0)
+ atoi hh,myinthh;atoi mm,myintmm;atoi ss,myintss
+ // time in seconds using hours, minutes and seconds
+ return 3600*myinthh(0)+60*myintmm(0)+myintss(0)
+ ]
+
+timebetween char stop(0),start(0) [
+ int tstart,tstop
+ tstart=getsec start
+ tstop=getsec stop
+ int seconds // elapsed seconds
+ seconds=tstop-tstart
+ return seconds
+ ]
+
+show_data int n, data(0) [ // display the integers in the array
+	int i
+	while i < n [
+		pn data(i)
+		i = i + 1
+		if i % 20 == 0 pl ""
+		]
+]
+
+sort int data(0),n [
+	int i,j,k,min
+	while i < n - 1 [
+		j = i + 1
+		min = data(i)
+		k = i
+		while j < n [ // find smallest integer in unsorted data
+			if data(j) < min [
+				min = data(j)
+				k = j
+				]
+			j = j + 1
+			]
+		data(k) = data(i)
+		data(i) = min
+		i = i + 1
+		]
+	]
+
+int debug
+int n
+
+main [
+int seconds
+int min
+debug = 1
+int unitneg, unitpos // 6/15/23
+printf "%capr.10.23.5.6.23.tc - 6/15/23 - lrb%c", 10, 10
+unitneg = fopen "fneg.txt", "w"
+unitpos = fopen "fpos.txt", "w"
+int ar(2000), i
+n = 100 // 6/15/23
+printf "%cEnter random number (e.g. 3141 or 271) : ", 10; seed = last = gn
+char buffstart(30), buffstop(30)
+
+int samples; samples = 20 // 6/15/23
+
+while samples [ // 5/6/23
+cdate buffstart
+i = 0 // 5/6/23
+printf "%cstart : %s%c%c", 10, buffstart, 10, 10
+while i < n [
+ ar(i) = random(-1*n , n) // 4/14/23
+ while ((ar(i) == 0)) ar(i) = random(-1*n , n)
+ i = i + 1
+ ]
+
+sort ar, n
+
+if debug show_data n, ar
+
+// count negatives
+
+i = 0
+
+while i < n [
+ if ar(i) > 0 break
+ i = i + 1
+ ]
+
+if i > n / 2 [
+ fpn_ns i, unitneg
+ fputc 10, unitneg
+ ]
+
+if i < n / 2 [
+ fpn_ns i, unitpos
+ fputc 10, unitpos
+ ]
+
+// printf "%cmax of (count of negative numbers, count of positive numbers) is %d", 10, negs
+cdate buffstop
+printf "%c%cstop : %s%c", 10, 10, buffstop, 10
+seconds = timebetween buffstop, buffstart
+min = seconds / 60
+seconds = seconds % 60
+printf "%cit took %d minute(s) %d second(s)%c", 10, min, seconds, 10
+samples = samples - 1
+] // samples
+
+fputc 10,unitneg // add newline
+fputc 10,unitpos // add newline
+fclose unitneg; fclose unitpos
+] // main

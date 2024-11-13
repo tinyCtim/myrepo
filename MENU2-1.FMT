@@ -1,0 +1,16 @@
+
+* Program .... : MENU2-1.FMT
+* Notes ...    : This is the format screen for adding records to the Customer File.
+
+@  3,28 SAY "Lee's Books"
+@  6,1  SAY 'CUSTOMER NAME  :'+mname
+@  6,50 SAY 'CUSTOMER NUMBER: '+STR(mcustid,6)
+@  8,1  SAY 'STREET ADDRESS ' GET ADDRESS PICTURE;
+'!!!!!!!!!!!!!!!!!!!!!!!!'
+@ 10,1  SAY 'CITY........... ' GET CITY PICTURE '!!!!!!!!!!!!!!!!!!!!'
+@ 10,50 SAY 'STATE ' GET STATE PICTURE '!!'
+@ 12,1  SAY 'ZIP CODE....... ' GET ZIP PICTURE '99999'
+@  8,50 SAY 'CUSTOMER SINCE: '+DATE
+@ 14,1  SAY 'TELEPHONE..... ' GET PHONE PICTURE '(999)-999-9999'
+@ 16,1  SAY 'ATTENTION..... ' GET ATTN PICTURE;
+'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
