@@ -4,12 +4,15 @@
 
 main [
 
- char name(30),buffer(100),lb(1)
- lb=91
- printf "%center leadin name, for example, %c3 or %c5 : ",10,lb,lb
+ char name(30),buffer(100),dirbuff(10000),tbuff(100)
+ printf "%center the first few characters in a line : ",10
  gs name
+ getproperty "pps/version.prop","os =",tbuff,100,"..."
+ if index(tbuff,100,"Linux",5) system "./tc dir_try.tc"
+ else system "tc dir_try.tc"
+ readfile "dir.out",dirbuff,10000
+ if (index(dirbuff,10000,"lessons",7)==0) [printf "%clessons file mia%c",10,10;abort]
  getproperty "lessons.in.chemistry.summary.txt",name,buffer,100,"..."
  printf "%c%s%c",10,buffer,10
  
  ]
-
