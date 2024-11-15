@@ -1,0 +1,15 @@
+
+// madeline.tc - 11/14,15/24 - lrb
+// file must be crlf delimited!
+
+main [
+
+ char name(30),buffer(100),lb(1)
+ lb=91
+ printf "%center leadin name, for example, %c3 or %c5 : ",10,lb,lb
+ gs name
+ getproperty "lessons.in.chemistry.summary.txt",name,buffer,100,"..."
+ printf "%c%s%c",10,buffer,10
+ 
+ ]
+
