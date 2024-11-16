@@ -45,7 +45,7 @@ http://primepuzzle.com/not.just.tiny.c/toc.txt
 37. roman.2.12.22.tc
 38. logo-t.tc
 39. chapter.8.2.1.c, chapter.8.2.1.png
-40. jspeek.html, jspeek.png, all.dic.html
+40. jspeek.html, jspeek.png, all.dic.html, tspeeko.c
 41. singlyLinkedList.c
 42. 6.4.13.html, html.png
 43. steinhaus.tc, rees.sum.square.c
@@ -155,5 +155,4 @@ http://primepuzzle.com/not.just.tiny.c/toc.txt
 141. hash.9.30.24.tc, hashin.0.txt, hashin.1.txt, hashin.3.txt, hashin.4.txt, match.py
 142. never_ending.py
 143. sept.c, foo.def, foo.enc, foo.dec
-144. tspeeko.c, jspeek.html
-145. madeline.tc
+144. madeline.tc
