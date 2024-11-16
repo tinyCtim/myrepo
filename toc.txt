@@ -55,9 +55,9 @@ http://primepuzzle.com/not.just.tiny.c/toc.txt
 47. choc.tc, van.tc, choc.html, candy.tc candy.c, candy.c.out.html
 48. What color was/were the dragon/s with six heads?
 49. imagine.c
-48. mandel.tc, mandel.area.tc, mandel.jpg, mandel.mp4, fractals_no_oo_v3.py,
+49a. mandel.tc, mandel.area.tc, mandel.jpg, mandel.mp4, fractals_no_oo_v3.py,
     MANDEL42.BAS MANDEL32.DOC, DOSPrinter.exe, benoit.html
-49. simple_plotter.py, simple_plotter.jpg
+49b. simple_plotter.py, simple_plotter.jpg
 50. factor.6.2.tc, factor_doc.htm
 51. http://primepuzzle.com/dancing/ipl.try.htm
 52. https://scratch.mit.edu/projects/2886014/
@@ -156,3 +156,4 @@ http://primepuzzle.com/not.just.tiny.c/toc.txt
 142. never_ending.py
 143. sept.c, foo.def, foo.enc, foo.dec
 144. madeline.tc
+
