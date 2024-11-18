@@ -4,19 +4,18 @@
 
 main [
 
- char name(30),buffer(100),dirbuff(10000),tbuff(100),investigate(30)
+ char name(30),buffer(100),tbuff(100),investigate(30)
  printf "%center the first few characters in a line : ",10
  gs name
- getproperty "pps/version.prop","os =",tbuff,100,"..."
- if index(tbuff,100,"Linux",5) system "./tc dir_try.tc"
- else system "tc dir_try.tc"
+// getproperty "pps/version.prop","os =",tbuff,100,"..."
+// if index(tbuff,100,"Linux",5) system "./tc dir_try.tc"
+// else system "tc dir_try.tc"
  printf "%center the name of the file to investigate : ",10
  gs investigate
- readfile "dir.out",dirbuff,10000
+// readfile "dir.out",dirbuff,10000
 // if (index(dirbuff,10000,"lessons",7)==0) [printf "%clessons file mia%c",10,10;abort]
 // getproperty "lessons.in.chemistry.summary.txt",name,buffer,100,"..."
  getproperty investigate,name,buffer,100,"..."
  printf "%c%s%c",10,buffer,10
 
  ]
-
