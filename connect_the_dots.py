@@ -2,8 +2,6 @@
 # connect_the_dots.py - Warren Sande
 # from his book Hello World
 
-# edits by lrb : commented out the "movie"
-
 import pygame, sys
 pygame.init()
 
