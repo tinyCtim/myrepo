@@ -1,0 +1,70 @@
+
+four_way.tc
+
+main [
+
+*
+**
+*
+
+init [
+
+*
+**
+*
+
+disp [ // display intersection
+
+*
+**
+*
+**
+*
+**
+*
+**
+*
+
+ra [ // random arrival
+
+*
+
+ev [ // evolve i.e. move cars
+
+*
+**
+***
+****
+***
+**
+***
+****
+***
+**
+*
+**
+*
+**
+***
+****
+***
+****
+*****
+****
+***
+**
+***
+**
+*
+
+go char stripw(0) [ // advance cars in strip
+
+*
+**
+*
+**
+***
+****
+***
+**
+*
