@@ -1,0 +1,127 @@
+#include pps/library.tc
+#include pps/lrblib.tc
+
+// converted Pascal program to tinyC - lrb - 7/14,15/23
+// fixed a variety of little things
+
+// this works under an ANSI-compliant terminal - 7/16/23
+// abort when file(s) missing, showing time now and a slower godzilla - 7/19/23
+
+// buffers loaded from files
+char bambi(9000), godzilla(900)
+
+// "pointers" to newline delimited sections of bambi and godzilla files
+int bambip(39 * 10), godzillap(30)
+
+// position cursor at column c row r and display a message
+pos int c, r; char msg(0) [
+ printf "%c%c%d;%dH%s", 27, 91, r, c, msg
+ ]
+
+gotoxy int x, y [
+ pos x, y, ""
+ ]
+
+clreol [
+ MC '\'-'A', 1; MC '\'-1, 1; MC '0', 1; MC 'K', 1
+ ]
+
+clreos [
+ MC '\'-'A', 1; MC '\'-1, 1; MC '0', 1; MC 'J', 1
+ ]
+
+cls [
+ MC '\'-'A', 1; MC '\'-1, 1; MC '2', 1; MC 'J', 1
+ ]
+
+delay int s [
+ sleep(s)
+ ]
+
+cursoroff [
+ MC '\'-'A', 1; MC '\'-1, 1
+ printf "?25l"
+ ]
+
+cursoron [
+ MC '\'-'A', 1; MC '\'-1, 1
+ printf "?25h"
+ ]
+
+frame int f [ // print bambi frame
+ int i
+ gotoxy 1, 11
+ while i < 10 [
+  printf "%c%s", 10, bambip(f + i)
+  clreol
+  i = i + 1
+  ]
+ ]
+
+int idelay
+
+maind int d [ // use this to slow it down
+ idelay = d
+ main
+ ]
+
+red [color '1']
+green [color '2']
+yellow [color '3']
+blue [color '4']
+magenta [color '5']
+cyan [color '6']
+white [color '7']
+
+main [
+ int i, bbytes, gbytes
+ if idelay == 0 idelay = 1 // 1 second delay between frames
+ if idelay == -1 idelay = 0 // no pause
+ if ((bbytes = readfile "BAMBI.DAT", bambi, 9000) ) <= 0) [printf "bambi file missing"; abort]
+ if ((gbytes = readfile "GODZILLA.DAT", godzilla, 900) ) <= 0) [printf "godzilla file missing"; abort]
+ cls
+ cursoroff
+ char nl(1); nl(0) = 10
+ split bambip, bambi, nl
+ split godzillap, godzilla, nl
+ gotoxy 10, 8
+ blue
+ printf "B a m b i   M e e t s   G o d z i l l a%c", 10
+ white
+ delay 7
+ cls // 7/19/23
+ char datebuff(40)
+ gotoxy 1, 24
+ cdate datebuff; green; printf "%s", datebuff; white
+ gotoxy 1, 1
+ while i <= 37 [ // main bambi loop
+  frame 10 * i; delay idelay; i = i + 1
+  ]
+ gotoxy 1, 24; clreol
+ gotoxy 1, 24
+ cdate datebuff; cyan; printf "%s", datebuff; white
+ gotoxy 1, 1
+ delay 5
+ i = 19
+ int j
+ while i > 3 [ // godzilla
+  gotoxy 1, 4
+  j = i
+  delay 1
+  while j <= 19 [
+   printf "%c%s", 10, godzillap(j); clreol
+   j = j + 1
+   ] // j
+  i = i - 1
+  ] // i
+ red // things get a bit bloody ...
+ gotoxy 1, 18
+ j = 18
+ while j <= 21 [
+  printf "%c%s", 10, godzillap(j); clreol
+  j = j + 1
+  ]
+ clreos
+ white
+ cursoron
+ ]
