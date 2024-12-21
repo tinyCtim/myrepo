@@ -1,0 +1,101 @@
+<html>
+<!-- bricklog-form.html - lrb - 7/20/2011, 3/18/17, 12/21/24 -->
+<head>
+<title>Brickyarders' Log Update Form</title>
+<link rel="shortcut icon" href="http://primepuzzle.com/runlog/bricks.ico">
+<style>
+// a {text-decoration:none; color:black}
+p {margin-top:0; margin-bottom:0}
+</style>
+</head>
+<body background="http://primepuzzle.com/runlog/bricks.jpg">
+<br>
+<table align="center" border="0" cellspacing="20" cellpadding="0">
+<tr><td>
+<script>
+initials="lrb"
+function doit (what) {
+ totrans=what.form.logtext.value;k=0;trans='';w=72
+ while (totrans.length) {
+  if (totrans.substr(0,1)=='\n') k=0
+  if ((totrans.substr(0,1)==' ')&&(k>w)) {trans+='\n';k=0}
+  else if (totrans.substr(0,1)!='\r') trans+=totrans.substr(0,1)
+  totrans=totrans.substr(1);++k
+ }
+ what.form.logtext.value=trans
+}
+function sandbox (what) {what.form.filename.value='sandbox.htm'}
+function help(what) {
+ hel= '\n\nMost users will just want to enter their day\'s run and hit the'
+ hel+='\nSubmit button. This formats your text and sends it.\n'
+ hel+='\nThe Ship as is button sends your text as is without doing'
+ hel+='\nany additional formatting.\n'
+ hel+='\nThe Format button formats your text but doesn\'t actually send it.\n'  
+ hel+='\nThe Practice button changes the file you update to sandbox.htm.'
+ hel+='\nEnter your text and then click Submit or Ship as is. Browse the'
+ hel+='\n"sandbox" to see what your submission will look like.\n'
+ hel+='\nThe Clear button changes the file back to july_2011.htm or the like.\n'
+ hel+='\nThe Help button shows you what you are now reading.'
+ what.form.logtext.value=hel
+}
+</script>
+<form name="form" action="http://primepuzzle.com/cgi-bin/runlog.pl" method="post">
+<input type="hidden" name="redirect" value="http://primepuzzle.com/runlog/thanks-bricklog.html">
+<input type="hidden" name="required" value="filename,logtext">
+<table border="0" cellpadding="0" cellspacing="3" bgcolor="white" >
+<tr>
+
+<script>
+emot=new Array()
+emot[0]="SAS.JPG";emot[1]="RSAS.JPG";emot[2]="FH.JPG";emot[3]="NRRC.JPG";emot[4]="MP.JPG";emot[5]="FL.JPG";
+emot[6]="FB.PNG";emot[7]="FS.JPG";emot[8]="HAH.JPG";emot[9]="CIB.JPG";emot[10]="ONAF.JPG";emot[11]="TWA.GIF";
+emot[12]="INJ.JPG";emot[13]="RGT.JPG";emot[14]="SP.JPG";emot[15]="CRB.JPG";emot[16]="HEART.GIF";
+</script>
+<script>
+today=new Date();month=new Array()
+month[0]="january";month[1]="february";month[2]="march";month[3]="april"
+month[4]="may";month[5]="june";month[6]="july";month[7]="august"
+month[8]="september";month[9]="october";month[10]="november";month[11]="december"
+yr=today.getFullYear(),mn=today.getMonth()
+foo='<td><a href="http://primepuzzle.com/runlog/bricklog-form.html">You will be updating</a>'
+foo+=' <input type="text" size="20" name="filename" value="'+month[mn]+'_'+yr+'.htm"></td>'
+document.write(foo)
+foo='<input type="text" size="4" name="initials" value="'+initials+'">'
+</script>
+</tr>
+<tr><td><br><textarea rows="15" name="logtext" cols="110"></textarea></td></tr>
+<tr><td><br></td></tr>
+<tr><td align="left">Your initials <script>document.write(foo)</script><br><br>
+<center><b>SAS : </b>Slow As Shit&nbsp;&nbsp;<b>RSAS : </b>Ridiculously Slow As Shit&nbsp;&nbsp;<b>FH : </b>Fucking Hot *and / or* Fucking Humid&nbsp;&nbsp;<b>NRRC : </b>Non-Running-Related Comment<br>
+<b>MP : </b>Marathon Pace&nbsp;&nbsp;<b>FL : </b>Fucking Logy&nbsp;&nbsp;<b>FB : </b>Fucking Bored&nbsp;&nbsp;<b>FS : </b>Fucking Sucks&nbsp;&nbsp;<b>HAH : </b>Hot And Hungry&nbsp;&nbsp;<b>CIB : </b>Crazy Insane Busy<br>
+<b>ONAF : </b>Other News About Friends&nbsp;&nbsp;<b>TWA : </b>Two Wheel Assisted&nbsp;&nbsp;<b>INJ : </b>Injured&nbsp;&nbsp;<b>RGT : </b>Runner Group Therapy&nbsp;&nbsp;<b>SP : </b>Snail Pace&nbsp;&nbsp;<b>WIMP : </b>Wimp<br>
+<b>CRB : </b>Crabby&nbsp;&nbsp;<b>HEART :  </b>Joyful Peaceful Inspirational Memorable Relaxed  <br>
+<b><b><font color=red>
+<br>
+<script>document.write('<img src='+emot[Math.floor(Math.random()*emot.length)]+'>')</script>&nbsp;&nbsp;To get one of these Brickyarder Emoticons into your post, copy / paste one of the below</font>&nbsp;&nbsp;<script>document.write('<img src='+emot[Math.floor(Math.random()*emot.length)]+'>')</script><br><br>
+&lt;img src=SAS.JPG&gt; or &lt;img src=RSAS.JPG&gt; or &lt;img src=FH.JPG&gt; or &lt;img src=NRRC.JPG&gt; or &lt;img src=MP.JPG&gt; or &lt;img src=FL.JPG&gt;<br>
+&lt;img src=FB.PNG&gt; or &lt;img src=FS.JPG&gt; or &lt;img src=HAH.JPG&gt; or &lt;img src=CIB.JPG&gt; or &lt;img src=ONAF.JPG&gt;<br>
+&lt;img src=TWA.GIF&gt; or &lt;img src=INJ.JPG&gt; or &lt;img src=RGT.JPG&gt; or &lt;img src=SP.JPG&gt; or &lt;img src=WIMP.JPG&gt;<br>
+&lt;img src=CRB.JPG&gt; or &lt;img src=HEART.GIF&gt;
+
+<br><br>
+<a href=http://primepuzzle.com/runlog/buttons.html>Brickyarder Emoticons</a>
+
+</b></center>
+
+</td></tr>
+<tr><td><br>
+&nbsp;<button type="button" onClick="doit(this);document.getElementById('sub').click()"><font color=red>Submit</font></button>
+&nbsp;<button type="reset">Clear</button>
+&nbsp;<button type="button" onClick="sandbox(this)">Practice</button>
+&nbsp;<button type="button" onClick="document.getElementById('sub').click()"><font color=red>Ship as is</font></button>
+&nbsp;<button type="button" onClick="doit(this)">Format</button>
+&nbsp;<button type="button" onClick="help(this)">Help</button>
+&nbsp;<button type="submit" style="visibility:hidden" id="sub"></button>
+</td></tr></td></tr>
+</form>
+
+<!-- <embed src="http://primepuzzle.com/nihilator/ChariotsOfFire.mp3" autostart="true" loop="false" hidden="true"> -->
+
+</table></td></tr></table>
+</body></html>
