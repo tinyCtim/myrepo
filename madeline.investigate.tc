@@ -1,10 +1,10 @@
 
-// madeline.tc - 11/14,15,17/24 - lrb
+// madeline.tc - 11/14,15,17/24 12/1/24 - lrb
 // file must be crlf delimited!
 
 main [
 
- char name(30),buffer(100),tbuff(100),investigate(30)
+ char name(30),buffer(100),tbuff(100),investigate(40)
  printf "%center the first few characters in a line : ",10
  gs name
 // getproperty "pps/version.prop","os =",tbuff,100,"..."
